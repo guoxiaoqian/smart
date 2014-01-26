@@ -48,7 +48,7 @@ protected:
     void cancelPoint();
 public:
     SThread();
-    ~SThread();
+    virtual ~SThread();
     static void* threadFun(void* arg);
 
     void start();

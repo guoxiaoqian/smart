@@ -16,8 +16,7 @@ SOURCES += main.cpp \
     base/setting/setting.cpp \
     base/logger/logger.cpp \
     base/kernel/sig_slot_test.cpp \
-    base/thread/timer.cpp \
-    base/thread/thread_timer.cpp
+    base/thread/timer.cpp
 
 HEADERS += \
     base/thread/thread.h \
@@ -34,8 +33,7 @@ HEADERS += \
     base/kernel/sig_slot.hpp \
     base/kernel/global.h \
     base/kernel/env.h \
-    base/thread/timer.h \
-    base/thread/thread_timer.h
+    base/thread/timer.h
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \

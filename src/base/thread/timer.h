@@ -1,13 +1,27 @@
+//  example
+
+//class A
+//{
+//public:
+//    void fuck(){cout<<"fuck"<<endl;}
+//};
+//int main()
+//{
+//    A a;
+//    STimer timer(&a,&A::fuck,1000);
+//    timer.start();
+//    STime::ssleep(20);
+//    timer.stop();
+//    return 0;
+//}
+
+
 #ifndef TIMER_H
 #define TIMER_H
 
-#include "base/kernel/env.h"
-#ifdef S_OS_WIN
-#   include <windows.h>
-#elif defined(S_OS_LINUX)
-#   include <unistd.h>
-#endif
 #include "base/kernel/sig_slot.hpp"
+#include "base/thread/thread.h"
+#include "base/thread/time.h"
 
 enum TimerType
 {
@@ -15,32 +29,20 @@ enum TimerType
     Timer_Repeat
 };
 
-class STimer;
-typedef void (STimer::*timerFunPtr)(HWND,UINT,UINT,DWORD);
-typedef void (STimer::*timerFunPtr2)();
 
-class STimer
+class STimer:public SThread
 {
 private:
     unsigned long interval;
     TimerType timerType;
     Signal<> timeOut;
-#ifdef S_OS_WIN
-    UINT_PTR timerID;
-    void callBack(HWND hWnd,UINT nMsg,UINT nTimerid,DWORD dwTime);
-#elif defined(S_OS_LINUX)
-    void callBack();
-#endif
 public:
-    STimer();
     template<class T>
     STimer(T *receiver, void (T::*func)(), unsigned long msec, TimerType type = Timer_Repeat):interval(msec),timerType(type)
     {
         SConnect(this,timeOut,receiver,func);
     }
-    void start();
-    void stop();
-
+    void run();
 };
 
 #endif // TIMER_H

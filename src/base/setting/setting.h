@@ -23,17 +23,19 @@ private:
     map<string,map<string,string> > maps;
     bool changed;
 private:
-    void init();
     void save();
     void readIni();
     void readXml();
     void writeIni();
     void writeXml();
 public:
-    SSetting(const char *fname, SettingType type);
+    SSetting();
+    SSetting(const char *fname, SettingType type = SETTING_INI);
     ~SSetting();
     string getValue(const char* group,const char* key);
-    void setValue(const char* group,const char* key,char* value);
+    void setValue(const char* group, const char* key, const char *value);
+    void init(const char *fname, SettingType type = SETTING_INI);
+    bool isEmpty();
     void print();
 };
 

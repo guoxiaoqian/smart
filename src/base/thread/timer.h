@@ -35,7 +35,7 @@ class STimer:public SThread
 private:
     unsigned long interval;
     TimerType timerType;
-    Signal<> timeOut;
+    SSignal<> timeOut;
 public:
     template<class T>
     STimer(T *receiver, void (T::*func)(), unsigned long msec, TimerType type = Timer_Repeat):interval(msec),timerType(type)

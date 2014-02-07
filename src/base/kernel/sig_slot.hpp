@@ -7,10 +7,10 @@ using namespace std;
 
 
 template<class T, class... tParam>
-class SlotBase
+class SSlotBase
 {
 public:
-    SlotBase(T* pObj, void (T::*func)(tParam...) )
+    SSlotBase(T* pObj, void (T::*func)(tParam...) )
     {
         m_pObj = pObj;
         m_Func = func;
@@ -28,17 +28,18 @@ private:
 
 
 template<class... tParam>
-class Slot
+class SSlot
 {
 public:
     virtual void Exec(tParam... param) = 0;
+    virtual ~SSlot();
 };
 
 template<class T,class... tParam>
-class SlotImpl:public Slot<tParam...>
+class SSlotImpl:public SSlot<tParam...>
 {
 public:
-    SlotImpl(T* pObj, void (T::*func)(tParam...) )
+    SSlotImpl(T* pObj, void (T::*func)(tParam...) )
     {
         m_pObj = pObj;
         m_Func = func;
@@ -49,6 +50,11 @@ public:
         (m_pObj->*m_Func)(param...);
     }
 
+    ~SSlotImpl()
+    {
+
+    }
+
 private:
     T* m_pObj;
     void (T::*m_Func)(tParam...);
@@ -56,16 +62,16 @@ private:
 
 
 template<typename... tParam>
-class Signal
+class SSignal
 {
 public:
     template<class T>
     void Bind(T* pObj, void (T::*func)(tParam...))
     {
-        m_pSlotSet.push_back( new SlotImpl<T,tParam...>(pObj,func) );
+        m_pSlotSet.push_back( new SSlotImpl<T,tParam...>(pObj,func) );
     }
 
-    ~Signal()
+    ~SSignal()
     {
         for(int i=0;i<(int)m_pSlotSet.size();i++)
         {
@@ -82,11 +88,11 @@ public:
     }
 
 private:
-    vector< Slot<tParam...>* > m_pSlotSet;
+    vector< SSlot<tParam...>* > m_pSlotSet;
 };
 
 #define SConnect( sender, signal, receiver, method) ( (sender)->signal.Bind(receiver,method) )
-#define SSlot
-#define SEmit
+#define SSLOT
+#define SEMIT
 
 #endif // SIG_SLOT_H

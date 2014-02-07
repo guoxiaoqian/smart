@@ -5,12 +5,13 @@ using namespace tinyxml2;
 #include <fstream>
 #include <iostream>
 
-SSetting::SSetting(const char *fname, SettingType type = SETTING_INI)
+SSetting::SSetting()
 {
-    fileName = string(fname);
-    settingType = type;
-    changed = false;
-    init();
+}
+
+SSetting::SSetting(const char *fname, SettingType type)
+{
+    init(fname,type);
 }
 
 SSetting::~SSetting()
@@ -19,8 +20,11 @@ SSetting::~SSetting()
         save();
 }
 
-void SSetting::init()
+void SSetting::init(const char *fname, SettingType type)
 {
+    fileName = string(fname);
+    settingType = type;
+    changed = false;
     if(settingType == SETTING_INI)
     {
         readIni();
@@ -29,6 +33,11 @@ void SSetting::init()
     {
         readXml();
     }
+}
+
+bool SSetting::isEmpty()
+{
+    return maps.empty();
 }
 
 void SSetting::save()
@@ -172,6 +181,8 @@ void SSetting::writeXml()
     }
 }
 
+
+
 string SSetting::getValue(const char *group, const char *key)
 {
     if(maps.find(group) == maps.end() || maps[group].find(key) == maps[group].end())
@@ -183,7 +194,7 @@ string SSetting::getValue(const char *group, const char *key)
         return maps[string(group)][string(key)];
 }
 
-void SSetting::setValue(const char *group, const char *key, char *value)
+void SSetting::setValue(const char *group, const char *key,const char *value)
 {
     changed = true;
     if(maps.find(group) == maps.end())

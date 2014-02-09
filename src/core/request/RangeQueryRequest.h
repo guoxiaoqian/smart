@@ -13,6 +13,7 @@ public:
     TimeType preTime;
 public:
     RangeQueryRequest();
+    RangeQueryRequest(IDType _objID, TimeType _issueTime,CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY, TimeType _preTime = 0);
     friend istream& operator>>(istream& stream,RangeQueryRequest& req);
 };
 

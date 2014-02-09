@@ -4,7 +4,7 @@ Request::Request()
 {
 }
 
-Request::Request(RequestType _type, int _objID, int _issueTime):type(_type),objID(_objID),issueTime(_issueTime)
+Request::Request(RequestType _type, IDType _objID, TimeType _issueTime):type(_type),objID(_objID),issueTime(_issueTime)
 {
 }
 

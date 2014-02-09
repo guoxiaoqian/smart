@@ -6,7 +6,10 @@
 class WorkThread : public SThread
 {
 public:
+    int thID;
+public:
     WorkThread();
+    virtual void run(){}
 };
 
 #endif // WORKTHREAD_H

@@ -25,8 +25,8 @@
 
 enum TimerType
 {
-    Timer_OneShot,
-    Timer_Repeat
+    TIMER_ONESHOT,
+    TIMER_REPEAT
 };
 
 
@@ -37,10 +37,19 @@ private:
     TimerType timerType;
     SSignal<> timeOut;
 public:
+    STimer();
     template<class T>
-    STimer(T *receiver, void (T::*func)(), unsigned long msec, TimerType type = Timer_Repeat):interval(msec),timerType(type)
+    STimer(T *receiver, void (T::*func)(), unsigned long msec, TimerType type):interval(msec),timerType(type)
     {
-        SConnect(this,timeOut,receiver,func);
+        SConnectMM(this,timeOut,receiver,func);
+    }
+
+    template<class T>
+    void init(T *receiver, void (T::*func)(), unsigned long msec, TimerType type)
+    {
+        interval=msec;
+        timerType=type;
+        SConnectMM(this,timeOut,receiver,func);
     }
     void run();
 };

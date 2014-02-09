@@ -2,8 +2,8 @@
 #define REQUEST_H
 
 #include "core/center/type.h"
-#include <iostream>
-using namespace std;
+#include "iostream"
+using std::istream;
 
 class Request
 {
@@ -13,7 +13,8 @@ public:
     TimeType issueTime;
 public:
     Request();
-    Request(RequestType _type,int _objID,int _issueTime);
+    virtual ~Request(){}
+    Request(RequestType _type,IDType _objID,TimeType _issueTime);
 };
 
 #endif // REQUEST_H

@@ -19,19 +19,25 @@ class Config:public SSetting
 private:
     static Config* p_config;
 public:
+    //update
     int numOfObjects;
     int numOfUpdates;
     int maxUpdateTime;     //timestamp
     int maxSpeedOfObjects; //km/h
     int updateDistribution;
     int numOfHotSpots;
-
+    //query
     int numOfQueries;
     int queryType;
     int rangeQuerySize;     //m
     int knnK;
     int queryPredictTime;
     int queryDistribution;
+    //thread
+    int numOfUpdateThreads;
+    int numOfQueryThreads;
+    int numOfAssignThreads;
+    int lenOfRequestBlock;
 
 public:
     Config();

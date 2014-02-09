@@ -12,7 +12,7 @@ public:
     SpeedType velY;
 public:
     UpdateRequest();
-    UpdateRequest(RequestType _type, int _objID, int _issueTime,CoorType _posX,CoorType _poxY,SpeedType _velX,SpeedType _velY);
+    UpdateRequest(int _objID, int _issueTime,CoorType _posX,CoorType _poxY,SpeedType _velX,SpeedType _velY);
     friend istream& operator>>(istream& stream,UpdateRequest& req);
 };
 

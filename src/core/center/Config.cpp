@@ -4,30 +4,18 @@ Config* Config::p_config = NULL;
 
 Config::Config()
 {
+    p_config = this;
 }
 
 Config::Config(const char* fileName, SettingType type)
 {
     init(fileName,type);
+    p_config = this;
 }
 
 Config::~Config()
 {
 }
-
-int numOfObjects;
-int numOfUpdates;
-int maxUpdateTime;     //timestamp
-int maxSpeedOfObjects; //km/h
-int updateDistribution;
-int numOfHotSpots;
-
-int numOfQueries;
-int queryType;
-int rangeQuerySize;     //m
-int knnK;
-int queryPredictTime;
-int queryDistribution;
 
 void Config::init(const char *fileName, SettingType type)
 {
@@ -38,7 +26,7 @@ void Config::init(const char *fileName, SettingType type)
         setValue("update","numOfObjects","1000000");
         setValue("update","numOfUpdates","200000");
         setValue("update","maxUpdateTime","120");
-        setValue("update","maxSpeedOfObjects","30");
+        setValue("update","maxSpeedOfObjects","120");
         setValue("update","updateDistribution","0");
         setValue("update","numOfHotspots","10");
 
@@ -48,6 +36,11 @@ void Config::init(const char *fileName, SettingType type)
         setValue("query","knnK","100");
         setValue("query","queryPredictTime","0");
         setValue("query","queryDistribution","0");
+
+        setValue("thread","numOfUpdateThreads","1");
+        setValue("thread","numOfQueryThreads","1");
+        setValue("thread","numOfAssignThreads","1");
+        setValue("thread","lenOfRequestBlock","100");
     }
 
     numOfObjects = atoi(getValue("update","numOfObjects").c_str());
@@ -64,7 +57,12 @@ void Config::init(const char *fileName, SettingType type)
     queryPredictTime = atoi(getValue("query","queryPredictTime").c_str());
     queryDistribution = atoi(getValue("query","queryDistribution").c_str());
 
-    p_config = this;
+    numOfUpdateThreads = atoi(getValue("thread","numOfUpdateThreads").c_str());
+    numOfQueryThreads = atoi(getValue("thread","numOfQueryThreads").c_str());
+    numOfAssignThreads = atoi(getValue("thread","numOfAssignThreads").c_str());
+    lenOfRequestBlock = atoi(getValue("thread","lenOfRequestBlock").c_str());
+
+    print();
 }
 
 Config *Config::getConfig()

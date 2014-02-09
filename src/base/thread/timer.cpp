@@ -1,9 +1,12 @@
 #include "timer.h"
 
+STimer::STimer()
+{
+}
 
 void STimer::run()
 {
-    if(timerType == Timer_OneShot)
+    if(timerType == TIMER_ONESHOT)
     {
         STime::msleep(interval);
         SEMIT timeOut();
@@ -15,3 +18,4 @@ void STimer::run()
             SEMIT timeOut();
         }
 }
+

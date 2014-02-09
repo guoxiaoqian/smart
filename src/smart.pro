@@ -21,7 +21,6 @@ SOURCES += main.cpp \
     core/center/Smart.cpp \
     core/center/Config.cpp \
     core/request/UpdateRequest.cpp \
-    core/request/RequestQueue.cpp \
     core/request/Request.cpp \
     core/request/RangeQueryRequest.cpp \
     core/request/KNNQueryRequest.cpp \

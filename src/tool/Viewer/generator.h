@@ -7,28 +7,12 @@
 #include <string.h>
 #include "struct.h"
 #include "rand.h"
-
-enum CodeType
-{
-    CODE_ASCII = 0,
-    CODE_BINARY = 1
-};
-
-enum DistributionType
-{
-    DISTRIBUTION_UNIFORM = 0,
-    DISTRIBUTION_GAUSSIAN = 1
-};
-
-enum QueryType
-{
-    QUERY_RANGE = 0,
-    QUERY_KNN = 1
-};
+#include "Config.h"
 
 class Generator
 {
-public:
+private:
+    Config* p_config;
     //region
     int region_xmin;
     int region_xmax;

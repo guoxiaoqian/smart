@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mainView = new MainView();
     setCentralWidget(mainView);
+
+    setFixedSize(1000,700);
 }
 
 MainWindow::~MainWindow()
@@ -25,14 +27,11 @@ void MainWindow::createMenuBar()
 {
     QMenu * fileMenu = menuBar()->addMenu(tr("&File"));
 
-    QAction * genAct = new QAction(QString("gen"),fileMenu);
-    QAction * openAct = new QAction(QString("open"),fileMenu);
-    QAction * saveAct = new QAction(QString("save"),fileMenu);
-    fileMenu->addAction(genAct);
-    fileMenu->addAction(openAct);
-    fileMenu->addAction(saveAct);
-    connect(genAct,SIGNAL(triggered()),this,SLOT(genData()));
+    QAction * openAct = fileMenu->addAction(QString("open"));
+    QAction * genAct = fileMenu->addAction(QString("gen"));
+
     connect(openAct,SIGNAL(triggered()),this,SLOT(openFile()));
+    connect(genAct,SIGNAL(triggered()),this,SLOT(genData()));
 }
 
 void MainWindow::createToolBar()
@@ -50,5 +49,6 @@ void MainWindow::openFile()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open data file"), "", tr("Data Files (*.dat)"));
-    mainView->readObjects(fileName);
+    if(!fileName.isEmpty())
+        mainView->readObjects(fileName);
 }

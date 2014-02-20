@@ -14,30 +14,49 @@ enum QueryType
     QUERY_KNN = 1
 };
 
+enum CodeType
+{
+    CODE_ASCII = 0,
+    CODE_BINARY = 1
+};
+
+
 class Config:public SSetting
 {
 private:
     static Config* p_config;
 public:
-    //update
+    //data
+    int minCoorX;
+    int maxCoorX;
+    int minCoorY;
+    int maxCoorY;
     int numOfObjects;
-    int numOfUpdates;
+    int codeType;
+    int distributionType;
+    int numOfHotspots;
+    int updateQueryRatio;
+
+    //update
     int maxUpdateTime;     //timestamp
+    int numOfUpdateRound;
     int maxSpeedOfObjects; //km/h
-    int updateDistribution;
-    int numOfHotSpots;
+    int numOfSpeeds;
     //query
-    int numOfQueries;
     int queryType;
     int rangeQuerySize;     //m
     int knnK;
     int queryPredictTime;
-    int queryDistribution;
     //thread
     int numOfUpdateThreads;
     int numOfQueryThreads;
     int numOfAssignThreads;
     int lenOfRequestBlock;
+
+    //more
+    int numOfUpdates;
+    int numOfQueries;
+
 
 public:
     Config();

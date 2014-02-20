@@ -19,7 +19,8 @@ Smart::~Smart()
 void Smart::init()
 {
     p_config = new Config();
-    p_config->init("config.ini");
+    //PATH:smart/src/config.ini
+    p_config->init("../src/config.ini");
     p_requestSource = new RequestSource();
     p_requestSource->init();
     p_onlineTuning = new OnlineTuning();

@@ -53,7 +53,7 @@ void ThreadPool::init()
         assignThreads.push_back(p_assignThread);
     }
     RequestQueue<Request*> *p_queue = NULL;
-    UpdateThread* p_updateThread = NULL;
+    HandleThread* p_updateThread = NULL;
     for(int i=0;i<p_config->numOfUpdateThreads;++i)
     {
         p_updateThread = new UpdateThread();
@@ -64,7 +64,7 @@ void ThreadPool::init()
     }
     if(p_config->queryType == QUERY_RANGE)
     {
-        RangeQueryThread* p_rangeQueryThread = NULL;
+        HandleThread* p_rangeQueryThread = NULL;
         for(int i=0;i<p_config->numOfQueryThreads;++i)
         {
             p_rangeQueryThread = new RangeQueryThread();
@@ -76,7 +76,7 @@ void ThreadPool::init()
     }
     else
     {
-        KNNQueryThread* p_knnQueryThread = NULL;
+        HandleThread* p_knnQueryThread = NULL;
         for(int i=0;i<p_config->numOfQueryThreads;++i)
         {
             p_knnQueryThread = new KNNQueryThread();
@@ -87,21 +87,21 @@ void ThreadPool::init()
         }
     }
 
-    SConnectGG(AssignThread::requestReady,UpdateThread::onRequestReady);
-    SConnectGG(AssignThread::requestOver,UpdateThread::onRequestOver);
+    SConnectGG(AssignThread::requestReady,HandleThread::onRequestReady);
+    SConnectGG(AssignThread::requestOver,HandleThread::onRequestOver);
 }
 
 void ThreadPool::startAll()
 {
-    for(int i = 0;i < assignThreads.size();++i)
+    for(unsigned int i = 0;i < assignThreads.size();++i)
     {
         assignThreads[i]->start();
     }
-    for(int i = 0;i < updateThreads.size();++i)
+    for(unsigned int i = 0;i < updateThreads.size();++i)
     {
         updateThreads[i]->start();
     }
-    for(int i = 0;i < queryThreads.size();++i)
+    for(unsigned int i = 0;i < queryThreads.size();++i)
     {
         queryThreads[i]->start();
     }
@@ -109,15 +109,15 @@ void ThreadPool::startAll()
 
 void ThreadPool::stopAll()
 {
-    for(int i = 0;i < assignThreads.size();++i)
+    for(unsigned int i = 0;i < assignThreads.size();++i)
     {
         assignThreads[i]->stop();
     }
-    for(int i = 0;i < updateThreads.size();++i)
+    for(unsigned int i = 0;i < updateThreads.size();++i)
     {
         updateThreads[i]->stop();
     }
-    for(int i = 0;i < queryThreads.size();++i)
+    for(unsigned int i = 0;i < queryThreads.size();++i)
     {
         queryThreads[i]->stop();
     }

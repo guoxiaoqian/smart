@@ -71,8 +71,8 @@ void RequestSource::init()
 
     //读取更新数据
     char fpath[50];
-    if(p_config->queryDistribution == DISTRIBUTION_GAUSSIAN)
-        sprintf(fpath,"../data/gaussian/%d/%dK/update.dat",p_config->numOfHotSpots,p_config->numOfObjects/1000);
+    if(p_config->distributionType == DISTRIBUTION_GAUSSIAN)
+        sprintf(fpath,"../data/gaussian/%d/%dK/update.dat",p_config->numOfHotspots,p_config->numOfObjects/1000);
     else
         sprintf(fpath,"../data/uniform/%dK/update.dat",p_config->numOfObjects/1000);
 
@@ -80,8 +80,8 @@ void RequestSource::init()
     readFile(fpath,static_cast<UpdateRequest*>(updateMem),numOfRecords);
 
     //读取查询数据
-    if(p_config->queryDistribution == DISTRIBUTION_GAUSSIAN)
-        sprintf(fpath,"../data/gaussian/%d/%dK/query.dat",p_config->numOfHotSpots,p_config->numOfObjects/1000);
+    if(p_config->distributionType == DISTRIBUTION_GAUSSIAN)
+        sprintf(fpath,"../data/gaussian/%d/%dK/query.dat",p_config->numOfHotspots,p_config->numOfObjects/1000);
     else
         sprintf(fpath,"../data/uniform/%dK/query.dat",p_config->numOfObjects/1000);
 

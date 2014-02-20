@@ -26,3 +26,5 @@ HEADERS  += MainWindow.h \
     Config.h
 
 FORMS    += MainWindow.ui
+
+OTHER_FILES +=

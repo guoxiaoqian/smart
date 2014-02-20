@@ -41,7 +41,8 @@ SOURCES += main.cpp \
     core/store/MoveObject.cpp \
     core/store/Grid.cpp \
     core/store/Cell.cpp \
-    core/request/RequestSource.cpp
+    core/request/RequestSource.cpp \
+    core/thread/HandleThread.cpp
 
 
 HEADERS += \
@@ -85,11 +86,14 @@ HEADERS += \
     core/store/MoveObject.h \
     core/store/Grid.h \
     core/store/Cell.h \
-    core/request/RequestSource.h
+    core/request/RequestSource.h \
+    core/thread/HandleThread.h
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \
                      "E:/smart/src/base/3dparty/tinyxml2/include" \
                      "E:/smart/src/base/3dparty/hilbert/include"
+
+OTHER_FILES +=
 
 

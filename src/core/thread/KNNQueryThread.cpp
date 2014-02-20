@@ -8,12 +8,8 @@ KNNQueryThread::~KNNQueryThread()
 {
 }
 
-void KNNQueryThread::init(int _thID, RequestQueue<Request *> *_requests)
+ReturnType KNNQueryThread::handleRequest(Request *p_request)
 {
-    thID = _thID;
-    requests = _requests;
+    return RETURN_SUCCESS;
 }
 
-void KNNQueryThread::run()
-{
-}

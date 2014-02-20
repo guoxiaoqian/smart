@@ -1,19 +1,14 @@
  #ifndef KNNQUERYTHREAD_H
 #define KNNQUERYTHREAD_H
 
-#include "core/thread/WorkThread.h"
-#include "core/request/RequestQueue.h"
-#include "core/request/Request.h"
+#include "core/thread/HandleThread.h"
 
-class KNNQueryThread : public WorkThread
+class KNNQueryThread : public HandleThread
 {
-private:
-    RequestQueue<Request*>* requests;
 public:
     KNNQueryThread();
     ~KNNQueryThread();
-    void init(int _thID,RequestQueue<Request*>* _requests);
-    void run();
+    ReturnType handleRequest(Request* p_request);
 };
 
 #endif // KNNQUERYTHREAD_H

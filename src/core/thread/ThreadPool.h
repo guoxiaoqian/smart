@@ -4,12 +4,11 @@
 #include <vector>
 using std::vector;
 
-#include "core/thread/WorkThread.h"
 #include "core/request/Request.h"
 #include "core/request/RequestQueue.h"
 
 class AssignThread;
-class UpdateThread;
+class HandleThread;
 
 class ThreadPool
 {
@@ -17,13 +16,12 @@ public:
     static ThreadPool* p_threadPool;
 public:
     vector<AssignThread*> assignThreads;
-    vector<UpdateThread*> updateThreads;
-    vector<WorkThread*> queryThreads;
+    vector<HandleThread*> updateThreads;
+    vector<HandleThread*> queryThreads;
 
     vector<RequestQueue<Request*>*> updateQueues;
     vector<RequestQueue<Request*>*> queryQueues;
 
-    typedef vector<WorkThread*>::iterator ThreadPtrPtr;
 public:
     ThreadPool();
     ~ThreadPool();

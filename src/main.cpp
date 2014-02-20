@@ -8,6 +8,7 @@ int main()
      Smart smart;
      smart.init();
      smart.start();
+
      return 0;
 }
 

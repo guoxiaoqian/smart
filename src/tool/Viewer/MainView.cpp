@@ -11,7 +11,6 @@ MainView::MainView(QObject *parent)
     regionMaxX = p_config->region_xmax;
     regionMinY = p_config->region_ymin;
     regionMaxY = p_config->region_ymax;
-
 }
 
 void MainView::paintEvent(QPaintEvent *event)
@@ -60,8 +59,8 @@ void MainView::readObjects(QString &fileName)
         in>>velX;
         in>>velY;
 
-        points[i].setX(posX);
-        points[i].setY(posY);
+        points[i].setX(transCoorX(posX));
+        points[i].setY(transCoorY(posY));
         ++i;
     }
 }
@@ -99,12 +98,12 @@ void MainView::readObjectsBinary(QString &fileName)
 
 int MainView::transCoorX(int x)
 {
-    return (float)(x-regionMinX)/(regionMaxX-regionMinX)*rect().width();
+    return (float)(x-regionMinX)/(regionMaxX-regionMinX)*width();
 }
 
 int MainView::transCoorY(int y)
 {
-    return (float)(regionMaxY-y)/(regionMaxY-regionMinY)*rect().height();
+    return (float)(regionMaxY-y)/(regionMaxY-regionMinY)*height();
 }
 
 void MainView::transCoorPoint(QPoint &point)

@@ -8,12 +8,8 @@ RangeQueryThread::~RangeQueryThread()
 {
 }
 
-void RangeQueryThread::init(int _thID, RequestQueue<Request *> *_requests)
+ReturnType RangeQueryThread::handleRequest(Request *p_request)
 {
-    thID = _thID;
-    requests = _requests;
-}
-
-void RangeQueryThread::run()
-{
+    SDebug("range query");
+    return RETURN_SUCCESS;
 }

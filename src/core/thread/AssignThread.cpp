@@ -12,7 +12,9 @@ Config* AssignThread::p_config = NULL;
 int AssignThread::numOfComplete = 0;
 SSignal<> AssignThread::requestReady = SSignal<>();
 SSignal<> AssignThread::requestOver = SSignal<>();
-
+PeriodType AssignThread::curPeriod = 0;
+int AssignThread::numOfSynchTimes = 0;
+int AssignThread::countOfSynchTimes = 0;
 
 void AssignThread::waitForAllComplete()
 {
@@ -30,6 +32,7 @@ void AssignThread::waitForAllComplete()
             for(int j=0;j<p_config->numOfAssignThreads;++j)
             {
                 p_node->InsertData(p_threadPool->assignThreads[j]->updateResults[i]);
+                p_node->setPeriod(curPeriod);
                 p_threadPool->assignThreads[j]->updateResults[i]->clear();
             }
             p_threadPool->updateQueues[i]->InsertNode(p_node);
@@ -42,6 +45,7 @@ void AssignThread::waitForAllComplete()
             for(int j=0;j<p_config->numOfAssignThreads;++j)
             {
                 p_node->InsertData(p_threadPool->assignThreads[j]->queryResults[i]);
+                p_node->setPeriod(curPeriod);
                 p_threadPool->assignThreads[j]->queryResults[i]->clear();
             }
             p_threadPool->queryQueues[i]->InsertNode(p_node);
@@ -50,8 +54,17 @@ void AssignThread::waitForAllComplete()
         numOfComplete = 0;
         p_requestSource->increaseCurrent(p_config->lenOfRequestBlock*p_config->numOfAssignThreads);
 
-        SEMIT requestReady();
+        //更新当前周期
+        ++countOfSynchTimes;
+        if(countOfSynchTimes == numOfSynchTimes)
+        {
+            ++curPeriod;
+            countOfSynchTimes = 0;
+        }
 
+        //唤醒饥饿中的处理线程
+        SEMIT requestReady();
+        //同步完成，唤醒同类
         allComplete.wakeAll();
 
     }
@@ -82,6 +95,7 @@ void AssignThread::init(int _thID)
         p_requestSource = RequestSource::getRequestSource();
         p_threadPool = ThreadPool::getThreadPool();
         p_config = Config::getConfig();
+        numOfSynchTimes = p_config->numOfObjects/p_config->lenOfRequestBlock;
     }
     for(int i=0;i<p_config->numOfUpdateThreads;++i)
     {

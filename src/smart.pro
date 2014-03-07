@@ -42,7 +42,8 @@ SOURCES += main.cpp \
     core/store/Grid.cpp \
     core/store/Cell.cpp \
     core/request/RequestSource.cpp \
-    core/thread/HandleThread.cpp
+    core/thread/HandleThread.cpp \
+    core/thread/PeriodTimer.cpp
 
 
 HEADERS += \
@@ -87,7 +88,8 @@ HEADERS += \
     core/store/Grid.h \
     core/store/Cell.h \
     core/request/RequestSource.h \
-    core/thread/HandleThread.h
+    core/thread/HandleThread.h \
+    core/thread/PeriodTimer.h
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \

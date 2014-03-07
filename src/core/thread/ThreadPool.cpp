@@ -10,10 +10,13 @@ ThreadPool* ThreadPool::p_threadPool = NULL;
 ThreadPool::ThreadPool()
 {
     p_threadPool = this;
+    p_periodTimer = NULL;
 }
 
 ThreadPool::~ThreadPool()
 {
+    delete p_periodTimer;
+
     for(int i = 0;i < assignThreads.size();++i)
     {
         delete assignThreads[i];
@@ -86,6 +89,11 @@ void ThreadPool::init()
             queryThreads.push_back(p_knnQueryThread);
         }
     }
+
+    //创建周期定时器
+    p_periodTimer = new PeriodTimer;
+    p_periodTimer->init(static_cast<unsigned long>(p_config->maxUpdateTime));
+    p_periodTimer->addListener(HandleThread::onNextPeriod);
 
     SConnectGG(AssignThread::requestReady,HandleThread::onRequestReady);
     SConnectGG(AssignThread::requestOver,HandleThread::onRequestOver);

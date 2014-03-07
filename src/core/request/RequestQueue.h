@@ -4,11 +4,13 @@
 #include <vector>
 using std::vector;
 #include "base/thread/spinlock.h"
+#include "core/center/type.h"
 
 template<class T>
 class QueueNode
 {
  public:
+    PeriodType period;
     vector<T> data;
     QueueNode *next;
  public:
@@ -29,6 +31,11 @@ class QueueNode
         if(_data->empty())
             return;
         data.insert(data.end(),_data->begin(),_data->end());
+    }
+
+    inline void setPeriod(PeriodType _period)
+    {
+        period = _period;
     }
 };
 

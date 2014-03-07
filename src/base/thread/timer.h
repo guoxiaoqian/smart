@@ -38,19 +38,17 @@ private:
     SSignal<> timeOut;
 public:
     STimer();
-    template<class T>
-    STimer(T *receiver, void (T::*func)(), unsigned long msec, TimerType type):interval(msec),timerType(type)
-    {
-        SConnectMM(this,timeOut,receiver,func);
-    }
+
+    STimer(unsigned long msec,TimerType type=TIMER_REPEAT);
+
+    void init(unsigned long msec,TimerType type=TIMER_REPEAT);
 
     template<class T>
-    void init(T *receiver, void (T::*func)(), unsigned long msec, TimerType type)
+    void addListener(T *receiver, void (T::*func)())
     {
-        interval=msec;
-        timerType=type;
         SConnectMM(this,timeOut,receiver,func);
     }
+    void addListener(void (*func)());
     void run();
 };
 

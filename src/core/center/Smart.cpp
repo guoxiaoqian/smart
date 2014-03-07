@@ -32,5 +32,4 @@ void Smart::init()
 void Smart::start()
 {
     p_threadPool->startAll();
-    p_onlineTuning->start();
 }

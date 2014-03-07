@@ -13,6 +13,11 @@ MainView::MainView(QObject *parent)
     regionMaxY = p_config->region_ymax;
 }
 
+MainView::~MainView()
+{
+    delete points;
+}
+
 void MainView::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this->viewport());
@@ -33,6 +38,11 @@ void MainView::drawGrids(QPainter &painter)
 
 void MainView::readObjects(QString &fileName)
 {
+    if(points)
+    {
+        delete points;
+        points = NULL;
+    }
     if(p_config->code_type == CODE_BINARY)
         return readObjectsBinary(fileName);
 

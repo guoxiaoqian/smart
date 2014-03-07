@@ -3,27 +3,18 @@
 
 OnlineTuning::OnlineTuning()
 {
-    timer = NULL;
 }
 
 OnlineTuning::~OnlineTuning()
 {
-    timer->stop();
-    delete timer;
 }
 
 void OnlineTuning::init()
 {
     Config* p_config = Config::getConfig();
-    timer = new STimer(this,&OnlineTuning::onTimer,static_cast<unsigned long>(p_config->maxUpdateTime),TIMER_REPEAT);
 }
 
-void OnlineTuning::start()
+void OnlineTuning::tune()
 {
-    timer->start();
-}
-
-void OnlineTuning::onTimer()
-{
-    //self-tune
+    //周期性调整
 }

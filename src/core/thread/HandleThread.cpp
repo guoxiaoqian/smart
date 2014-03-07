@@ -8,9 +8,13 @@
 ThreadPool* HandleThread::p_threadPool = NULL;
 Config* HandleThread::p_config = NULL;
 int HandleThread::numOfComplete = 0;
+int HandleThread::numOfHandleThreads = 0;
 SMutex HandleThread::mutex = SMutex();
 SWaitCondation HandleThread::allComplete = SWaitCondation();
-bool HandleThread::isWaitForRequest = true;
+SMutex HandleThread::mutex2 = SMutex();
+SWaitCondation HandleThread::requestCome = SWaitCondation();
+SMutex HandleThread::mutex3 = SMutex();
+SWaitCondation HandleThread::nextPeriod = SWaitCondation();
 
 HandleThread::HandleThread()
 {
@@ -22,29 +26,47 @@ void HandleThread::init(int _thID, RequestQueue<Request *> *_p_requestQueue)
     p_requestQueue = _p_requestQueue;
     p_threadPool = ThreadPool::getThreadPool();
     p_config = Config::getConfig();
+    numOfHandleThreads = p_config->numOfUpdateThreads+p_config->numOfQueryThreads;
 }
 
 void HandleThread::waitForAllComplete()
 {
     mutex.lock();
     ++numOfComplete;
-    if(numOfComplete < p_config->numOfUpdateThreads+p_config->numOfQueryThreads)
+    if(numOfComplete < numOfHandleThreads)
         allComplete.wait(mutex);
     else
         allComplete.wakeAll();
     mutex.unlock();
 }
 
+void HandleThread::waitForRequestCome()
+{
+    mutex2.lock();
+    requestCome.wait(mutex2);
+    mutex2.unlock();
+}
+
+void HandleThread::waitForNextPeriod()
+{
+    mutex3.lock();
+    nextPeriod.wait(mutex3);
+    mutex3.unlock();
+}
+
 void HandleThread::onRequestReady()
 {
-    if(isWaitForRequest == true)
-    {
-        allComplete.wakeAll();
-    }
+    requestCome.wakeAll();
 }
 
 void HandleThread::onRequestOver()
 {
+}
+
+void HandleThread::onNextPeriod()
+{
+    ++period;
+    nextPeriod.wakeAll();
 }
 
 void HandleThread::run()
@@ -53,22 +75,35 @@ void HandleThread::run()
     int node_size=0;
     while(isRunning())
     {
-        while(!(p_node=p_requestQueue->PopNode()))
+        if(p_node==NULL && (p_node=p_requestQueue->PopNode()) == NULL)
         {
-            //等待请求
-            isWaitForRequest = true;
-            waitForAllComplete();
-            isWaitForRequest = false;
+            //饥饿等待
+            waitForRequestCome();
         }
 
-        node_size=p_node->data.size();
-        for(int i=0;i<node_size;i++)
+        if(p_node->period == period)
         {
-            handleRequest(p_node->data[i]);
+            //正好是本周期的则处理
+            node_size=p_node->data.size();
+            for(int i=0;i<node_size;i++)
+            {
+                handleRequest(p_node->data[i]);
+            }
+            delete p_node;
+            p_node=NULL;
+            //段同步
+            waitForAllComplete();
         }
-        delete p_node;
-        p_node=NULL;
-        //段同步
-        waitForAllComplete();
+        else if(p_node->period > period)
+        {
+            //本周期之后的请求要等周期结束才能开始处理
+            waitForNextPeriod();
+        }
+        else
+        {
+            //本周之前的直接丢弃
+            delete p_node;
+            p_node = NULL;
+        }
     }
 }

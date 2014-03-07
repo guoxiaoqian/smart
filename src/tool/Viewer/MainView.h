@@ -18,6 +18,7 @@ private:
     int regionMaxY;
 public:
     explicit MainView(QObject *parent = 0);
+    ~MainView();
 
     void paintEvent(QPaintEvent *event);
 

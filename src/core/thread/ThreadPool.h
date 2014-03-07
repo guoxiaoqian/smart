@@ -6,13 +6,14 @@ using std::vector;
 
 #include "core/request/Request.h"
 #include "core/request/RequestQueue.h"
+#include "core/thread/PeriodTimer.h"
 
 class AssignThread;
 class HandleThread;
 
 class ThreadPool
 {
-public:
+private:
     static ThreadPool* p_threadPool;
 public:
     vector<AssignThread*> assignThreads;
@@ -21,7 +22,7 @@ public:
 
     vector<RequestQueue<Request*>*> updateQueues;
     vector<RequestQueue<Request*>*> queryQueues;
-
+    PeriodTimer * p_periodTimer;
 public:
     ThreadPool();
     ~ThreadPool();

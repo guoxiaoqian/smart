@@ -1,4 +1,6 @@
 #include "RangeQueryThread.h"
+#include "core/index/BxTree.h"
+#include "core/index/KeyGen.h"
 
 RangeQueryThread::RangeQueryThread()
 {

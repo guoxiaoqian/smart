@@ -22,7 +22,7 @@ public:
 
     vector<RequestQueue<Request*>*> updateQueues;
     vector<RequestQueue<Request*>*> queryQueues;
-    PeriodTimer * p_periodTimer;
+    PeriodTimer * p_periodTimer;    
 public:
     ThreadPool();
     ~ThreadPool();
@@ -30,6 +30,7 @@ public:
     void init();
     void startAll();
     void stopAll();
+    void printThreadStatus();
 };
 
 #endif // THREADPOOL_H

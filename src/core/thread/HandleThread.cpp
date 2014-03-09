@@ -7,8 +7,11 @@
 
 ThreadPool* HandleThread::p_threadPool = NULL;
 Config* HandleThread::p_config = NULL;
+
 int HandleThread::numOfComplete = 0;
 int HandleThread::numOfHandleThreads = 0;
+int HandleThread::numOfWaitRequest = 0;
+int HandleThread::numOfWaitPeriod = 0;
 SMutex HandleThread::mutex = SMutex();
 SWaitCondation HandleThread::allComplete = SWaitCondation();
 SMutex HandleThread::mutex2 = SMutex();
@@ -43,6 +46,7 @@ void HandleThread::waitForAllComplete()
 void HandleThread::waitForRequestCome()
 {
     mutex2.lock();
+    ++numOfWaitRequest;
     requestCome.wait(mutex2);
     mutex2.unlock();
 }
@@ -50,13 +54,18 @@ void HandleThread::waitForRequestCome()
 void HandleThread::waitForNextPeriod()
 {
     mutex3.lock();
+    ++numOfWaitPeriod;
     nextPeriod.wait(mutex3);
     mutex3.unlock();
 }
 
 void HandleThread::onRequestReady()
 {
-    requestCome.wakeAll();
+    if(numOfWaitRequest >0)
+    {
+        requestCome.wakeAll();
+        numOfWaitRequest = 0;
+    }
 }
 
 void HandleThread::onRequestOver()
@@ -65,8 +74,13 @@ void HandleThread::onRequestOver()
 
 void HandleThread::onNextPeriod()
 {
+
     ++period;
-    nextPeriod.wakeAll();
+    if(numOfWaitPeriod > 0)
+    {
+        nextPeriod.wakeAll();
+        numOfWaitPeriod = 0;
+    }
 }
 
 void HandleThread::run()
@@ -75,7 +89,7 @@ void HandleThread::run()
     int node_size=0;
     while(isRunning())
     {
-        if(p_node==NULL && (p_node=p_requestQueue->PopNode()) == NULL)
+        while(p_node==NULL && (p_node=p_requestQueue->PopNode()) == NULL)
         {
             //饥饿等待
             waitForRequestCome();
@@ -89,6 +103,7 @@ void HandleThread::run()
             {
                 handleRequest(p_node->data[i]);
             }
+            numOfSuccess += node_size;
             delete p_node;
             p_node=NULL;
             //段同步
@@ -102,6 +117,7 @@ void HandleThread::run()
         else
         {
             //本周之前的直接丢弃
+            numOfDiscard += p_node->data.size();
             delete p_node;
             p_node = NULL;
         }

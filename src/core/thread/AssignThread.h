@@ -28,7 +28,7 @@ private:
     void waitForAllComplete();
     vector<vector<Request*>*> updateResults;
     vector<vector<Request*>*> queryResults;
-public:
+public://信号
     static SSignal<> requestReady;
     static SSignal<> requestOver;
 public:

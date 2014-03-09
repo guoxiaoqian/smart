@@ -3,8 +3,11 @@
 
 class Histogram
 {
+private:
+    static Histogram* p_histogram;
 public:
     Histogram();
+    static Histogram* getHistogram();
 };
 
 #endif // HISTOGRAM_H

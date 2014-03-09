@@ -25,7 +25,10 @@ private:
     RequestQueue<Request*>* p_requestQueue;
     static ThreadPool* p_threadPool;
     static Config* p_config;
+
     static int numOfComplete;
+    static int numOfWaitRequest;
+    static int numOfWaitPeriod;
     static int numOfHandleThreads;
 
     void waitForAllComplete();

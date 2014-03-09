@@ -16,6 +16,22 @@ PeriodType AssignThread::curPeriod = 0;
 int AssignThread::numOfSynchTimes = 0;
 int AssignThread::countOfSynchTimes = 0;
 
+AssignThread::AssignThread()
+{
+}
+
+AssignThread::~AssignThread()
+{
+    for(int i=0;i<p_config->numOfUpdateThreads;++i)
+    {
+        delete updateResults[i];
+    }
+    for(int i=0;i<p_config->numOfQueryThreads;++i)
+    {
+        delete queryResults[i];
+    }
+}
+
 void AssignThread::waitForAllComplete()
 {
     mutex.lock();
@@ -71,22 +87,6 @@ void AssignThread::waitForAllComplete()
     mutex.unlock();
 }
 
-AssignThread::AssignThread()
-{
-}
-
-AssignThread::~AssignThread()
-{
-    for(int i=0;i<p_config->numOfUpdateThreads;++i)
-    {
-        delete updateResults[i];
-    }
-    for(int i=0;i<p_config->numOfQueryThreads;++i)
-    {
-        delete queryResults[i];
-    }
-}
-
 void AssignThread::init(int _thID)
 {
     thID = _thID;
@@ -111,30 +111,40 @@ void AssignThread::run()
 {
     vector<Request*>::iterator begin;
     vector<Request*>::iterator end;
+    int lenOfBlock = p_config->lenOfRequestBlock;
     while(isRunning())
     {
         //获取请求数据段
         int i=0,j=0;
-        if(p_requestSource->getRequest(thID,p_config->lenOfRequestBlock,begin,end) == RETURN_SUCCESS)
+        if(p_requestSource->getRequest(thID,lenOfBlock,begin,end) == RETURN_SUCCESS)
         {
-            //分析并分发请求
-            for(;begin!=end;++begin)
+            //如果数据已过期则直接丢弃
+            if(curPeriod >= period)
             {
-                switch((*begin)->type)
+                //分析并分发请求
+                for(;begin!=end;++begin)
                 {
-                case REQUEST_UPDATE:
-                    updateResults[i]->push_back(*begin);
-                    i=(i+1)%p_config->numOfUpdateThreads;
-                    break;
-                case REQUEST_RANGE_QUERY:
-                    queryResults[j]->push_back(*begin);
-                    j=(j+1)%p_config->numOfQueryThreads;
-                    break;
-                case REQUEST_KNN_QUERY:
-                    queryResults[j]->push_back(*begin);
-                    j=(j+1)%p_config->numOfQueryThreads;
-                default:break;
+                    switch((*begin)->type)
+                    {
+                    case REQUEST_UPDATE:
+                        updateResults[i]->push_back(*begin);
+                        i=(i+1)%p_config->numOfUpdateThreads;
+                        break;
+                    case REQUEST_RANGE_QUERY:
+                        queryResults[j]->push_back(*begin);
+                        j=(j+1)%p_config->numOfQueryThreads;
+                        break;
+                    case REQUEST_KNN_QUERY:
+                        queryResults[j]->push_back(*begin);
+                        j=(j+1)%p_config->numOfQueryThreads;
+                    default:break;
+                    }
                 }
+                numOfSuccess += lenOfBlock;
+            }
+            else
+            {
+                numOfDiscard += lenOfBlock;
             }
 
             //等待所有完成

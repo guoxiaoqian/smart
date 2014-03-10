@@ -1,13 +1,12 @@
 #ifndef BXTREE_H
 #define BXTREE_H
 
-class BxTree
+#include "core/center/Singleton.h"
+
+class BxTree:public Singleton<BxTree>
 {
-private:
-    static BxTree* p_bxtree;
 public:
     BxTree();
-    static BxTree* getBxTree();
 };
 
 #endif // BXTREE_H

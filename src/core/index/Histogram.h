@@ -1,13 +1,12 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
-class Histogram
+#include "core/center/Singleton.h"
+
+class Histogram:public Singleton<Histogram>
 {
-private:
-    static Histogram* p_histogram;
 public:
     Histogram();
-    static Histogram* getHistogram();
 };
 
 #endif // HISTOGRAM_H

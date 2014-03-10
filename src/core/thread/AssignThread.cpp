@@ -92,9 +92,9 @@ void AssignThread::init(int _thID)
     thID = _thID;
     if(p_requestSource == NULL || p_threadPool == NULL || p_config == NULL)
     {
-        p_requestSource = RequestSource::getRequestSource();
-        p_threadPool = ThreadPool::getThreadPool();
-        p_config = Config::getConfig();
+        p_requestSource = RequestSource::getObject();
+        p_threadPool = ThreadPool::getObject();
+        p_config = Config::getObject();
         numOfSynchTimes = p_config->numOfObjects/p_config->lenOfRequestBlock;
     }
     for(int i=0;i<p_config->numOfUpdateThreads;++i)

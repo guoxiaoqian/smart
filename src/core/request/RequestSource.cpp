@@ -8,14 +8,10 @@
 #include <algorithm>
 using namespace  std;
 
-RequestSource* RequestSource::p_source = NULL;
-
-
 RequestSource::RequestSource()
 {
     updateMem = NULL;
     queryMem = NULL;
-    p_source = this;
 }
 
 RequestSource::~RequestSource()
@@ -26,11 +22,6 @@ RequestSource::~RequestSource()
     }
     operator delete[](updateMem);
     operator delete[](queryMem);
-}
-
-RequestSource *RequestSource::getRequestSource()
-{
-    return p_source;
 }
 
 ReturnType RequestSource::getRequest(int thID,int num,vector<Request*>::iterator &begin, vector<Request*>::iterator &end)
@@ -61,7 +52,7 @@ bool SortByTime(Request* p_req1,Request* p_req2)
 
 void RequestSource::init()
 {
-    Config* p_config = Config::getConfig();
+    Config* p_config = Config::getObject();
     //分配内存
     updateMem = operator new[](p_config->numOfUpdates*sizeof(UpdateRequest));
     if(p_config->queryType == QUERY_RANGE)

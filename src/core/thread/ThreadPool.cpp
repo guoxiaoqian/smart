@@ -6,11 +6,9 @@
 #include "core/thread/UpdateThread.h"
 #include "core/index/OnlineTuning.h"
 
-ThreadPool* ThreadPool::p_threadPool = NULL;
 
 ThreadPool::ThreadPool()
 {
-    p_threadPool = this;
     p_periodTimer = NULL;
 }
 
@@ -41,14 +39,9 @@ ThreadPool::~ThreadPool()
     }
 }
 
-ThreadPool *ThreadPool::getThreadPool()
-{
-    return p_threadPool;
-}
-
 void ThreadPool::init()
 {
-    Config* p_config = Config::getConfig();
+    Config* p_config = Config::getObject();
     AssignThread* p_assignThread = NULL;
     for(int i =0;i<p_config->numOfAssignThreads;++i)
     {
@@ -97,7 +90,7 @@ void ThreadPool::init()
     //周期到来时，先暂停所有线程，然后打印线程信息，然后调整索引，最后更新周期并唤醒所有线程
     //p_periodTimer->addListener(HandleThread::AllWait);
     p_periodTimer->addListener(this,&ThreadPool::printThreadStatus);
-    p_periodTimer->addListener(OnlineTuning::getOnlineTuning(),&OnlineTuning::tune);
+    p_periodTimer->addListener(OnlineTuning::getObject(),&OnlineTuning::tune);
     p_periodTimer->addListener(HandleThread::onNextPeriod);
 
     SConnectGG(AssignThread::requestReady,HandleThread::onRequestReady);

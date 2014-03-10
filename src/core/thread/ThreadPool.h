@@ -7,14 +7,14 @@ using std::vector;
 #include "core/request/Request.h"
 #include "core/request/RequestQueue.h"
 #include "core/thread/PeriodTimer.h"
+#include "core/center/Singleton.h"
+
 
 class AssignThread;
 class HandleThread;
 
-class ThreadPool
+class ThreadPool:public Singleton<ThreadPool>
 {
-private:
-    static ThreadPool* p_threadPool;
 public:
     vector<AssignThread*> assignThreads;
     vector<HandleThread*> updateThreads;
@@ -26,7 +26,6 @@ public:
 public:
     ThreadPool();
     ~ThreadPool();
-    static ThreadPool* getThreadPool();
     void init();
     void startAll();
     void stopAll();

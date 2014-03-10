@@ -27,8 +27,8 @@ void HandleThread::init(int _thID, RequestQueue<Request *> *_p_requestQueue)
 {
     thID = _thID;
     p_requestQueue = _p_requestQueue;
-    p_threadPool = ThreadPool::getThreadPool();
-    p_config = Config::getConfig();
+    p_threadPool = ThreadPool::getObject();
+    p_config = Config::getObject();
     numOfHandleThreads = p_config->numOfUpdateThreads+p_config->numOfQueryThreads;
 }
 

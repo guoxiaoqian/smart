@@ -1,16 +1,12 @@
 #include "Config.h"
 
-Config* Config::p_config = NULL;
-
 Config::Config()
 {
-    p_config = this;
 }
 
 Config::Config(const char* fileName, SettingType type)
 {
     init(fileName,type);
-    p_config = this;
 }
 
 Config::~Config()
@@ -82,7 +78,3 @@ void Config::init(const char *fileName, SettingType type)
     print();
 }
 
-Config *Config::getConfig()
-{
-    return p_config;
-}

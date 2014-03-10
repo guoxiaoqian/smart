@@ -1,16 +1,15 @@
 #ifndef ONLINETUNING_H
 #define ONLINETUNING_H
 
-class OnlineTuning
+#include "core/center/Singleton.h"
+
+class OnlineTuning:public Singleton<OnlineTuning>
 {
-private:
-    static OnlineTuning * p_onlineTuning;
 public:
     OnlineTuning();
     ~OnlineTuning();
     void init();
     void tune();
-    static OnlineTuning * getOnlineTuning();
 };
 
 #endif // ONLINETUNING_H

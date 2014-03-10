@@ -5,11 +5,12 @@
 using std::vector;
 #include "core/request/Request.h"
 #include "base/thread/spinlock.h"
+#include "core/center/Singleton.h"
 
-class RequestSource
+
+class RequestSource:public Singleton<RequestSource>
 {
 private:
-    static RequestSource* p_source;
     void* updateMem;
     void* queryMem;
     vector<Request*>::iterator it_current;
@@ -21,7 +22,6 @@ public:
 public:
     RequestSource();
     ~RequestSource();
-    static RequestSource* getRequestSource();
     ReturnType getRequest(int thID,int num,vector<Request*>::iterator& begin,vector<Request*>::iterator& end);
     void increaseCurrent(int num);
     void init();

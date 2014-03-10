@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #include "base/setting/setting.h"
+#include "core/center/Singleton.h"
 
 enum DistributionType
 {
@@ -21,10 +22,8 @@ enum CodeType
 };
 
 
-class Config:public SSetting
+class Config:public Singleton<Config>,public SSetting
 {
-private:
-    static Config* p_config;
 public:
     //data
     int minCoorX;
@@ -63,7 +62,6 @@ public:
     Config(const char *fileName,SettingType type = SETTING_INI);
     ~Config();
     void init(const char *fileName,SettingType type = SETTING_INI);
-    static Config* getConfig();
 };
 
 #endif // CONFIG_H

@@ -2,12 +2,12 @@
 #define SINGLETON_H
 
 template<class T>
-class Singleton
+class SSingleton
 {
 private:
     static T* p_object;
 public:
-    Singleton()
+    SSingleton()
     {
         p_object = static_cast<T*>(this);
     }
@@ -20,6 +20,6 @@ public:
 };
 
 template<class T>
-T* Singleton<T>::p_object = 0;
+T* SSingleton<T>::p_object = 0;
 
 #endif // SINGLETON_H

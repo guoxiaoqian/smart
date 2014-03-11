@@ -21,10 +21,13 @@ void Smart::init()
     p_config = new Config();
     //PATH:smart/src/config.ini
     p_config->init("../src/config.ini");
+    //数据源初始化
     p_requestSource = new RequestSource();
     p_requestSource->init();
+    //索引初始化
     p_onlineTuning = new OnlineTuning();
     p_onlineTuning->init();
+    //线程初始化
     p_threadPool = new ThreadPool();
     p_threadPool->init();
 }

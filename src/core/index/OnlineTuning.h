@@ -1,9 +1,9 @@
 #ifndef ONLINETUNING_H
 #define ONLINETUNING_H
 
-#include "core/center/Singleton.h"
+#include "base/kernel/singleton.hpp"
 
-class OnlineTuning:public Singleton<OnlineTuning>
+class OnlineTuning:public SSingleton<OnlineTuning>
 {
 public:
     OnlineTuning();

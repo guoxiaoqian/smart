@@ -1,9 +1,9 @@
 #ifndef KEYGEN_H
 #define KEYGEN_H
 
-#include "core/center/Singleton.h"
+#include "base/kernel/singleton.hpp"
 
-class KeyGen:public Singleton<KeyGen>
+class KeyGen:public SSingleton<KeyGen>
 {
 public:
     KeyGen();

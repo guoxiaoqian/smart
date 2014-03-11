@@ -1,9 +1,9 @@
 #ifndef BXTREE_H
 #define BXTREE_H
 
-#include "core/center/Singleton.h"
+#include "base/kernel/singleton.hpp"
 
-class BxTree:public Singleton<BxTree>
+class BxTree:public SSingleton<BxTree>
 {
 public:
     BxTree();

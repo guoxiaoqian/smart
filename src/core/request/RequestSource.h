@@ -5,10 +5,10 @@
 using std::vector;
 #include "core/request/Request.h"
 #include "base/thread/spinlock.h"
-#include "core/center/Singleton.h"
+#include "base/kernel/singleton.hpp"
 
 
-class RequestSource:public Singleton<RequestSource>
+class RequestSource:public SSingleton<RequestSource>
 {
 private:
     void* updateMem;

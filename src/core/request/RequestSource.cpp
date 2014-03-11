@@ -94,12 +94,12 @@ void RequestSource::readFile(const char* fpath,T* p_request,int numOfRecords)
     if(inf)
     {
         string line;
-        istringstream ins(line);
-        for(int i=0;i< numOfRecords&& !inf.eof();i++,p_request+=1)
+        for(int i=0;i< numOfRecords&& !inf.eof();++i,++p_request)
         {
             new (p_request) T();
             //读取ASCII
             getline(inf,line);
+            istringstream ins(line);
             ins>>*p_request;
 
             requests.push_back(p_request);

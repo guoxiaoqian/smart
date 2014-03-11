@@ -90,7 +90,7 @@ HEADERS += \
     core/request/RequestSource.h \
     core/thread/HandleThread.h \
     core/thread/PeriodTimer.h \
-    core/center/Singleton.h
+    base/kernel/singleton.hpp
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \

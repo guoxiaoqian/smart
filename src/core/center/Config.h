@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 #include "base/setting/setting.h"
-#include "core/center/Singleton.h"
+#include "base/kernel/singleton.hpp"
 
 enum DistributionType
 {
@@ -22,7 +22,7 @@ enum CodeType
 };
 
 
-class Config:public Singleton<Config>,public SSetting
+class Config:public SSingleton<Config>,public SSetting
 {
 public:
     //data

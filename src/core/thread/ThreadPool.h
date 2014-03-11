@@ -7,13 +7,13 @@ using std::vector;
 #include "core/request/Request.h"
 #include "core/request/RequestQueue.h"
 #include "core/thread/PeriodTimer.h"
-#include "core/center/Singleton.h"
+#include "base/kernel/singleton.hpp"
 
 
 class AssignThread;
 class HandleThread;
 
-class ThreadPool:public Singleton<ThreadPool>
+class ThreadPool:public SSingleton<ThreadPool>
 {
 public:
     vector<AssignThread*> assignThreads;

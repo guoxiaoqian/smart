@@ -3,6 +3,10 @@
 
 #include <stdio.h>
 #include "base/kernel/env.h"
+#include "base/kernel/singleton.hpp"
+
+
+enum LogType{LOG_ERROR,LOG_WARN,LOG_INFO};
 
 #define CUR_FILE __FILE__
 #define CUR_LINE __LINE__
@@ -19,7 +23,9 @@
 #   define SReport(format,...);
 #endif
 
-#define GLOBAL_LOG_ERROR(format,...) SGlobalLog::getLog()->error(CUR_FILE,CUR_LINE,format,##__VA_ARGS__)
+#define SLogError(format,...) SGlobalLog::getObject()->printLog(LOG_ERROR,CUR_FILE,CUR_LINE,format,##__VA_ARGS__)
+#define SLogWarn(format,...) SGlobalLog::getObject()->printLog(LOG_WARN,CUR_FILE,CUR_LINE,format,##__VA_ARGS__)
+#define SLogInfo(format,...) SGlobalLog::getObject()->printLog(LOG_INFO,CUR_FILE,CUR_LINE,format,##__VA_ARGS__)
 
 class SLog
 {
@@ -29,15 +35,12 @@ public:
     SLog();
     SLog(const char* fileName);
     ~SLog();
-    void error(const char* file, int line, const char* format,...);
+    void printLog(LogType type,const char* file, int line, const char* format,...);
 };
 
-class SGlobalLog
+//全局日志
+class SGlobalLog:public SSingleton<SLog>
 {
-private:
-    static SLog* plog;
-public:
-    static SLog* getLog();
 };
 
 #endif // LOGGER_H

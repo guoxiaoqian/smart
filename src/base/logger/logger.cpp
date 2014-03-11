@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <time.h>
 
+
 SLog::SLog()
 {
     logFile = fopen("log.txt","a+");
@@ -22,11 +23,23 @@ SLog::~SLog()
         fclose(logFile);
 }
 
-void SLog::error(const char* file, int line, const char *format,...)
+void SLog::printLog(LogType type, const char *file, int line, const char *format,...)
 {
     time_t t;
     time(&t);
-    fprintf(logFile,"\n------------------ERROR-----------------\n");
+    switch (type)
+    {
+    case LOG_ERROR:
+        fprintf(logFile,"\n------------------ERROR-----------------\n");
+        break;
+    case LOG_WARN:
+        fprintf(logFile,"\n------------------WARN------------------\n");
+        break;
+    case LOG_INFO:
+        fprintf(logFile,"\n------------------INFO------------------\n");
+        break;
+    default:break;
+    }
     fprintf(logFile,"when:  %s",ctime(&t));
     fprintf(logFile,"where: %s ,line %d\n",file,line);
     fprintf(logFile,"what:  ");
@@ -35,15 +48,4 @@ void SLog::error(const char* file, int line, const char *format,...)
     vfprintf(logFile,format, args);
     va_end(args);
     fprintf(logFile,"\n----------------------------------------\n");
-}
-
-SLog* SGlobalLog::plog = NULL;
-
-SLog *SGlobalLog::getLog()
-{
-    if(SGlobalLog::plog == NULL)
-    {
-        plog = new SLog();
-    }
-    return plog;
 }

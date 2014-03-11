@@ -1,9 +1,9 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
-#include "core/center/Singleton.h"
+#include "base/kernel/singleton.hpp"
 
-class Histogram:public Singleton<Histogram>
+class Histogram:public SSingleton<Histogram>
 {
 public:
     Histogram();

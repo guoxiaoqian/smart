@@ -50,48 +50,47 @@ void ThreadPool::init()
         assignThreads.push_back(p_assignThread);
     }
     RequestQueue<Request*> *p_queue = NULL;
-    HandleThread* p_updateThread = NULL;
+    HandleThread* p_handleThread = NULL;
     for(int i=0;i<p_config->numOfUpdateThreads;++i)
     {
-        p_updateThread = new UpdateThread();
+        p_handleThread = new UpdateThread();
         p_queue = new RequestQueue<Request*>();
         updateQueues.push_back(p_queue);
-        p_updateThread->init(i,p_queue);
-        updateThreads.push_back(p_updateThread);
+        p_handleThread->init(i,p_queue);
+        updateThreads.push_back(p_handleThread);
     }
     if(p_config->queryType == QUERY_RANGE)
     {
-        HandleThread* p_rangeQueryThread = NULL;
         for(int i=0;i<p_config->numOfQueryThreads;++i)
         {
-            p_rangeQueryThread = new RangeQueryThread();
+            p_handleThread = new RangeQueryThread();
             p_queue = new RequestQueue<Request*>();
             queryQueues.push_back(p_queue);
-            p_rangeQueryThread->init(i,p_queue);
-            queryThreads.push_back(p_rangeQueryThread);
+            p_handleThread->init(i,p_queue);
+            queryThreads.push_back(p_handleThread);
         }
     }
     else
     {
-        HandleThread* p_knnQueryThread = NULL;
         for(int i=0;i<p_config->numOfQueryThreads;++i)
         {
-            p_knnQueryThread = new KNNQueryThread();
+            p_handleThread = new KNNQueryThread();
             p_queue = new RequestQueue<Request*>();
             queryQueues.push_back(p_queue);
-            p_knnQueryThread->init(i,p_queue);
-            queryThreads.push_back(p_knnQueryThread);
+            p_handleThread->init(i,p_queue);
+            queryThreads.push_back(p_handleThread);
         }
     }
 
     //创建周期定时器
     p_periodTimer = new PeriodTimer;
-    p_periodTimer->init(static_cast<unsigned long>(p_config->maxUpdateTime));
-    //周期到来时，先暂停所有线程，然后打印线程信息，然后调整索引，最后更新周期并唤醒所有线程
-    //p_periodTimer->addListener(HandleThread::AllWait);
+    p_periodTimer->init(static_cast<unsigned long>(p_config->maxUpdateTime*100));
+    //周期到来时，先暂停所有处理线程，然后打印线程信息，然后调整索引，最后更新周期并唤醒所有线程
+    p_periodTimer->addListener(HandleThread::pauseForPeriodCome);
     p_periodTimer->addListener(this,&ThreadPool::printThreadStatus);
     p_periodTimer->addListener(OnlineTuning::getObject(),&OnlineTuning::tune);
-    p_periodTimer->addListener(HandleThread::onNextPeriod);
+    p_periodTimer->addListener(WorkThread::increasePeriod);
+    p_periodTimer->addListener(HandleThread::onPeriodCome);
 
     SConnectGG(AssignThread::requestReady,HandleThread::onRequestReady);
     SConnectGG(AssignThread::requestOver,HandleThread::onRequestOver);
@@ -103,6 +102,9 @@ void ThreadPool::startAll()
     {
         assignThreads[i]->start();
     }
+    //启动定时器
+    p_periodTimer->start();
+
     for(unsigned int i = 0;i < updateThreads.size();++i)
     {
         updateThreads[i]->start();
@@ -126,6 +128,22 @@ void ThreadPool::stopAll()
     for(unsigned int i = 0;i < queryThreads.size();++i)
     {
         queryThreads[i]->stop();
+    }
+}
+
+void ThreadPool::waitForAllOver()
+{
+    for(unsigned int i = 0;i < assignThreads.size();++i)
+    {
+        assignThreads[i]->over();
+    }
+    for(unsigned int i = 0;i < updateThreads.size();++i)
+    {
+        updateThreads[i]->over();
+    }
+    for(unsigned int i = 0;i < queryThreads.size();++i)
+    {
+        queryThreads[i]->over();
     }
 }
 
@@ -162,3 +180,4 @@ void ThreadPool::printThreadStatus()
     }
     SInfo("period:%d queryDiscard:%d querySuccess:%d",WorkThread::period,sumOfDiscard,sumOfSuccess);
 }
+

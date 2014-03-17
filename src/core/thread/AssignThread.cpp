@@ -112,31 +112,35 @@ void AssignThread::run()
     vector<Request*>::iterator begin;
     vector<Request*>::iterator end;
     int lenOfBlock = p_config->lenOfRequestBlock;
+    int numOfUpdateThreads = p_config->numOfUpdateThreads;
+    int numOfQueryThreads = p_config->numOfQueryThreads;
+    int i,j;
     while(isRunning())
     {
         //获取请求数据段
-        int i=0,j=0;
+        i=0,j=0;
         if(p_requestSource->getRequest(thID,lenOfBlock,begin,end) == RETURN_SUCCESS)
         {
             //如果数据已过期则直接丢弃
             if(curPeriod >= period)
             {
                 //分析并分发请求
-                for(;begin!=end;++begin)
+                for(;begin<=end;++begin)
                 {
                     switch((*begin)->type)
                     {
                     case REQUEST_UPDATE:
                         updateResults[i]->push_back(*begin);
-                        i=(i+1)%p_config->numOfUpdateThreads;
+                        i=(i+1)%numOfUpdateThreads;
                         break;
                     case REQUEST_RANGE_QUERY:
                         queryResults[j]->push_back(*begin);
-                        j=(j+1)%p_config->numOfQueryThreads;
+                        j=(j+1)%numOfQueryThreads;
                         break;
                     case REQUEST_KNN_QUERY:
                         queryResults[j]->push_back(*begin);
-                        j=(j+1)%p_config->numOfQueryThreads;
+                        j=(j+1)%numOfQueryThreads;
+                        break;
                     default:break;
                     }
                 }
@@ -154,6 +158,7 @@ void AssignThread::run()
         {
             //请求数据结束
             SEMIT requestOver();
+            return;
         }
     }
 }

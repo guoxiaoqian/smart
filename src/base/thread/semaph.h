@@ -1,7 +1,7 @@
-#ifndef SEMAPHORE_H
-#define SEMAPHORE_H
+#ifndef SEMAPH_H
+#define SEMAPH_H
 
-#include <semaphore.h>
+#include "base/3dparty/pthread_win/include/semaphore.h"
 #include <time.h>
 
 class SSemaphore
@@ -10,8 +10,10 @@ private:
     sem_t sem;
     timespec ts;
 public:
+    SSemaphore(){}
     SSemaphore(unsigned int value){sem_init(&sem,0,value);}
     ~SSemaphore(){ sem_destroy(&sem);}
+    void init(unsigned int value){sem_init(&sem,0,value);}
     int P(){return sem_wait(&sem);}
     int tryP(){return sem_trywait(&sem);}
     int timedP(unsigned long msecs)
@@ -23,4 +25,4 @@ public:
     int getValue(int *value) {return sem_getvalue(&sem,value);}
 };
 
-#endif // SEMAPHORE_H
+#endif // SEMAPH_H

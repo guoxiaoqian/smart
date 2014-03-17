@@ -2,6 +2,7 @@
 
 UpdateRequest::UpdateRequest()
 {
+    type = REQUEST_UPDATE;
 }
 
 UpdateRequest::UpdateRequest(int _objID, int _issueTime, CoorType _posX, CoorType _posY, SpeedType _velX, SpeedType _velY)\

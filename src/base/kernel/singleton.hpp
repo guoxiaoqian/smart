@@ -9,7 +9,7 @@ private:
 public:
     SSingleton()
     {
-        p_object = static_cast<T*>(this);
+        //p_object = static_cast<T*>(this);
     }
     static T* getObject()
     {

@@ -29,6 +29,7 @@ public:
     void init();
     void startAll();
     void stopAll();
+    void waitForAllOver();
     void printThreadStatus();
 };
 

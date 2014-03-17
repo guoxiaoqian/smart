@@ -1,4 +1,5 @@
 #include "RangeQueryThread.h"
+#include "core/request/RangeQueryRequest.h"
 #include "core/index/BxTree.h"
 #include "core/index/KeyGen.h"
 
@@ -12,6 +13,13 @@ RangeQueryThread::~RangeQueryThread()
 
 ReturnType RangeQueryThread::handleRequest(Request *p_request)
 {
-    SDebug("range query");
-    return RETURN_SUCCESS;
+    //SDebug("range query");
+    RangeQueryRequest* p_range = dynamic_cast<RangeQueryRequest*>(p_request);
+    if(p_range)
+    {
+        //TODO
+        return RETURN_SUCCESS;
+    }
+    else
+        return RETURN_FAIL;
 }

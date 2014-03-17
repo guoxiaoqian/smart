@@ -6,26 +6,26 @@
 Generator::Generator()
 {
     p_config = Config::getConfig();
-    //region
+    //data
     region_xmin = p_config->region_xmin;
     region_xmax = p_config->region_xmax;
     region_ymin = p_config->region_ymin;
     region_ymax = p_config->region_ymax;
-    //data
     num_object = p_config->num_object;
     code_type = p_config->code_type;
     distribution_type = p_config->distribution_type;
-    //update
-    maxv = p_config->maxv;
-    num_round = p_config->num_round;
-    round_time = p_config->round_time;
-    num_speed = p_config->num_speed;
     num_hotspot = p_config->num_hotspot;
+    update_query_ratio = p_config->update_query_ratio;
+    //update
+    round_time = p_config->round_time;
+    num_round = p_config->num_round;
+    maxv = p_config->maxv;
+    num_speed = p_config->num_speed;
     //query
     query_type = p_config->query_type;
-    num_query = p_config->num_query;
     query_width = p_config->query_width;
     num_knn = p_config->num_knn;
+    num_query = p_config->num_query;
 
     speed = new int[num_speed];						//有num_speed种速度，将最大速度均匀分割
     for(int i=0;i<num_speed;i++)
@@ -115,7 +115,6 @@ void Generator::gen_uniform()
     int u_count = 0;
     int q_count = 0;
     float tnow = 0;
-    int uq_ratio = num_object*num_round / num_query;
 
   if(query_type == QUERY_RANGE)
   {
@@ -141,7 +140,7 @@ void Generator::gen_uniform()
             data[i].issueTime = tnow;
             print(fp,data[i]);
             u_count++;
-            if(u_count%uq_ratio == 0)
+            if(u_count%update_query_ratio == 0)
             {
                 tmp_query.oid=q_count%num_object;
                 tmp_query.issueTime=tnow;
@@ -179,7 +178,7 @@ void Generator::gen_uniform()
                 data[i].issueTime = tnow;
                 print(fp,data[i]);
                 u_count++;
-                if(u_count%uq_ratio == 0)
+                if(u_count%update_query_ratio == 0)
                 {
                     tmp_query.oid=q_count%num_object;
                     tmp_query.issueTime=tnow;
@@ -261,7 +260,6 @@ void Generator::gen_gaussian()
     int u_count = 0;
     int q_count = 0;
     float tnow = 0;
-    int uq_ratio = num_object*num_round / num_query;
 
     if(query_type == QUERY_RANGE)
     {
@@ -289,7 +287,7 @@ void Generator::gen_gaussian()
                 print(fp,data[i]);
                 u_count++;
                 //生成查询
-                if(u_count%uq_ratio == 0)
+                if(u_count%update_query_ratio == 0)
                 {
                     tmp_query.oid=q_count%num_object;
                     int spotno = rand_number::rand_int() % num_hotspot;
@@ -330,7 +328,7 @@ void Generator::gen_gaussian()
                 print(fp,data[i]);
                 u_count++;
                 //生成查询
-                if(u_count%uq_ratio == 0)
+                if(u_count%update_query_ratio == 0)
                 {
                     tmp_query.oid=q_count%num_object;
                     int spotno = rand_number::rand_int() % num_hotspot;

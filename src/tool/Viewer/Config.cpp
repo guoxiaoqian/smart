@@ -80,7 +80,7 @@ void Config::ReadSettings()
 
     //more
     num_update = num_object*num_round;
-    num_query = num_update*update_query_ratio;
+    num_query = num_update/update_query_ratio;
 }
 
 Config *Config::getConfig()

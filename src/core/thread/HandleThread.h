@@ -6,7 +6,6 @@
 #include "core/center/type.h"
 #include "base/logger/logger.h"
 
-
 class ThreadPool;
 class Config;
 class Request;
@@ -16,33 +15,37 @@ class SWaitCondation;
 class HandleThread : public WorkThread
 {
 private:
+    //使用条件变量
     static SMutex mutex;
     static SWaitCondation allComplete;
     static SMutex mutex2;
     static SWaitCondation requestCome;
     static SMutex mutex3;
-    static SWaitCondation nextPeriod;
-    RequestQueue<Request*>* p_requestQueue;
-    static ThreadPool* p_threadPool;
+    static SWaitCondation periodCome;
     static Config* p_config;
 
-    static int numOfComplete;
-    static int numOfWaitRequest;
-    static int numOfWaitPeriod;
+    static volatile int numOfComplete;
+    static volatile int numOfWaitRequest;
+    static volatile int numOfWaitPeriod;
     static int numOfHandleThreads;
+
+    RequestQueue<Request*>* p_requestQueue;
+    static volatile bool isPeriodComing;
+    static volatile bool isRequestOver;
 
     void waitForAllComplete();
     void waitForRequestCome();
-    void waitForNextPeriod();
+    void waitForPeriodCome();
 public:
     static void onRequestReady();
     static void onRequestOver();
-    static void onNextPeriod();
+    static void onPeriodCome();
+    static void pauseForPeriodCome();
 public:
     HandleThread();
     void init(int _thID,RequestQueue<Request*>* _p_requestQueue);
-    void run(); //override WorkThread
-    virtual ReturnType handleRequest(Request*) = 0; //will overrided by successor
+    void run();
+    virtual ReturnType handleRequest(Request*) = 0;
 };
 
 #endif // HANDLETHREAD_H

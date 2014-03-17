@@ -26,23 +26,18 @@ RequestSource::~RequestSource()
 
 ReturnType RequestSource::getRequest(int thID,int num,vector<Request*>::iterator &begin, vector<Request*>::iterator &end)
 {
-    spinLock.lock();
     begin = it_current + thID * num;
     if(requests.end() - begin < num)
     {
-        spinLock.unlock();
         return RETURN_FAIL;
     }
-    end = it_current + (thID+1)*num;
-    spinLock.unlock();
+    end = begin+num-1;
     return RETURN_SUCCESS;
 }
 
 void RequestSource::increaseCurrent(int num)
 {
-    spinLock.lock();
     it_current+=num;
-    spinLock.unlock();
 }
 
 bool SortByTime(Request* p_req1,Request* p_req2)

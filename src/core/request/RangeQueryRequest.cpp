@@ -2,6 +2,7 @@
 
 RangeQueryRequest::RangeQueryRequest()
 {
+    type = REQUEST_RANGE_QUERY;
 }
 
 RangeQueryRequest::RangeQueryRequest(IDType _objID, TimeType _issueTime, CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY, TimeType _preTime)\

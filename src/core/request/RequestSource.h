@@ -4,7 +4,6 @@
 #include <vector>
 using std::vector;
 #include "core/request/Request.h"
-#include "base/thread/spinlock.h"
 #include "base/kernel/singleton.hpp"
 
 
@@ -14,7 +13,6 @@ private:
     void* updateMem;
     void* queryMem;
     vector<Request*>::iterator it_current;
-    SSpinLock spinLock;
     template<class T>
     void readFile(const char* fpath,T* p_request,int numOfRecords);
 public:

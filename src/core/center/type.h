@@ -15,9 +15,8 @@ enum RequestType
 
 enum ReturnType
 {
-    RETURN_SUCCESS = 0,
-    RETURN_ERROR = 1,
-    RETURN_FAIL
+    RETURN_FAIL = 0,
+    RETURN_SUCCESS = 1
 };
 
 enum SignalType

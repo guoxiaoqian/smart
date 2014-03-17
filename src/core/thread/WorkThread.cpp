@@ -15,3 +15,8 @@ void WorkThread::getStatus(int &discard, int &success)
     numOfDiscard = 0;
     numOfSuccess = 0;
 }
+
+void WorkThread::increasePeriod()
+{
+    ++period;
+}

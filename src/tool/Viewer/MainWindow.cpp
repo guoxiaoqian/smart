@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "generator.h"
+#include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -43,6 +44,7 @@ void MainWindow::genData()
     Generator* gen = new Generator;
     gen->Start();
     delete gen;
+    QMessageBox::information(this,"tip","generate success!");
 }
 
 void MainWindow::openFile()

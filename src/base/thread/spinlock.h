@@ -12,7 +12,7 @@ class SSpinLock
 private:
     pthread_spinlock_t spin;
 public:
-    SSpinLock(){pthread_spin_init(&spin,0);}
+    SSpinLock(){pthread_spin_init(&spin,PTHREAD_PROCESS_PRIVATE);}
     ~SSpinLock(){pthread_spin_destroy(&spin);}
     int lock(){return pthread_spin_lock(&spin);}
     int unlock(){return pthread_spin_unlock(&spin);}

@@ -57,7 +57,6 @@ HEADERS += \
     base/kernel/global.h \
     base/logger/logger.h \
     base/setting/setting.h \
-    base/thread/semaphore.h \
     base/kernel/sig_slot.hpp \
     base/kernel/global.h \
     base/kernel/env.h \
@@ -90,7 +89,8 @@ HEADERS += \
     core/request/RequestSource.h \
     core/thread/HandleThread.h \
     core/thread/PeriodTimer.h \
-    base/kernel/singleton.hpp
+    base/kernel/singleton.hpp \
+    base/thread/semaph.h
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \

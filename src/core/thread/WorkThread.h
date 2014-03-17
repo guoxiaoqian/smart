@@ -17,6 +17,7 @@ public:
     WorkThread();
     virtual void run(){}
     void getStatus(int & discard,int & success);
+    static void increasePeriod();
 };
 
 #endif // WORKTHREAD_H

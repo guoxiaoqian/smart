@@ -2,6 +2,7 @@
 
 KNNQueryRequest::KNNQueryRequest()
 {
+    type = REQUEST_KNN_QUERY;
 }
 
 KNNQueryRequest::KNNQueryRequest(IDType _objID, TimeType _issueTime,CoorType _posX,CoorType _posY,int _knnK, TimeType _preTime)\

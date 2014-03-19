@@ -106,8 +106,6 @@ void HandleThread::onPeriodCome()
 
 void HandleThread::pauseForPeriodCome()
 {
-    SDebug("pause for period");
-
     if(isPeriodComing == false)
         isPeriodComing = true;
 }
@@ -150,7 +148,6 @@ void HandleThread::run()
             }
             delete p_node;
             p_node=NULL;
-            //段同步
             waitForAllComplete();
         }
         //本周期之后的请求要等周期结束才能开始处理
@@ -164,7 +161,6 @@ void HandleThread::run()
             numOfDiscard += p_node->data.size();
             delete p_node;
             p_node = NULL;
-            //段同步
             waitForAllComplete();
         }
     }

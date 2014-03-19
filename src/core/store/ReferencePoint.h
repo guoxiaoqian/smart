@@ -1,10 +1,12 @@
 #ifndef REFERENCEPOINT_H
 #define REFERENCEPOINT_H
 
-#include "core/store/Point.h"
+#include "core/store/Grid.h"
 
 class ReferencePoint : public Point
 {
+public:
+    Grid * p_grid;
 public:
     ReferencePoint();
 };

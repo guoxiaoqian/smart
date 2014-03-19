@@ -2,4 +2,5 @@
 
 ReferencePoint::ReferencePoint()
 {
+    p_grid = 0;
 }

@@ -43,7 +43,8 @@ SOURCES += main.cpp \
     core/store/Cell.cpp \
     core/request/RequestSource.cpp \
     core/thread/HandleThread.cpp \
-    core/thread/PeriodTimer.cpp
+    core/thread/PeriodTimer.cpp \
+    base/tool/Fun.cpp
 
 
 HEADERS += \
@@ -90,7 +91,9 @@ HEADERS += \
     core/thread/HandleThread.h \
     core/thread/PeriodTimer.h \
     base/kernel/singleton.hpp \
-    base/thread/semaph.h
+    base/thread/semaph.h \
+    base/tool/rand.h \
+    base/tool/Fun.h
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \

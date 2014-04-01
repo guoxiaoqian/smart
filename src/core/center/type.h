@@ -6,6 +6,7 @@ typedef int SpeedType;
 typedef int TimeType;
 typedef int IDType;
 typedef int PeriodType;
+typedef int KeyType;
 enum RequestType
 {
     REQUEST_UPDATE,

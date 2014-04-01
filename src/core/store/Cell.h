@@ -14,8 +14,8 @@ public:
     list<MoveObject> moveObjects;
 public:
     Cell();
-    Cell(CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
-
+    Cell(IDType _cellID,CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
+    void init(IDType _cellID,CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
     void insertMoveObject(MoveObject& object);
     void deleteMoveObject(IDType objID);
 };

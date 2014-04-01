@@ -1,5 +1,5 @@
-#ifndef __RAND_H
-#define __RAND_H
+#ifndef RAND_H
+#define RAND_H
 
 #include <stdlib.h>
 #include <time.h>

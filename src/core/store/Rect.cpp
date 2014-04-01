@@ -20,7 +20,7 @@ void Rect::setRange(CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _ma
     maxY = _maxY;
 }
 
-bool Rect::interset(Rect &rect)
+bool Rect::intersect(Rect &rect)
 {
     return !(rect.minX < minX || rect.minY < minY || rect.maxX > maxX || rect.maxY > maxY);
 }

@@ -14,7 +14,7 @@ public:
     Rect();
     Rect(CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
     void setRange(CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
-    bool interset(Rect & rect);
+    bool intersect(Rect & rect);
     bool cover(Point & point);
 };
 

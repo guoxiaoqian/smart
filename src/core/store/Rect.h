@@ -3,6 +3,8 @@
 
 #include "core/store/Point.h"
 
+namespace core{
+
 class Rect
 {
 public:
@@ -17,5 +19,7 @@ public:
     bool intersect(Rect & rect);
     bool cover(Point & point);
 };
+
+}//namespace core
 
 #endif // RECT_H

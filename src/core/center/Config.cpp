@@ -1,10 +1,12 @@
 #include "Config.h"
 
+namespace core{
+
 Config::Config()
 {
 }
 
-Config::Config(const char* fileName, SettingType type)
+Config::Config(const char* fileName, base::SettingType type)
 {
     init(fileName,type);
 }
@@ -13,7 +15,7 @@ Config::~Config()
 {
 }
 
-void Config::init(const char *fileName, SettingType type)
+void Config::init(const char *fileName, base::SettingType type)
 {
     SSetting::init(fileName,type);
 
@@ -78,3 +80,4 @@ void Config::init(const char *fileName, SettingType type)
     print();
 }
 
+}

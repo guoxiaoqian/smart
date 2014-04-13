@@ -5,6 +5,9 @@ using namespace tinyxml2;
 #include <fstream>
 #include <iostream>
 
+
+namespace base {
+
 SSetting::SSetting()
 {
 }
@@ -224,5 +227,7 @@ void SSetting::print()
         }
     }
     cout<<"---------------------------------------"<<endl;
+
+}
 
 }

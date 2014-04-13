@@ -4,6 +4,9 @@
 
 #include "env.h"
 
+namespace base {
+
+
 #define SMART_VERSION_STR "0.0.0"
 /*
    SMART_VERSION is (major << 16) + (minor << 8) + patch.
@@ -44,5 +47,5 @@ typedef suint64 sulonglong;
 #  endif
 #endif
 
-
+}
 #endif//GLOBAL_H

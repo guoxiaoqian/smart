@@ -10,7 +10,7 @@ win32:LIBS += \
         E:/smart/src/base/3dparty/pthread_win/lib/x86/pthreadVCE2.lib \
         E:/smart/src/base/3dparty/pthread_win/lib/x86/pthreadVSE2.lib \
         E:/smart/src/base/3dparty/tinyxml2/lib/tinyxml2.lib \
-        E:/smart/src/base/3dparty/hilbert/lib/hilbert.lib
+        E:/smart/src/base/3dparty/hilbert/lib/hilbert.lib \
 
 SOURCES += main.cpp \
     base/thread/thread.cpp \
@@ -34,7 +34,6 @@ SOURCES += main.cpp \
     core/index/OnlineTuning.cpp \
     core/index/KeyGen.cpp \
     core/index/Histogram.cpp \
-    core/index/BxTree.cpp \
     core/store/ReferencePoint.cpp \
     core/store/Rect.cpp \
     core/store/Point.cpp \
@@ -44,7 +43,13 @@ SOURCES += main.cpp \
     core/request/RequestSource.cpp \
     core/thread/HandleThread.cpp \
     core/thread/PeriodTimer.cpp \
-    base/tool/Fun.cpp
+    base/tool/Fun.cpp \
+    core/index/ST2BTree/ST2BTree.cpp \
+    core/index/ST2BTree/BPlus_tree.cpp \
+    core/index/ST2BTree/BPlus_node.cpp \
+    core/index/Index.cpp \
+    core/index/DynamicIndex.cpp \
+    core/index/StaticIndex.cpp
 
 
 HEADERS += \
@@ -80,7 +85,6 @@ HEADERS += \
     core/index/OnlineTuning.h \
     core/index/KeyGen.h \
     core/index/Histogram.h \
-    core/index/BxTree.h \
     core/store/ReferencePoint.h \
     core/store/Rect.h \
     core/store/Point.h \
@@ -93,12 +97,18 @@ HEADERS += \
     base/kernel/singleton.hpp \
     base/thread/semaph.h \
     base/tool/rand.h \
-    base/tool/Fun.h
+    base/tool/Fun.h \
+    core/index/ST2BTree/ST2BTree.h \
+    core/index/ST2BTree/BPlus_tree.h \
+    core/index/ST2BTree/BPlus_node.h \
+    core/index/Index.h \
+    core/index/DynamicIndex.h \
+    core/index/StaticIndex.h
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \
                      "E:/smart/src/base/3dparty/tinyxml2/include" \
-                     "E:/smart/src/base/3dparty/hilbert/include"
+                     "E:/smart/src/base/3dparty/hilbert/include" \
 
 OTHER_FILES +=
 

@@ -2,7 +2,7 @@
 #define MOVEOBJECT_H
 
 #include "core/store/Point.h"
-
+namespace core{
 class MoveObject : public Point
 {
 public:
@@ -14,5 +14,5 @@ public:
     MoveObject();
     MoveObject(int _objID, int _issueTime,CoorType _posX,CoorType _posY,SpeedType _velX,SpeedType _velY);
 };
-
+}
 #endif // MOVEOBJECT_H

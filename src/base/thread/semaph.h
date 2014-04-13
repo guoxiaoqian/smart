@@ -4,6 +4,9 @@
 #include "base/3dparty/pthread_win/include/semaphore.h"
 #include <time.h>
 
+
+namespace base {
+
 class SSemaphore
 {
 private:
@@ -25,4 +28,5 @@ public:
     int getValue(int *value) {return sem_getvalue(&sem,value);}
 };
 
+}
 #endif // SEMAPH_H

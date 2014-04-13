@@ -1,6 +1,8 @@
 #include "OnlineTuning.h"
 #include "core/center/Config.h"
 
+namespace core{
+
 OnlineTuning::OnlineTuning()
 {
 }
@@ -16,5 +18,7 @@ void OnlineTuning::init()
 
 void OnlineTuning::tune()
 {
-    //周期性调整
+    //TODO周期性调整
+}
+
 }

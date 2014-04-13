@@ -6,8 +6,9 @@ using std::vector;
 #include "core/request/Request.h"
 #include "base/kernel/singleton.hpp"
 
+namespace core{
 
-class RequestSource:public SSingleton<RequestSource>
+class RequestSource:public base::SSingleton<RequestSource>
 {
 private:
     void* updateMem;
@@ -26,4 +27,5 @@ public:
 
 };
 
+}
 #endif // REQUESTSOURCE_H

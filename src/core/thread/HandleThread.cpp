@@ -4,8 +4,13 @@
 #include "core/center/Config.h"
 #include "core/thread/ThreadPool.h"
 #include "base/thread/waitcond.h"
+#include "core/index/Index.h"
+
+namespace core {
+
 
 Config* HandleThread::p_config = NULL;
+Index* HandleThread::p_index = NULL;
 
 volatile int HandleThread::numOfComplete = 0;
 volatile int HandleThread::numOfWaitRequest = 0;
@@ -27,10 +32,14 @@ HandleThread::HandleThread()
     p_requestQueue = NULL;
 }
 
-void HandleThread::init(int _thID, RequestQueue<Request *> *_p_requestQueue)
+void HandleThread::init(int _thID, RequestQueue<Request *> *_p_requestQueue,Index* _p_index)
 {
     thID = _thID;
     p_requestQueue = _p_requestQueue;
+    if(!p_index)
+    {
+        p_index = _p_index;
+    }
     if(!p_config)
     {
         p_config = Config::getObject();
@@ -164,4 +173,6 @@ void HandleThread::run()
             waitForAllComplete();
         }
     }
+}
+
 }

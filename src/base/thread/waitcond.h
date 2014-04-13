@@ -4,6 +4,9 @@
 #include "mutex.h"
 #include "time.h"
 
+
+namespace base {
+
 class SWaitCondation
 {
 private:
@@ -22,4 +25,5 @@ public:
     int wakeAll(){return pthread_cond_broadcast(&cond);}
 };
 
+}
 #endif // WAITCOND_H

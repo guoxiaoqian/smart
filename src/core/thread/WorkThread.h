@@ -4,7 +4,9 @@
 #include "base/thread/thread.h"
 #include "core/center/type.h"
 
-class WorkThread : public SThread
+namespace core{
+
+class WorkThread : public base::SThread
 {
 public:
     int thID;
@@ -19,5 +21,5 @@ public:
     void getStatus(int & discard,int & success);
     static void increasePeriod();
 };
-
+}
 #endif // WORKTHREAD_H

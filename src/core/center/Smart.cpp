@@ -1,10 +1,16 @@
 #include "Smart.h"
+#include "core/center/Config.h"
+#include "core/request/RequestSource.h"
+#include "core/thread/ThreadPool.h"
+#include "core/index/DynamicIndex.h"
+
+namespace core{
 
 Smart::Smart()
 {
     p_config = NULL;
     p_requestSource = NULL;
-    p_onlineTuning = NULL;
+    p_index = NULL;
     p_threadPool = NULL;
 }
 
@@ -12,7 +18,7 @@ Smart::~Smart()
 {
     delete p_config;
     delete p_requestSource;
-    delete p_onlineTuning;
+    delete p_index;
     delete p_threadPool;
 }
 
@@ -25,15 +31,17 @@ void Smart::init()
     p_requestSource = RequestSource::getObject();
     p_requestSource->init();
     //索引初始化
-    p_onlineTuning = OnlineTuning::getObject();
-    p_onlineTuning->init();
+    p_index = DynamicIndex::getObject();
+    p_index->init();
     //线程初始化
     p_threadPool = ThreadPool::getObject();
-    p_threadPool->init();
+    p_threadPool->init(p_index);
 }
 
 void Smart::start()
 {
     p_threadPool->startAll();
     p_threadPool->waitForAllOver();
+}
+
 }

@@ -1,6 +1,9 @@
 #ifndef FUN_H
 #define FUN_H
 
+
+namespace base {
+
 class Fun
 {
 public:
@@ -8,4 +11,5 @@ public:
     static double getDistance(double x1, double y1, double x2, double y2);
 };
 
+}
 #endif // FUN_H

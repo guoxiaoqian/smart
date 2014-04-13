@@ -4,6 +4,8 @@
 #include "base/setting/setting.h"
 #include "base/kernel/singleton.hpp"
 
+namespace core {
+
 enum DistributionType
 {
     DISTRIBUTION_UNIFORM = 0,
@@ -22,7 +24,7 @@ enum CodeType
 };
 
 
-class Config:public SSingleton<Config>,public SSetting
+class Config:public base::SSingleton<Config>,public base::SSetting
 {
 public:
     //data
@@ -59,9 +61,11 @@ public:
 
 public:
     Config();
-    Config(const char *fileName,SettingType type = SETTING_INI);
+    Config(const char *fileName,base::SettingType type = base::SETTING_INI);
     ~Config();
-    void init(const char *fileName,SettingType type = SETTING_INI);
+    void init(const char *fileName,base::SettingType type = base::SETTING_INI);
 };
+
+}
 
 #endif // CONFIG_H

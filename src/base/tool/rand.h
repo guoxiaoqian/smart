@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+namespace base {
+
 class rand_number
 {
 public:
@@ -57,4 +60,5 @@ public:
 	}
 };
 
+}
 #endif

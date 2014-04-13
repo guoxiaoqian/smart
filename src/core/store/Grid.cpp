@@ -1,6 +1,9 @@
 #include "Grid.h"
 
-int Grid::maxCellNum = 0;
+namespace core {
+
+
+int Grid::maxCellNum = 1024;
 
 
 Grid::Grid()
@@ -25,8 +28,8 @@ void Grid::resizeCell(int row, int col)
     rowNum = row;
     colNum = col;
     //修改最多cell数
-    if(rowNum*colNum > maxCellNum)
-        maxCellNum = rowNum*colNum;
+//    if(rowNum*colNum > maxCellNum)
+//        maxCellNum = rowNum*colNum;
 
     cells.clear();
     vector<Cell> tmpCell(colNum);
@@ -74,4 +77,11 @@ IDType Grid::getCellID(CoorType coorX, CoorType coorY)
     int row = (coorY - minY)/((maxY-minY)/rowNum);
     int col = (coorX - minX)/((maxX-minX)/colNum);
     return row*colNum+col;
+}
+
+KeyType Grid::getSpaceKey(CoorType coorX,CoorType coorY)
+{
+    return gridID * maxCellNum + getCellID(coorX,coorY);
+}
+
 }

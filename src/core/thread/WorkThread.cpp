@@ -1,5 +1,8 @@
 #include "WorkThread.h"
 
+namespace core {
+
+
 PeriodType WorkThread::period = 0;
 
 WorkThread::WorkThread()
@@ -19,4 +22,6 @@ void WorkThread::getStatus(int &discard, int &success)
 void WorkThread::increasePeriod()
 {
     ++period;
+}
+
 }

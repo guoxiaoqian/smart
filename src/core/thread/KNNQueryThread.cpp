@@ -1,6 +1,8 @@
 #include "KNNQueryThread.h"
 #include "core/request/KNNQueryRequest.h"
 
+namespace core {
+
 KNNQueryThread::KNNQueryThread()
 {
 }
@@ -21,3 +23,4 @@ ReturnType KNNQueryThread::handleRequest(Request *p_request)
         return RETURN_FAIL;
 }
 
+}

@@ -1,5 +1,8 @@
 #include "UpdateRequest.h"
 
+
+namespace core {
+
 UpdateRequest::UpdateRequest()
 {
     type = REQUEST_UPDATE;
@@ -14,4 +17,5 @@ istream& operator>>(istream& stream,UpdateRequest& req)
 {
     stream>>req.objID>>req.issueTime>>req.posX>>req.posY>>req.velX>>req.velY;
     return stream;
+}
 }

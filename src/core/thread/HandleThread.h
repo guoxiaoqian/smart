@@ -6,11 +6,15 @@
 #include "core/center/type.h"
 #include "base/logger/logger.h"
 
+namespace core{
+
 class ThreadPool;
 class Config;
 class Request;
 class UpdateRequest;
-class SWaitCondation;
+class Index;
+using base::SMutex;
+using base::SWaitCondation;
 
 class HandleThread : public WorkThread
 {
@@ -33,6 +37,9 @@ private:
     static volatile bool isPeriodComing;
     static volatile bool isRequestOver;
 
+    //索引
+    static Index* p_index;
+
     void waitForAllComplete();
     void waitForRequestCome();
     void waitForPeriodCome();
@@ -43,9 +50,9 @@ public:
     static void pauseForPeriodCome();
 public:
     HandleThread();
-    void init(int _thID,RequestQueue<Request*>* _p_requestQueue);
+    void init(int _thID, RequestQueue<Request*>* _p_requestQueue, Index *_p_index);
     void run();
     virtual ReturnType handleRequest(Request*) = 0;
 };
-
+}
 #endif // HANDLETHREAD_H

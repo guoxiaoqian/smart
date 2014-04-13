@@ -3,10 +3,14 @@
 
 #include "base/kernel/singleton.hpp"
 
-class Histogram:public SSingleton<Histogram>
+namespace core{
+
+class Histogram:public base::SSingleton<Histogram>
 {
 public:
     Histogram();
 };
+
+}
 
 #endif // HISTOGRAM_H

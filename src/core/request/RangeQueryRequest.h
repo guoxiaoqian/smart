@@ -3,6 +3,8 @@
 
 #include "Request.h"
 
+namespace core{
+
 class RangeQueryRequest : public Request
 {
 public:
@@ -17,4 +19,5 @@ public:
     friend istream& operator>>(istream& stream,RangeQueryRequest& req);
 };
 
+}
 #endif // RANGEQUERYREQUEST_H

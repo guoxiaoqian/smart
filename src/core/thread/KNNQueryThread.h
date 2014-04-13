@@ -3,6 +3,8 @@
 
 #include "core/thread/HandleThread.h"
 
+namespace core{
+
 class KNNQueryThread : public HandleThread
 {
 public:
@@ -10,5 +12,5 @@ public:
     ~KNNQueryThread();
     ReturnType handleRequest(Request* p_request);
 };
-
+}
 #endif // KNNQUERYTHREAD_H

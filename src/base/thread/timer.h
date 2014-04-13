@@ -23,6 +23,9 @@
 #include "base/thread/thread.h"
 #include "base/thread/time.h"
 
+namespace base {
+
+
 enum TimerType
 {
     TIMER_ONESHOT,
@@ -52,4 +55,5 @@ public:
     void run();
 };
 
+}
 #endif // TIMER_H

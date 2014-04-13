@@ -1,6 +1,9 @@
 #include "thread.h"
 #include <stdio.h>
 
+
+namespace base {
+
 SThread::SThread()
 {
     running = false;
@@ -80,5 +83,4 @@ bool SThread::equal(SThread &th1)
     return pthread_equal(th,th1.getThreadID());
 }
 
-
-
+}

@@ -1,5 +1,7 @@
 #include "timer.h"
 
+namespace base {
+
 STimer::STimer()
 {
 }
@@ -37,3 +39,4 @@ void STimer::run()
         }
 }
 
+}

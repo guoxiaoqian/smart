@@ -5,6 +5,7 @@
 #include "base/kernel/env.h"
 #include "base/kernel/singleton.hpp"
 
+namespace base {
 
 enum LogType{LOG_ERROR,LOG_WARN,LOG_INFO};
 
@@ -42,6 +43,8 @@ public:
 class SGlobalLog:public SSingleton<SLog>
 {
 };
+
+}
 
 #endif // LOGGER_H
 

@@ -2,11 +2,11 @@
 #define PERIODTIMER_H
 
 #include "base/thread/timer.h"
-
-class PeriodTimer : public STimer
+namespace core{
+class PeriodTimer : public base::STimer
 {
 public:
     PeriodTimer();
 };
-
+}
 #endif // PERIODTIMER_H

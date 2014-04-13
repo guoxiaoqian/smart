@@ -1,7 +1,7 @@
 #include "RangeQueryThread.h"
 #include "core/request/RangeQueryRequest.h"
-#include "core/index/BxTree.h"
-#include "core/index/KeyGen.h"
+
+namespace core {
 
 RangeQueryThread::RangeQueryThread()
 {
@@ -22,4 +22,6 @@ ReturnType RangeQueryThread::handleRequest(Request *p_request)
     }
     else
         return RETURN_FAIL;
+}
+
 }

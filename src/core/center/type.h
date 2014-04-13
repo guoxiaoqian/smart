@@ -1,6 +1,8 @@
 #ifndef TYPE_H
 #define TYPE_H
 
+namespace core{
+
 typedef int CoorType;
 typedef int SpeedType;
 typedef int TimeType;
@@ -25,5 +27,7 @@ enum SignalType
     SIGNAL_START,
     SIGNAL_STOP
 };
+
+}//namespace core
 
 #endif // TYPE_H

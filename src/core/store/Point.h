@@ -2,7 +2,7 @@
 #define POINT_H
 
 #include "core/center/type.h"
-
+namespace core{
 class Point
 {
 public:
@@ -12,5 +12,5 @@ public:
     Point();
     Point(CoorType _coorX,CoorType _coorY);
 };
-
+}
 #endif // POINT_H

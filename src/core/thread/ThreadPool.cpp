@@ -4,8 +4,13 @@
 #include "core/thread/RangeQueryThread.h"
 #include "core/thread/AssignThread.h"
 #include "core/thread/UpdateThread.h"
+#include "core/index/DynamicIndex.h"
 #include "core/index/OnlineTuning.h"
 
+
+namespace core {
+
+using core::OnlineTuning;
 
 ThreadPool::ThreadPool()
 {
@@ -39,7 +44,7 @@ ThreadPool::~ThreadPool()
     }
 }
 
-void ThreadPool::init()
+void ThreadPool::init(Index* p_index)
 {
     Config* p_config = Config::getObject();
     AssignThread* p_assignThread = NULL;
@@ -56,7 +61,7 @@ void ThreadPool::init()
         p_handleThread = new UpdateThread();
         p_queue = new RequestQueue<Request*>();
         updateQueues.push_back(p_queue);
-        p_handleThread->init(i,p_queue);
+        p_handleThread->init(i,p_queue,p_index);
         updateThreads.push_back(p_handleThread);
     }
     if(p_config->queryType == QUERY_RANGE)
@@ -66,7 +71,7 @@ void ThreadPool::init()
             p_handleThread = new RangeQueryThread();
             p_queue = new RequestQueue<Request*>();
             queryQueues.push_back(p_queue);
-            p_handleThread->init(i,p_queue);
+            p_handleThread->init(i,p_queue,p_index);
             queryThreads.push_back(p_handleThread);
         }
     }
@@ -77,7 +82,7 @@ void ThreadPool::init()
             p_handleThread = new KNNQueryThread();
             p_queue = new RequestQueue<Request*>();
             queryQueues.push_back(p_queue);
-            p_handleThread->init(i,p_queue);
+            p_handleThread->init(i,p_queue,p_index);
             queryThreads.push_back(p_handleThread);
         }
     }
@@ -88,7 +93,9 @@ void ThreadPool::init()
     //周期到来时，先暂停所有处理线程，然后打印线程信息，然后调整索引，最后更新周期并唤醒所有线程
     p_periodTimer->addListener(HandleThread::pauseForPeriodCome);
     p_periodTimer->addListener(this,&ThreadPool::printThreadStatus);
-    p_periodTimer->addListener(OnlineTuning::getObject(),&OnlineTuning::tune);
+    //如果使用动态索引，需要调整索引
+    if(dynamic_cast<DynamicIndex*>(p_index))
+        p_periodTimer->addListener(OnlineTuning::getObject(),&OnlineTuning::tune);
     p_periodTimer->addListener(WorkThread::increasePeriod);
     p_periodTimer->addListener(HandleThread::onPeriodCome);
 
@@ -181,3 +188,4 @@ void ThreadPool::printThreadStatus()
     SInfo("period:%d queryDiscard:%d querySuccess:%d",WorkThread::period,sumOfDiscard,sumOfSuccess);
 }
 
+}

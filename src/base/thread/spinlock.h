@@ -7,6 +7,9 @@
 #include "base/3dparty/pthread_win/include/pthread.h"
 #endif
 
+namespace base {
+
+
 class SSpinLock
 {
 private:
@@ -19,4 +22,5 @@ public:
     int trylock(){return pthread_spin_trylock(&spin);}
 };
 
+}
 #endif // SPINLOCK_H

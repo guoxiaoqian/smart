@@ -9,11 +9,12 @@ using std::vector;
 #include "core/thread/PeriodTimer.h"
 #include "base/kernel/singleton.hpp"
 
-
+namespace core{
 class AssignThread;
 class HandleThread;
+class Index;
 
-class ThreadPool:public SSingleton<ThreadPool>
+class ThreadPool:public base::SSingleton<ThreadPool>
 {
 public:
     vector<AssignThread*> assignThreads;
@@ -26,11 +27,11 @@ public:
 public:
     ThreadPool();
     ~ThreadPool();
-    void init();
+    void init(Index *p_index);
     void startAll();
     void stopAll();
     void waitForAllOver();
     void printThreadStatus();
 };
-
+}
 #endif // THREADPOOL_H

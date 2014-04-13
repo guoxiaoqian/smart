@@ -1,6 +1,7 @@
 #include "KeyGen.h"
 #include "core/center/Config.h"
 
+namespace core{
 KeyGen::KeyGen()
 {
     p_table = 0;
@@ -23,9 +24,10 @@ KeyType KeyGen::getKey(CoorType coorX, CoorType coorY, TimeType tup)
     else                                     //属于[(2i+1)T,(2i+2)T)
         timeKey = 1;
 
-    Grid* p_grid = p_table->getGrid(coorX,coorY);
-    spaceKey = p_grid->gridID * Grid::maxCellNum + p_grid->getCellID(coorX,coorY);
+    Grid* p_grid = p_table->getReferencePoint(coorX,coorY)->getGrid();
+    spaceKey = p_grid->getSpaceKey(coorX,coorY);
 
-    return timeKey * (p_table->referencePoints.size() * Grid::maxCellNum) + spaceKey;
+    return timeKey * (p_table->getReferencePointNum() * Grid::maxCellNum) + spaceKey;
 
+}
 }

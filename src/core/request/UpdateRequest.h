@@ -3,6 +3,8 @@
 
 #include "Request.h"
 
+namespace core{
+
 class UpdateRequest : public Request
 {
 public:
@@ -16,5 +18,6 @@ public:
     friend istream& operator>>(istream& stream,UpdateRequest& req);
 };
 
+}
 
 #endif // UPDATEREQUEST_H

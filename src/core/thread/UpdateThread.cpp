@@ -1,8 +1,7 @@
 #include "UpdateThread.h"
 #include "core/request/UpdateRequest.h"
-#include "core/index/BxTree.h"
-#include "core/index/Histogram.h"
-#include "core/index/KeyGen.h"
+
+namespace core {
 
 UpdateThread::UpdateThread()
 {
@@ -25,3 +24,4 @@ ReturnType UpdateThread::handleRequest(Request *p_request)
         return RETURN_FAIL;
 }
 
+}

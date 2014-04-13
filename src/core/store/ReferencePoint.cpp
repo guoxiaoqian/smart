@@ -1,5 +1,8 @@
 #include "ReferencePoint.h"
 
+
+namespace core {
+
 int ReferencePoint::instanceCount = 0;
 
 ReferencePoint::ReferencePoint()
@@ -18,4 +21,6 @@ void ReferencePoint::init()
     CoorType ymax = 0;
 
     p_grid = new Grid(referencePointID,xmin,ymin,xmax,ymax);
+}
+
 }

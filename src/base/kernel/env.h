@@ -2,6 +2,8 @@
 #ifndef ENV_H
 #define ENV_H
 
+namespace base {
+
 /******system detection*******/
 #if defined(WIN64) || defined(_WIN64) || defined(__WIN64__)
 #   define S_OS_WIN64
@@ -40,4 +42,5 @@
 #define NDEBUG
 #endif
 
+}
 #endif

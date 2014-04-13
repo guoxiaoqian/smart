@@ -6,6 +6,8 @@ using std::vector;
 #include "base/thread/spinlock.h"
 #include "core/center/type.h"
 
+namespace core{
+
 template<class T>
 class QueueNode
 {
@@ -45,7 +47,7 @@ class RequestQueue
 private:
     QueueNode<T> *queue_head;
     QueueNode<T> *queue_end;
-    SSpinLock spin_lock;
+    base::SSpinLock spin_lock;
 public:
     RequestQueue()
     {
@@ -86,4 +88,5 @@ public:
      }
 };
 
+}
 #endif // REQUESTQUEUE_H

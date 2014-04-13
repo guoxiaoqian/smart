@@ -1,5 +1,8 @@
 #include "Cell.h"
 
+namespace core {
+
+
 Cell::Cell()
 {    
 }
@@ -23,4 +26,5 @@ void Cell::insertMoveObject(MoveObject &object)
 void Cell::deleteMoveObject(IDType objID)
 {
     //TODO:
+}
 }

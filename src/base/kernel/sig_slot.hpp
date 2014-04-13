@@ -6,6 +6,9 @@
 using namespace std;
 
 
+namespace base {
+
+
 template<class T, class... tParam>
 class SSlotBase
 {
@@ -115,4 +118,5 @@ private:
 #define SSLOT
 #define SEMIT
 
+}
 #endif // SIG_SLOT_H

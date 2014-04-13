@@ -3,6 +3,8 @@
 
 #include "Request.h"
 
+namespace core{
+
 class KNNQueryRequest : public Request
 {
 public:
@@ -18,4 +20,5 @@ public:
     friend istream& operator>>(istream& stream,KNNQueryRequest& req);
 };
 
+}
 #endif // KNNQUERYREQUEST_H

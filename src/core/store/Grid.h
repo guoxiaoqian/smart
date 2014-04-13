@@ -5,7 +5,7 @@
 #include "core/store/Cell.h"
 #include "base/3dparty/hilbert/include/hilbert.h"
 #include <vector>
-
+namespace core{
 class Grid:public Rect
 {
 public:
@@ -22,6 +22,7 @@ public:
     Cell* getCell(int row,int col);
     Cell* getCell(IDType cellID);
     IDType getCellID(CoorType coorX,CoorType coorY);
+    KeyType getSpaceKey(CoorType coorX, CoorType coorY);
 };
-
+}
 #endif // GRID_H

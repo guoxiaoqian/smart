@@ -2,7 +2,7 @@
 #define REFERENCEPOINT_H
 
 #include "core/store/Grid.h"
-
+namespace core{
 class ReferencePoint : public Point
 {
 private:
@@ -15,5 +15,5 @@ public:
     void init();
     Grid* getGrid(){return p_grid;}
 };
-
+}
 #endif // REFERENCEPOINT_H

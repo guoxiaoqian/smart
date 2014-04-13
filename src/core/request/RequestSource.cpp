@@ -8,6 +8,9 @@
 #include <algorithm>
 using namespace  std;
 
+
+namespace core {
+
 RequestSource::RequestSource()
 {
     updateMem = NULL;
@@ -101,4 +104,5 @@ void RequestSource::readFile(const char* fpath,T* p_request,int numOfRecords)
         }
         inf.close();
     }
+}
 }

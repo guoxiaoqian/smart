@@ -1,5 +1,8 @@
 #include "Rect.h"
 
+
+namespace core {
+
 Rect::Rect()
 {
 }
@@ -28,4 +31,6 @@ bool Rect::intersect(Rect &rect)
 bool Rect::cover(Point &point)
 {
     return !(point.coorX < minX || point.coorY < minY || point.coorX > maxX || point.coorY > maxY);
+}
+
 }

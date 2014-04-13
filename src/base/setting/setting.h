@@ -13,6 +13,9 @@
 #include <map>
 using namespace std;
 
+namespace base {
+
+
 enum SettingType{SETTING_XML,SETTING_INI};
 
 class SSetting
@@ -39,4 +42,5 @@ public:
     void print();
 };
 
+}
 #endif // SETTING_H

@@ -7,6 +7,9 @@
 #include "base/3dparty/pthread_win/include/pthread.h"
 #endif
 
+namespace base {
+
+
 class SRWLock
 {
 private:
@@ -22,4 +25,5 @@ public:
 
 };
 
+}
 #endif // RWLOCK_H

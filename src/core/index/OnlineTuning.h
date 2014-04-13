@@ -3,7 +3,9 @@
 
 #include "base/kernel/singleton.hpp"
 
-class OnlineTuning:public SSingleton<OnlineTuning>
+namespace core{
+
+class OnlineTuning:public base::SSingleton<OnlineTuning>
 {
 public:
     OnlineTuning();
@@ -12,4 +14,5 @@ public:
     void tune();
 };
 
+}
 #endif // ONLINETUNING_H

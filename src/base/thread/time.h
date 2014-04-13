@@ -9,6 +9,9 @@
 #   include <unistd.h>
 #endif
 
+namespace base {
+
+
 class STime
 {
 public:
@@ -77,4 +80,5 @@ public:
 
 };
 
+}
 #endif // TIME_H

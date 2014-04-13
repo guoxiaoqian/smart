@@ -6,14 +6,18 @@
 #include <vector>
 using namespace std;
 
-class ReferenceTable:public SSingleton<ReferenceTable>
+namespace core{
+
+class ReferenceTable:public base::SSingleton<ReferenceTable>
 {
 public:
     vector<ReferencePoint> referencePoints;
 public:
     ReferenceTable();
     void insertReferencePoint(ReferencePoint& point);
-    Grid* getGrid(CoorType coorX,CoorType coorY);
+    ReferencePoint* getReferencePoint(CoorType coorX,CoorType coorY);
+    unsigned int getReferencePointNum(){return referencePoints.size();}
 };
 
+}
 #endif // REFERENCETABLE_H

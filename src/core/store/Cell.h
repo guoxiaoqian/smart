@@ -6,7 +6,7 @@
 #include <list>
 using namespace std;
 
-
+namespace core{
 class Cell:public Rect
 {
 public:
@@ -19,5 +19,5 @@ public:
     void insertMoveObject(MoveObject& object);
     void deleteMoveObject(IDType objID);
 };
-
+}
 #endif // CELL_H

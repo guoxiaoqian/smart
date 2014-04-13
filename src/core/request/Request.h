@@ -4,6 +4,7 @@
 #include "core/center/type.h"
 #include "iostream"
 using std::istream;
+namespace core{
 
 class Request
 {
@@ -17,4 +18,5 @@ public:
     Request(RequestType _type,IDType _objID,TimeType _issueTime);
 };
 
+}
 #endif // REQUEST_H

@@ -31,6 +31,9 @@
 #include "base/kernel/global.h"
 #include "waitcond.h"
 
+namespace base {
+
+
 typedef pthread_t SThreadID;
 
 class SThread
@@ -64,4 +67,5 @@ public:
     virtual void run() = 0;
 };
 
+}
 #endif//THREAD_H

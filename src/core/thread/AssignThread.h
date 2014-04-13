@@ -7,8 +7,9 @@
 #include <vector>
 using std::vector;
 
-class SMutex;
-class SWaitCondation;
+namespace core{
+using base::SMutex;
+using base::SWaitCondation;
 class ThreadPool;
 class RequestSource;
 class Config;
@@ -29,13 +30,13 @@ private:
     vector<vector<Request*>*> updateResults;
     vector<vector<Request*>*> queryResults;
 public://信号
-    static SSignal<> requestReady;
-    static SSignal<> requestOver;
+    static base::SSignal<> requestReady;
+    static base::SSignal<> requestOver;
 public:
     AssignThread();
     ~AssignThread();
     void init(int _thID);
     void run();
 };
-
+}
 #endif // ASSIGNTHREAD_H

@@ -1,6 +1,8 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
 
+namespace base {
+
 template<class T>
 class SSingleton
 {
@@ -22,4 +24,5 @@ public:
 template<class T>
 T* SSingleton<T>::p_object = 0;
 
+}
 #endif // SINGLETON_H

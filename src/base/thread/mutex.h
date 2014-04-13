@@ -7,6 +7,9 @@
 #include "base/3dparty/pthread_win/include/pthread.h"
 #endif
 
+namespace base {
+
+
 typedef pthread_mutex_t MutexType;
 
 class SMutex
@@ -22,4 +25,5 @@ public:
     int trylock(){return pthread_mutex_trylock(&mu);}
 };
 
+}
 #endif // MUTEX_H

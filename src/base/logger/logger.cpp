@@ -3,6 +3,9 @@
 #include <time.h>
 
 
+
+namespace base {
+
 SLog::SLog()
 {
     logFile = fopen("log.txt","a+");
@@ -48,4 +51,6 @@ void SLog::printLog(LogType type, const char *file, int line, const char *format
     vfprintf(logFile,format, args);
     va_end(args);
     fprintf(logFile,"\n----------------------------------------\n");
+}
+
 }

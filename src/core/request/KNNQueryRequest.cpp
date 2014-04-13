@@ -1,5 +1,7 @@
 #include "KNNQueryRequest.h"
 
+namespace core {
+
 KNNQueryRequest::KNNQueryRequest()
 {
     type = REQUEST_KNN_QUERY;
@@ -15,4 +17,5 @@ istream& operator>>(istream& stream,KNNQueryRequest& req)
 {
     stream>>req.objID>>req.issueTime>>req.posX>>req.posY>>req.knnK>>req.preTime;
     return stream;
+}
 }

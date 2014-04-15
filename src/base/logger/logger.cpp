@@ -4,7 +4,7 @@
 
 
 
-namespace base {
+namespace smart {
 
 SLog::SLog()
 {

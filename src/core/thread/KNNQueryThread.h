@@ -3,7 +3,7 @@
 
 #include "core/thread/HandleThread.h"
 
-namespace core{
+namespace smart{
 
 class KNNQueryThread : public HandleThread
 {

@@ -6,9 +6,9 @@ using std::vector;
 #include "core/request/Request.h"
 #include "base/kernel/singleton.hpp"
 
-namespace core{
+namespace smart{
 
-class RequestSource:public base::SSingleton<RequestSource>
+class RequestSource:public SSingleton<RequestSource>
 {
 private:
     void* updateMem;

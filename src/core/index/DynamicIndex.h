@@ -4,7 +4,7 @@
 #include "core/index/Index.h"
 #include "base/kernel/singleton.hpp"
 
-namespace core {
+namespace smart {
 
 class Histogram;
 class KeyGen;
@@ -12,7 +12,7 @@ class OnlineTuning;
 class ReferenceTable;
 class ST2BTree;
 
-class DynamicIndex :public base::SSingleton<DynamicIndex>,public Index
+class DynamicIndex :public SSingleton<DynamicIndex>,public Index
 {
 public:
     Histogram* p_histogram;

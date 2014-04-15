@@ -6,7 +6,7 @@
 using namespace std;
 
 
-namespace base {
+namespace smart {
 
 
 template<class T, class... tParam>

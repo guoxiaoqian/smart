@@ -1,7 +1,7 @@
 #include "KNNQueryThread.h"
 #include "core/request/KNNQueryRequest.h"
 
-namespace core {
+namespace smart {
 
 KNNQueryThread::KNNQueryThread()
 {

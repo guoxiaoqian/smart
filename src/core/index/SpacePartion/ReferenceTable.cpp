@@ -1,21 +1,31 @@
 #include "ReferenceTable.h"
-#include "base/tool/Fun.h"
 #include <limits.h>
 
-namespace core {
+namespace smart {
 
 ReferenceTable::ReferenceTable()
 {
 }
 
-void ReferenceTable::insertReferencePoint(ReferencePoint &point)
+ReferenceTable::ReferenceTable(vector<Point> &points)
 {
-    referencePoints.push_back(point);
+    init(points);
 }
 
+void ReferenceTable::init(vector<Point> &points)
+{
+    //TODO:计算每个point的泰森多边形外接矩形，并初始化成refpoint,添加
+
+}
+
+void ReferenceTable::reinit(vector<Point> &points)
+{
+    referencePoints.clear();
+    init(points);
+}
 
 //根据坐标找到最近的参照点
-ReferencePoint* ReferenceTable::getReferencePoint(CoorType coorX, CoorType coorY)
+ReferencePoint* ReferenceTable::getReferencePoint(Point& point)
 {
     vector<ReferencePoint>::iterator it_tmp;
     vector<ReferencePoint>::iterator it_min;
@@ -23,7 +33,7 @@ ReferencePoint* ReferenceTable::getReferencePoint(CoorType coorX, CoorType coorY
     double tmpDistance;
     for(it_tmp = referencePoints.begin();it_tmp != referencePoints.end();++it_tmp)
     {
-        if((tmpDistance = base::Fun::getDistance(coorX,coorY,it_tmp->coorX,it_tmp->coorY)) < minDistance)
+        if((tmpDistance = point.getDistance(*it_tmp)) < minDistance)
         {
             minDistance = tmpDistance;
             it_min = it_tmp;

@@ -4,9 +4,9 @@
 #include "base/thread/thread.h"
 #include "core/center/type.h"
 
-namespace core{
+namespace smart{
 
-class WorkThread : public base::SThread
+class WorkThread : public SThread
 {
 public:
     int thID;

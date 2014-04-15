@@ -1,7 +1,7 @@
 #ifndef INDEX_H
 #define INDEX_H
 
-namespace core {
+namespace smart {
 
 class Index
 {

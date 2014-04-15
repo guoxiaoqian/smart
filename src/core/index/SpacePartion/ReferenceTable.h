@@ -6,16 +6,19 @@
 #include <vector>
 using namespace std;
 
-namespace core{
+namespace smart{
 
-class ReferenceTable:public base::SSingleton<ReferenceTable>
+class ReferenceTable:public SSingleton<ReferenceTable>
 {
 public:
     vector<ReferencePoint> referencePoints;
 public:
     ReferenceTable();
-    void insertReferencePoint(ReferencePoint& point);
-    ReferencePoint* getReferencePoint(CoorType coorX,CoorType coorY);
+    ReferenceTable(vector<Point>& points);
+    void init(vector<Point>& points);
+    void reinit(vector<Point>& points);
+    //求最近参考点
+    ReferencePoint* getReferencePoint(Point &point);
     unsigned int getReferencePointNum(){return referencePoints.size();}
 };
 

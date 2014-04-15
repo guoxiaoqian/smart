@@ -6,15 +6,15 @@
 #include "core/center/type.h"
 #include "base/logger/logger.h"
 
-namespace core{
+namespace smart{
 
 class ThreadPool;
 class Config;
 class Request;
 class UpdateRequest;
 class Index;
-using base::SMutex;
-using base::SWaitCondation;
+class SMutex;
+class SWaitCondation;
 
 class HandleThread : public WorkThread
 {

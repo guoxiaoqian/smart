@@ -1,6 +1,6 @@
 #include "Index.h"
 
-namespace core {
+namespace smart {
 
 Index::Index()
 {

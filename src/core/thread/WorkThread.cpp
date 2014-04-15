@@ -1,6 +1,6 @@
 #include "WorkThread.h"
 
-namespace core {
+namespace smart {
 
 
 PeriodType WorkThread::period = 0;

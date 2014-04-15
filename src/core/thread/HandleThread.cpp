@@ -6,7 +6,7 @@
 #include "base/thread/waitcond.h"
 #include "core/index/Index.h"
 
-namespace core {
+namespace smart {
 
 
 Config* HandleThread::p_config = NULL;

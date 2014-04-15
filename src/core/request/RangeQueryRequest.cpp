@@ -1,6 +1,6 @@
 #include "RangeQueryRequest.h"
 
-namespace core {
+namespace smart {
 
 
 RangeQueryRequest::RangeQueryRequest()

@@ -4,9 +4,9 @@
 #include "core/index/Index.h"
 #include "base/kernel/singleton.hpp"
 
-namespace core {
+namespace smart {
 
-class StaticIndex :public base::SSingleton<StaticIndex>,public Index
+class StaticIndex :public SSingleton<StaticIndex>,public Index
 {
 public:
     StaticIndex();

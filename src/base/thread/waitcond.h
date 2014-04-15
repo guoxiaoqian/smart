@@ -5,7 +5,7 @@
 #include "time.h"
 
 
-namespace base {
+namespace smart {
 
 class SWaitCondation
 {

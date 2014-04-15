@@ -1,7 +1,7 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
 
-namespace base {
+namespace smart {
 
 template<class T>
 class SSingleton

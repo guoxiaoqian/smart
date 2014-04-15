@@ -4,9 +4,9 @@
 #include "base/kernel/singleton.hpp"
 #include "core/index/ST2BTree/BPlus_tree.h"
 
-namespace core{
+namespace smart{
 
-class ST2BTree:public base::SSingleton<ST2BTree>,public CBPlusTree
+class ST2BTree:public SSingleton<ST2BTree>,public CBPlusTree
 {
 public:
     ST2BTree();

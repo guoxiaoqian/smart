@@ -2,7 +2,7 @@
 #ifndef ENV_H
 #define ENV_H
 
-namespace base {
+namespace smart {
 
 /******system detection*******/
 #if defined(WIN64) || defined(_WIN64) || defined(__WIN64__)

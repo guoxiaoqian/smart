@@ -1,26 +1,24 @@
 #include "ReferencePoint.h"
 
 
-namespace core {
-
-int ReferencePoint::instanceCount = 0;
+namespace smart {
 
 ReferencePoint::ReferencePoint()
 {
-    referencePointID = instanceCount;
+    referencePointID = -1;
     p_grid = 0;
-    ++instanceCount;
 }
 
-void ReferencePoint::init()
+void ReferencePoint::init(IDType id, Point &point, Rect& rect)
 {
-    //TODO:计算出grid的范围
-    CoorType xmin = 0;
-    CoorType ymin = 0;
-    CoorType xmax = 0;
-    CoorType ymax = 0;
+    referencePointID = id;
+    setPoint(point);
+    p_grid = new Grid(id,rect);
+}
 
-    p_grid = new Grid(referencePointID,xmin,ymin,xmax,ymax);
+bool ReferencePoint::isValid()
+{
+    return (referencePointID!=-1)&&p_grid;
 }
 
 }

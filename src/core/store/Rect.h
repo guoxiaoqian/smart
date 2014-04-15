@@ -3,7 +3,7 @@
 
 #include "core/store/Point.h"
 
-namespace core{
+namespace smart{
 
 class Rect
 {
@@ -15,11 +15,11 @@ public:
 public:
     Rect();
     Rect(CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
-    void setRange(CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
+    void setRange(Rect& rect);
     bool intersect(Rect & rect);
     bool cover(Point & point);
 };
 
-}//namespace core
+}//namespace smart
 
 #endif // RECT_H

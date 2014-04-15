@@ -6,7 +6,7 @@
 #include <list>
 using namespace std;
 
-namespace core{
+namespace smart{
 class Cell:public Rect
 {
 public:
@@ -14,8 +14,8 @@ public:
     list<MoveObject> moveObjects;
 public:
     Cell();
-    Cell(IDType _cellID,CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
-    void init(IDType _cellID,CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
+    Cell(IDType _cellID,Rect& rect);
+    void init(IDType _cellID,Rect& rect);
     void insertMoveObject(MoveObject& object);
     void deleteMoveObject(IDType objID);
 };

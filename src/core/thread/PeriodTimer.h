@@ -2,8 +2,8 @@
 #define PERIODTIMER_H
 
 #include "base/thread/timer.h"
-namespace core{
-class PeriodTimer : public base::STimer
+namespace smart{
+class PeriodTimer : public STimer
 {
 public:
     PeriodTimer();

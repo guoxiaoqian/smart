@@ -3,9 +3,9 @@
 
 #include "base/kernel/singleton.hpp"
 
-namespace core{
+namespace smart{
 
-class OnlineTuning:public base::SSingleton<OnlineTuning>
+class OnlineTuning:public SSingleton<OnlineTuning>
 {
 public:
     OnlineTuning();

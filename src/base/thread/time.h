@@ -9,7 +9,7 @@
 #   include <unistd.h>
 #endif
 
-namespace base {
+namespace smart {
 
 
 class STime

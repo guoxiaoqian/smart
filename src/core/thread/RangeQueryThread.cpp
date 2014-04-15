@@ -1,7 +1,7 @@
 #include "RangeQueryThread.h"
 #include "core/request/RangeQueryRequest.h"
 
-namespace core {
+namespace smart {
 
 RangeQueryThread::RangeQueryThread()
 {

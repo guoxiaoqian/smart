@@ -1,7 +1,7 @@
 #ifndef TYPE_H
 #define TYPE_H
 
-namespace core{
+namespace smart{
 
 typedef int CoorType;
 typedef int SpeedType;
@@ -28,6 +28,6 @@ enum SignalType
     SIGNAL_STOP
 };
 
-}//namespace core
+}//namespace smart
 
 #endif // TYPE_H

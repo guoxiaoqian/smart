@@ -1,6 +1,6 @@
 #include "StaticIndex.h"
 
-namespace core {
+namespace smart {
 
 StaticIndex::StaticIndex()
 {

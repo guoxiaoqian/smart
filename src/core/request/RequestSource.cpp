@@ -9,7 +9,7 @@
 using namespace  std;
 
 
-namespace core {
+namespace smart {
 
 RequestSource::RequestSource()
 {

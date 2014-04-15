@@ -1,6 +1,6 @@
 #include "timer.h"
 
-namespace base {
+namespace smart {
 
 STimer::STimer()
 {

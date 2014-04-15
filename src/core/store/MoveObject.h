@@ -2,7 +2,7 @@
 #define MOVEOBJECT_H
 
 #include "core/store/Point.h"
-namespace core{
+namespace smart{
 class MoveObject : public Point
 {
 public:

@@ -1,6 +1,6 @@
 ﻿#include "BPlus_node.h"
 
-namespace core {
+namespace smart {
 
 // CNode
 CNode::CNode(){

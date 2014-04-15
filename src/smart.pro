@@ -30,7 +30,6 @@ SOURCES += main.cpp \
     core/thread/RangeQueryThread.cpp \
     core/thread/KNNQueryThread.cpp \
     core/thread/AssignThread.cpp \
-    core/index/ReferenceTable.cpp \
     core/index/OnlineTuning.cpp \
     core/index/KeyGen.cpp \
     core/index/Histogram.cpp \
@@ -43,13 +42,16 @@ SOURCES += main.cpp \
     core/request/RequestSource.cpp \
     core/thread/HandleThread.cpp \
     core/thread/PeriodTimer.cpp \
-    base/tool/Fun.cpp \
     core/index/ST2BTree/ST2BTree.cpp \
     core/index/ST2BTree/BPlus_tree.cpp \
     core/index/ST2BTree/BPlus_node.cpp \
     core/index/Index.cpp \
     core/index/DynamicIndex.cpp \
-    core/index/StaticIndex.cpp
+    core/index/StaticIndex.cpp \
+    core/index/SpacePartion/ReferenceTable.cpp \
+    core/index/SpacePartion/DelaunayTriangle.cpp \
+    core/index/SpacePartion/VoronoiDiagram.cpp \
+
 
 
 HEADERS += \
@@ -81,7 +83,6 @@ HEADERS += \
     core/thread/RangeQueryThread.h \
     core/thread/KNNQueryThread.h \
     core/thread/AssignThread.h \
-    core/index/ReferenceTable.h \
     core/index/OnlineTuning.h \
     core/index/KeyGen.h \
     core/index/Histogram.h \
@@ -97,13 +98,16 @@ HEADERS += \
     base/kernel/singleton.hpp \
     base/thread/semaph.h \
     base/tool/rand.h \
-    base/tool/Fun.h \
     core/index/ST2BTree/ST2BTree.h \
     core/index/ST2BTree/BPlus_tree.h \
     core/index/ST2BTree/BPlus_node.h \
     core/index/Index.h \
     core/index/DynamicIndex.h \
-    core/index/StaticIndex.h
+    core/index/StaticIndex.h \
+    core/index/SpacePartion/ReferenceTable.h \
+    core/index/SpacePartion/DelaunayTriangle.h \
+    core/index/SpacePartion/VoronoiDiagram.h \
+
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \
                      "E:/smart/src/base/3dparty/pthread_win/include" \

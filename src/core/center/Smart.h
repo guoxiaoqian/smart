@@ -1,7 +1,7 @@
 #ifndef SMART_H
 #define SMART_H
 
-namespace core {
+namespace smart {
 
 class Config;
 class RequestSource;

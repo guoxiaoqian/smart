@@ -6,7 +6,7 @@ using namespace tinyxml2;
 #include <iostream>
 
 
-namespace base {
+namespace smart {
 
 SSetting::SSetting()
 {

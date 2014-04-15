@@ -9,12 +9,12 @@ using std::vector;
 #include "core/thread/PeriodTimer.h"
 #include "base/kernel/singleton.hpp"
 
-namespace core{
+namespace smart{
 class AssignThread;
 class HandleThread;
 class Index;
 
-class ThreadPool:public base::SSingleton<ThreadPool>
+class ThreadPool:public SSingleton<ThreadPool>
 {
 public:
     vector<AssignThread*> assignThreads;

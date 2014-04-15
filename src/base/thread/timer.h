@@ -23,7 +23,7 @@
 #include "base/thread/thread.h"
 #include "base/thread/time.h"
 
-namespace base {
+namespace smart {
 
 
 enum TimerType

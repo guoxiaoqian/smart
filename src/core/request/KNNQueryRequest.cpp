@@ -1,6 +1,6 @@
 #include "KNNQueryRequest.h"
 
-namespace core {
+namespace smart {
 
 KNNQueryRequest::KNNQueryRequest()
 {

@@ -2,10 +2,10 @@
 #include "core/index/Histogram.h"
 #include "core/index/KeyGen.h"
 #include "core/index/OnlineTuning.h"
-#include "core/index/ReferenceTable.h"
+#include "core/index/SpacePartion/ReferenceTable.h"
 #include "core/index/ST2BTree/ST2BTree.h"
 
-namespace core {
+namespace smart {
 
 DynamicIndex::DynamicIndex()
 {

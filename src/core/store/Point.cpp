@@ -1,7 +1,7 @@
 #include "Point.h"
+#include <math.h>
 
-
-namespace core {
+namespace smart {
 
 Point::Point()
 {
@@ -13,6 +13,18 @@ Point::Point(CoorType _coorX, CoorType _coorY)
 {
     coorX = _coorX;
     coorY = _coorY;
+}
+
+void Point::setPoint(Point &point)
+{
+    coorX = point.coorX;
+    coorY = point.coorY;
+}
+
+CoorType Point::getDistance(Point &point)
+{
+    return static_cast<CoorType>(sqrt((point.coorX - coorX)*(point.coorX - coorX) + \
+                (point.coorY - coorY)*(point.coorY - coorY)));
 }
 
 }

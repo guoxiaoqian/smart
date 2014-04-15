@@ -1,6 +1,6 @@
 #include "PeriodTimer.h"
 
-namespace core {
+namespace smart {
 
 PeriodTimer::PeriodTimer()
 {

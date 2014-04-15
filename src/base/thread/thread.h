@@ -31,7 +31,7 @@
 #include "base/kernel/global.h"
 #include "waitcond.h"
 
-namespace base {
+namespace smart {
 
 
 typedef pthread_t SThreadID;

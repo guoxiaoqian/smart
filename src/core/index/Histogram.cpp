@@ -1,7 +1,9 @@
 #include "Histogram.h"
 
-namespace core{
+namespace smart{
+
 Histogram::Histogram()
 {
 }
+
 }

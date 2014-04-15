@@ -1,7 +1,7 @@
 #include "OnlineTuning.h"
 #include "core/center/Config.h"
 
-namespace core{
+namespace smart{
 
 OnlineTuning::OnlineTuning()
 {

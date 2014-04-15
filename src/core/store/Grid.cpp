@@ -1,6 +1,6 @@
 #include "Grid.h"
 
-namespace core {
+namespace smart {
 
 
 int Grid::maxCellNum = 1024;
@@ -10,16 +10,16 @@ Grid::Grid()
 {
 }
 
-Grid::Grid(IDType _gridID,CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY,int row,int col):Rect(_minX,_minY,_maxX,_maxY)
+Grid::Grid(IDType _gridID, Rect &rect, int row, int col):Rect(rect)
 {
     gridID = _gridID;
     resizeCell(row,col);
 }
 
-void Grid::init(IDType _gridID,CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY, int row, int col)
+void Grid::init(IDType _gridID, Rect &rect, int row, int col)
 {
     gridID = _gridID;
-    setRange(_minX,_minY,_maxX,_maxY);
+    setRange(rect);
     resizeCell(row,col);
 }
 
@@ -47,7 +47,8 @@ void Grid::resizeCell(int row, int col)
     {
         for(j=0,it_col = it_row->begin();it_col!= it_row->end();++it_col,++j)
         {
-            it_col->init(i*colNum+j,tmpWidth,tmpWidth+cellWidth,tmpHeight,tmpHeight+cellHeight);
+            Rect rect(tmpWidth,tmpWidth+cellWidth,tmpHeight,tmpHeight+cellHeight);
+            it_col->init(i*colNum+j,rect);
             tmpWidth+=cellWidth;
         }
         tmpWidth = 0;
@@ -71,17 +72,17 @@ Cell* Grid::getCell(IDType cellID)
     return getCell(row,col);
 }
 
-IDType Grid::getCellID(CoorType coorX, CoorType coorY)
+IDType Grid::getCellID(Point &point)
 {
     //TODO:由位置得到希尔伯特编号
-    int row = (coorY - minY)/((maxY-minY)/rowNum);
-    int col = (coorX - minX)/((maxX-minX)/colNum);
+    int row = (point.coorY - minY)/((maxY-minY)/rowNum);
+    int col = (point.coorY - minX)/((maxX-minX)/colNum);
     return row*colNum+col;
 }
 
-KeyType Grid::getSpaceKey(CoorType coorX,CoorType coorY)
+KeyType Grid::getSpaceKey(Point& point)
 {
-    return gridID * maxCellNum + getCellID(coorX,coorY);
+    return gridID * maxCellNum + getCellID(point);
 }
 
 }

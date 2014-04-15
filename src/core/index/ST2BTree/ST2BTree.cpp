@@ -1,5 +1,5 @@
 ﻿#include "ST2BTree.h"
-namespace core{
+namespace smart{
 
 ST2BTree::ST2BTree()
 {

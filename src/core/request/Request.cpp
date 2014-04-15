@@ -1,6 +1,6 @@
 #include "Request.h"
 
-namespace core {
+namespace smart {
 
 
 Request::Request()

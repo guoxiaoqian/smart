@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-namespace core {
+namespace smart {
 
 enum COMPARE_OPERATOR{LT, LE, EQ, BE, BT, BETWEEN}; // 比较操作符：<、<=、=、>=、>、<>
 const int INVALID_INDEX = -1;

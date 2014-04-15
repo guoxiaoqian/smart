@@ -1,21 +1,21 @@
 #include "Cell.h"
 
-namespace core {
+namespace smart {
 
 
 Cell::Cell()
 {    
 }
 
-Cell::Cell(IDType _cellID, CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY):\
-    cellID(_cellID),Rect(_minX,_minY,_maxX,_maxY)
+Cell::Cell(IDType _cellID, Rect &rect):\
+    Rect(rect),cellID(_cellID)
 {
 }
 
-void Cell::init(IDType _cellID, CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY)
+void Cell::init(IDType _cellID, Rect &rect)
 {
     cellID = _cellID;
-    setRange(_minX,_minY,_maxX,_maxY);
+    setRange(rect);
 }
 
 void Cell::insertMoveObject(MoveObject &object)

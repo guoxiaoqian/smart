@@ -13,7 +13,7 @@
 #include <map>
 using namespace std;
 
-namespace base {
+namespace smart {
 
 
 enum SettingType{SETTING_XML,SETTING_INI};

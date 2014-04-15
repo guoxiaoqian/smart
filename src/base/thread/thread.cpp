@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-namespace base {
+namespace smart {
 
 SThread::SThread()
 {

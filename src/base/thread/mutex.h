@@ -7,7 +7,7 @@
 #include "base/3dparty/pthread_win/include/pthread.h"
 #endif
 
-namespace base {
+namespace smart {
 
 
 typedef pthread_mutex_t MutexType;

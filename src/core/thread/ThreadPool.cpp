@@ -8,9 +8,7 @@
 #include "core/index/OnlineTuning.h"
 
 
-namespace core {
-
-using core::OnlineTuning;
+namespace smart {
 
 ThreadPool::ThreadPool()
 {

@@ -1,6 +1,6 @@
 #include "MoveObject.h"
 
-namespace core {
+namespace smart {
 
 
 MoveObject::MoveObject()

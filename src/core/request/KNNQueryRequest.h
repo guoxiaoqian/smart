@@ -3,7 +3,7 @@
 
 #include "Request.h"
 
-namespace core{
+namespace smart{
 
 class KNNQueryRequest : public Request
 {

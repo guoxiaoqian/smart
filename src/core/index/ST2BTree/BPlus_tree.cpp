@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-namespace core {
+namespace smart {
 
 CBPlusTree::CBPlusTree(){
 	m_Root = NULL;

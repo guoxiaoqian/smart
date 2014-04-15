@@ -1,7 +1,7 @@
 #include <iostream>
 #include "core/center/Smart.h"
 using namespace std;
-using namespace core;
+using namespace smart;
 
 int main()
 {

@@ -1,7 +1,7 @@
 #include "Rect.h"
 
 
-namespace core {
+namespace smart {
 
 Rect::Rect()
 {
@@ -15,12 +15,12 @@ Rect::Rect(CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY)
     maxY = _maxY;
 }
 
-void Rect::setRange(CoorType _minX, CoorType _minY, CoorType _maxX, CoorType _maxY)
+void Rect::setRange(Rect &rect)
 {
-    minX = _minX;
-    minY = _minY;
-    maxX = _maxX;
-    maxY = _maxY;
+    minX = rect.minX;
+    minY = rect.minY;
+    maxX = rect.maxX;
+    maxY = rect.maxY;
 }
 
 bool Rect::intersect(Rect &rect)

@@ -5,7 +5,7 @@
 #include "base/kernel/env.h"
 #include "base/kernel/singleton.hpp"
 
-namespace base {
+namespace smart {
 
 enum LogType{LOG_ERROR,LOG_WARN,LOG_INFO};
 

@@ -4,7 +4,7 @@
 #include "core/center/type.h"
 #include "iostream"
 using std::istream;
-namespace core{
+namespace smart{
 
 class Request
 {

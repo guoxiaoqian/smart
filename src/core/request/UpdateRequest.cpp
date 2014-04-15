@@ -1,7 +1,7 @@
 #include "UpdateRequest.h"
 
 
-namespace core {
+namespace smart {
 
 UpdateRequest::UpdateRequest()
 {

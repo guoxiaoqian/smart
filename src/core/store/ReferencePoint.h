@@ -2,17 +2,16 @@
 #define REFERENCEPOINT_H
 
 #include "core/store/Grid.h"
-namespace core{
+namespace smart{
 class ReferencePoint : public Point
 {
-private:
-    static int instanceCount;
 public:
     IDType referencePointID;
     Grid * p_grid;
 public:
     ReferencePoint();
-    void init();
+    void init(IDType id,Point& point,Rect &rect);
+    bool isValid();
     Grid* getGrid(){return p_grid;}
 };
 }

@@ -1,7 +1,7 @@
 #include "UpdateThread.h"
 #include "core/request/UpdateRequest.h"
 
-namespace core {
+namespace smart {
 
 UpdateThread::UpdateThread()
 {

@@ -3,9 +3,9 @@
 
 #include "base/kernel/singleton.hpp"
 
-namespace core{
+namespace smart{
 
-class Histogram:public base::SSingleton<Histogram>
+class Histogram:public SSingleton<Histogram>
 {
 public:
     Histogram();

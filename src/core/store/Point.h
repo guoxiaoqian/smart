@@ -2,7 +2,7 @@
 #define POINT_H
 
 #include "core/center/type.h"
-namespace core{
+namespace smart{
 class Point
 {
 public:
@@ -11,6 +11,8 @@ public:
 public:
     Point();
     Point(CoorType _coorX,CoorType _coorY);
+    void setPoint(Point& point);
+    CoorType getDistance(Point& point);
 };
 }
 #endif // POINT_H

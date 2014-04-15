@@ -1,7 +1,8 @@
 #include "KeyGen.h"
 #include "core/center/Config.h"
 
-namespace core{
+namespace smart{
+
 KeyGen::KeyGen()
 {
     p_table = 0;
@@ -24,8 +25,9 @@ KeyType KeyGen::getKey(CoorType coorX, CoorType coorY, TimeType tup)
     else                                     //属于[(2i+1)T,(2i+2)T)
         timeKey = 1;
 
-    Grid* p_grid = p_table->getReferencePoint(coorX,coorY)->getGrid();
-    spaceKey = p_grid->getSpaceKey(coorX,coorY);
+    Point point(coorX,coorY);
+    Grid* p_grid = p_table->getReferencePoint(point)->getGrid();
+    spaceKey = p_grid->getSpaceKey(point);
 
     return timeKey * (p_table->getReferencePointNum() * Grid::maxCellNum) + spaceKey;
 

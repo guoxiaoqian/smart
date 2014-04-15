@@ -3,7 +3,7 @@
 
 #include "core/center/type.h"
 
-namespace core {
+namespace smart {
 
 #define NULL 0
 

@@ -4,7 +4,7 @@
 #include "core/request/RequestSource.h"
 #include "base/thread/waitcond.h"
 
-namespace core {
+namespace smart {
 
 SMutex AssignThread::mutex = SMutex();
 SWaitCondation AssignThread::allComplete = SWaitCondation();
@@ -12,8 +12,8 @@ RequestSource* AssignThread::p_requestSource = NULL;
 ThreadPool* AssignThread::p_threadPool = NULL;
 Config* AssignThread::p_config = NULL;
 int AssignThread::numOfComplete = 0;
-base::SSignal<> AssignThread::requestReady = base::SSignal<>();
-base::SSignal<> AssignThread::requestOver = base::SSignal<>();
+SSignal<> AssignThread::requestReady = SSignal<>();
+SSignal<> AssignThread::requestOver = SSignal<>();
 PeriodType AssignThread::curPeriod = 0;
 int AssignThread::numOfSynchTimes = 0;
 int AssignThread::countOfSynchTimes = 0;

@@ -4,7 +4,7 @@
 #include "core/thread/ThreadPool.h"
 #include "core/index/DynamicIndex.h"
 
-namespace core{
+namespace smart{
 
 Smart::Smart()
 {

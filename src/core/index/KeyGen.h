@@ -2,12 +2,12 @@
 #define KEYGEN_H
 
 #include "core/center/type.h"
-#include "core/index/ReferenceTable.h"
+#include "core/index/SpacePartion/ReferenceTable.h"
 #include "base/kernel/singleton.hpp"
 
-namespace core{
+namespace smart{
 
-class KeyGen:public base::SSingleton<KeyGen>
+class KeyGen:public SSingleton<KeyGen>
 {
 private:
     ReferenceTable* p_table;

@@ -3,7 +3,7 @@
 
 //职责：根据离散点集合生成一个三角网
 
-#include "core/store/ReferencePoint.h"
+#include "core/index/SpacePartition/ReferencePoint.h"
 #include <vector>
 #include <map>
 using std::vector;

@@ -15,14 +15,10 @@ ReferenceTable::ReferenceTable(vector<Point> &points)
 void ReferenceTable::init(vector<Point> &points)
 {
     //TODO:计算每个point的泰森多边形外接矩形，并初始化成refpoint,添加
-
-}
-
-void ReferenceTable::reinit(vector<Point> &points)
-{
     referencePoints.clear();
-    init(points);
+
 }
+
 
 //根据坐标找到最近的参照点
 ReferencePoint* ReferenceTable::getReferencePoint(Point& point)

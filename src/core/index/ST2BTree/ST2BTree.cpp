@@ -9,4 +9,8 @@ ST2BTree::~ST2BTree()
 {
 }
 
+void ST2BTree::init()
+{
+}
+
 }

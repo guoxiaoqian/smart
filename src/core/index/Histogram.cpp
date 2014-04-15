@@ -6,4 +6,8 @@ Histogram::Histogram()
 {
 }
 
+void Histogram::init()
+{
+}
+
 }

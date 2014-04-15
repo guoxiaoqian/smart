@@ -11,6 +11,7 @@ class ST2BTree:public SSingleton<ST2BTree>,public CBPlusTree
 public:
     ST2BTree();
     ~ST2BTree();
+    void init();
     //继承的B+树接口
 //  bool insert(KeyType key, const DataType& data);
 //	bool remove(KeyType key);

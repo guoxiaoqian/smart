@@ -33,7 +33,6 @@ SOURCES += main.cpp \
     core/index/OnlineTuning.cpp \
     core/index/KeyGen.cpp \
     core/index/Histogram.cpp \
-    core/store/ReferencePoint.cpp \
     core/store/Rect.cpp \
     core/store/Point.cpp \
     core/store/MoveObject.cpp \
@@ -48,9 +47,10 @@ SOURCES += main.cpp \
     core/index/Index.cpp \
     core/index/DynamicIndex.cpp \
     core/index/StaticIndex.cpp \
-    core/index/SpacePartion/ReferenceTable.cpp \
-    core/index/SpacePartion/DelaunayTriangle.cpp \
-    core/index/SpacePartion/VoronoiDiagram.cpp \
+    core/index/SpacePartition/VoronoiDiagram.cpp \
+    core/index/SpacePartition/ReferenceTable.cpp \
+    core/index/SpacePartition/ReferencePoint.cpp \
+    core/index/SpacePartition/DelaunayTriangle.cpp
 
 
 
@@ -86,7 +86,6 @@ HEADERS += \
     core/index/OnlineTuning.h \
     core/index/KeyGen.h \
     core/index/Histogram.h \
-    core/store/ReferencePoint.h \
     core/store/Rect.h \
     core/store/Point.h \
     core/store/MoveObject.h \
@@ -104,9 +103,11 @@ HEADERS += \
     core/index/Index.h \
     core/index/DynamicIndex.h \
     core/index/StaticIndex.h \
-    core/index/SpacePartion/ReferenceTable.h \
-    core/index/SpacePartion/DelaunayTriangle.h \
-    core/index/SpacePartion/VoronoiDiagram.h \
+    core/index/SpacePartition/VoronoiDiagram.h \
+    core/index/SpacePartition/ReferenceTable.h \
+    core/index/SpacePartition/ReferencePoint.h \
+    core/index/SpacePartition/DelaunayTriangle.h
+
 
 
 win32:INCLUDEPATH += "E:/smart/src/base/3dparty/libevent2/include" \

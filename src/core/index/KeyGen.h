@@ -2,7 +2,7 @@
 #define KEYGEN_H
 
 #include "core/center/type.h"
-#include "core/index/SpacePartion/ReferenceTable.h"
+#include "core/index/SpacePartition/ReferenceTable.h"
 #include "base/kernel/singleton.hpp"
 
 namespace smart{
@@ -14,8 +14,9 @@ private:
     TimeType periodLen;
 public:
     KeyGen();
-    void init();
-    KeyType getKey(CoorType coorX,CoorType coorY,TimeType tup);
+    void init(ReferenceTable *_p_table);
+    void setReferenceTable(ReferenceTable *_p_table);
+    KeyType getKey(Point point, TimeType tup);
 };
 
 }

@@ -3,7 +3,7 @@
 
 //职责：根据三角形网生成泰森多边形
 
-#include "core/index/SpacePartion/DelaunayTriangle.h"
+#include "core/index/SpacePartition/DelaunayTriangle.h"
 #include "core/store/Rect.h"
 #include <map>
 

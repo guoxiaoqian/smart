@@ -93,7 +93,7 @@ void ThreadPool::init(Index* p_index)
     p_periodTimer->addListener(this,&ThreadPool::printThreadStatus);
     //如果使用动态索引，需要调整索引
     if(dynamic_cast<DynamicIndex*>(p_index))
-        p_periodTimer->addListener(OnlineTuning::getObject(),&OnlineTuning::tune);
+        p_periodTimer->addListener(dynamic_cast<DynamicIndex*>(p_index),&DynamicIndex::tune);
     p_periodTimer->addListener(WorkThread::increasePeriod);
     p_periodTimer->addListener(HandleThread::onPeriodCome);
 

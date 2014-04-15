@@ -9,14 +9,14 @@ KeyGen::KeyGen()
     periodLen = 0;
 }
 
-void KeyGen::init()
+void KeyGen::init(ReferenceTable* _p_table)
 {
+    p_table = _p_table;
     Config* p_config = Config::getObject();
     periodLen = p_config->maxUpdateTime;
-    p_table = ReferenceTable::getObject();
 }
 
-KeyType KeyGen::getKey(CoorType coorX, CoorType coorY, TimeType tup)
+KeyType KeyGen::getKey(Point point, TimeType tup)
 {
     KeyType timeKey;
     KeyType spaceKey;
@@ -25,11 +25,15 @@ KeyType KeyGen::getKey(CoorType coorX, CoorType coorY, TimeType tup)
     else                                     //属于[(2i+1)T,(2i+2)T)
         timeKey = 1;
 
-    Point point(coorX,coorY);
     Grid* p_grid = p_table->getReferencePoint(point)->getGrid();
     spaceKey = p_grid->getSpaceKey(point);
 
     return timeKey * (p_table->getReferencePointNum() * Grid::maxCellNum) + spaceKey;
 
+}
+
+void KeyGen::setReferenceTable(ReferenceTable *_p_table)
+{
+    p_table = _p_table;
 }
 }

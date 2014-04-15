@@ -9,16 +9,16 @@ Point::Point()
     coorY = 0;
 }
 
-Point::Point(CoorType _coorX, CoorType _coorY)
-{
-    coorX = _coorX;
-    coorY = _coorY;
-}
-
 void Point::setPoint(Point &point)
 {
     coorX = point.coorX;
     coorY = point.coorY;
+}
+
+void Point::setPoint(CoorType _coorX, CoorType _coorY)
+{
+    coorX = _coorX;
+    coorY = _coorY;
 }
 
 CoorType Point::getDistance(Point &point)

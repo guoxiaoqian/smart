@@ -9,6 +9,7 @@ class Histogram:public SSingleton<Histogram>
 {
 public:
     Histogram();
+    void init();
 };
 
 }

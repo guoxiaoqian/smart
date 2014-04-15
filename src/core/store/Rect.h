@@ -18,6 +18,8 @@ public:
     void setRange(Rect& rect);
     bool intersect(Rect & rect);
     bool cover(Point & point);
+    CoorType getWidth(){return maxX - minX;}
+    CoorType getHeight(){return maxY - minY;}
 };
 
 }//namespace smart

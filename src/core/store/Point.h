@@ -10,8 +10,9 @@ public:
     CoorType coorY;
 public:
     Point();
-    Point(CoorType _coorX,CoorType _coorY);
+    Point(CoorType _coorX,CoorType _coorY):coorX(_coorX),coorY(_coorY){}
     void setPoint(Point& point);
+    void setPoint(CoorType _coorX,CoorType _coorY);
     CoorType getDistance(Point& point);
 };
 }

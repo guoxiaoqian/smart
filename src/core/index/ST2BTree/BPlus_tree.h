@@ -24,7 +24,7 @@ public:
 	bool remove(KeyType key);
 	bool update(KeyType oldKey, KeyType newKey);
 	// 定值查询，compareOperator可以是LT(<)、LE(<=)、EQ(=)、BE(>=)、BT(>)
-    vector<DataType> select(KeyType compareKey, COMPARE_OPERATOR compareOpeartor);
+    vector<DataType> select(KeyType compareKey, COMPARE_OPERATOR compareOpeartor = EQ);
 	// 范围查询，BETWEEN
 	vector<DataType> select(KeyType smallKey, KeyType largeKey);
 	bool search(KeyType key); // 查找是否存在

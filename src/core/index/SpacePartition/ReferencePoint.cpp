@@ -40,6 +40,7 @@ bool ReferencePoint::initGrid()
 
     Rect rect(minX,minY,maxX,maxY);
     p_grid = new Grid(referencePointID,rect);
+    return true;
 }
 
 }

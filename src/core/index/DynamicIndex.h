@@ -9,19 +9,17 @@ namespace smart {
 class Histogram;
 class KeyGen;
 class OnlineTuning;
-class ReferenceTable;
+class ReferenceTables;
 class ST2BTree;
 class Config;
 
 class DynamicIndex :public SSingleton<DynamicIndex>,public Index
 {
-private:
-    int period;
 public:
     Histogram* p_histogram;
     KeyGen* p_keyGen;
     OnlineTuning* p_onlineTuning;
-    ReferenceTable* p_referenceTable[2];
+    ReferenceTables* p_referenceTables;
     ST2BTree* p_st2btree;
     Config* p_config;
 public:

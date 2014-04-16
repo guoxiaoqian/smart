@@ -10,4 +10,8 @@ void Histogram::init()
 {
 }
 
+vector<Point> Histogram::getReferencePoints()
+{
+}
+
 }

@@ -10,12 +10,11 @@ namespace smart{
 class KeyGen:public SSingleton<KeyGen>
 {
 private:
-    ReferenceTable* p_table;
+    ReferenceTables* p_tables;
     TimeType periodLen;
 public:
     KeyGen();
-    void init(ReferenceTable *_p_table);
-    void setReferenceTable(ReferenceTable *_p_table);
+    void init();
     KeyType getKey(Point point, TimeType tup);
 };
 

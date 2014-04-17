@@ -1,6 +1,8 @@
 #ifndef REFERENCETABLE_H
 #define REFERENCETABLE_H
 
+//职责：存储并管理参考点集
+
 #include "core/index/SpacePartition/ReferencePoint.h"
 #include "base/kernel/singleton.hpp"
 #include <vector>
@@ -13,11 +15,11 @@ class ReferenceTable
 public:
     vector<ReferencePoint> referencePoints;
     bool valid;
+    void initGrids();
 public:
     ReferenceTable();
-    ReferenceTable(vector<Point>& points);
-    void init(vector<Point>& points);
-    void reset(vector<Point>& points);
+    void init();
+    void reset(vector<ReferencePoint>& points);
     //求最近参考点
     ReferencePoint* getReferencePoint(Point &point);
     unsigned int getReferencePointNum(){return referencePoints.size();}
@@ -33,8 +35,9 @@ public:
 
     ReferenceTables();
     ~ReferenceTables();
-    void init(vector<Point> &points);
-    void updateTable(vector<Point> &points);
+    void init();
+    void switchTable();
+    void updateTable(vector<ReferencePoint> &points);
     ReferenceTable* getNewTable(){return p_newTable;}
     ReferenceTable* getOldTable(){return p_oldTable;}
 };

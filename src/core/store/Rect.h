@@ -22,6 +22,12 @@ public:
     CoorType getHeight(){return maxY - minY;}
 };
 
+class Square:public Rect
+{
+public:
+    Square(Rect& rect);
+};
+
 }//namespace smart
 
 #endif // RECT_H

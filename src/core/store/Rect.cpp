@@ -33,4 +33,30 @@ bool Rect::cover(Point &point)
     return !(point.coorX < minX || point.coorY < minY || point.coorX > maxX || point.coorY > maxY);
 }
 
+Square::Square(Rect &rect)
+{
+    CoorType width = rect.getWidth();
+    CoorType height = rect.getHeight();
+    if(width > height)
+    {
+        CoorType extra = (width - height)/2;
+        minY = rect.minY - extra;
+        maxY = rect.maxY + extra;
+        minX = rect.minX;
+        maxX = rect.maxX;
+    }
+    else if(width < height)
+    {
+        CoorType extra = (height - width)/2;
+        minX = rect.minX - extra;
+        maxX = rect.maxX + extra;
+        minY = rect.minY;
+        maxY = rect.maxY;
+    }
+    else
+    {
+        setRange(rect);
+    }
+}
+
 }

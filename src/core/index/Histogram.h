@@ -1,8 +1,10 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
+//职责：求新的参考点集合的位置和密度
+
 #include "base/kernel/singleton.hpp"
-#include "core/store/Point.h"
+#include "core/index/SpacePartition/ReferencePoint.h"
 #include <vector>
 using std::vector;
 
@@ -13,7 +15,7 @@ class Histogram:public SSingleton<Histogram>
 public:
     Histogram();
     void init();
-    vector<Point> getReferencePoints();
+    vector<ReferencePoint> getReferencePoints();
 };
 
 }

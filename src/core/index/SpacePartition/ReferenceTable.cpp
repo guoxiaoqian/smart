@@ -1,29 +1,52 @@
 #include "ReferenceTable.h"
+#include "core/center/Config.h"
+#include "core/index/SpacePartition/VoronoiDiagram.h"
 #include <limits.h>
 
 namespace smart {
+
+void ReferenceTable::initGrids()
+{
+    //TODO:计算每个refpoint的泰森多边形外接矩形，并初始化其Grid
+    VoronoiDiagram::genDiagram(referencePoints);
+    for(vector<ReferencePoint>::iterator it = referencePoints.begin();it!= referencePoints.end();++it)
+    {
+        it->initGrid();
+    }
+}
 
 ReferenceTable::ReferenceTable()
 {
     valid = false;
 }
 
-ReferenceTable::ReferenceTable(vector<Point> &points)
+void ReferenceTable::init()
 {
-    init(points);
-}
-
-void ReferenceTable::init(vector<Point> &points)
-{
-    //TODO:计算每个point的泰森多边形外接矩形，并初始化成refpoint,添加
-
     valid = true;
+
+    Config* p_config = Config::getObject();
+    CoorType minX = p_config->minCoorX;
+    CoorType minY = p_config->minCoorY;
+    CoorType maxX = p_config->maxCoorX;
+    CoorType maxY = p_config->maxCoorY;
+    //预设4个参考点，将整个空间四均分
+    Point point(minX+(maxX-minX)/4,maxY-(maxY-minY)/4);
+    referencePoints.push_back(ReferencePoint(0,point));
+    point.setPoint(maxX-(maxX-minX)/4,maxY-(maxY-minY)/4);
+    referencePoints.push_back(ReferencePoint(1,point));
+    point.setPoint(minX+(maxX-minX)/4,minY+(maxY-minY)/4);
+    referencePoints.push_back(ReferencePoint(2,point));
+    point.setPoint(maxX-(maxX-minX)/4,minY+(maxY-minY)/4);
+    referencePoints.push_back(ReferencePoint(3,point));
+
+    initGrids();
 }
 
-void ReferenceTable::reset(vector<Point> &points)
+void ReferenceTable::reset(vector<ReferencePoint> &points)
 {
-    clear();
-    init(points);
+    referencePoints = points;
+
+    initGrids();
 }
 
 
@@ -57,18 +80,22 @@ ReferenceTables::~ReferenceTables()
     delete p_newTable;
 }
 
-void ReferenceTables::init(vector<Point>& points)
+void ReferenceTables::init()
 {
     p_oldTable = new ReferenceTable();
     p_newTable = new ReferenceTable();
-    p_newTable->init(points);
+    p_newTable->init();
 }
 
-void ReferenceTables::updateTable(vector<Point> &points)
+void ReferenceTables::switchTable()
 {
     ReferenceTable* tempTable = p_oldTable;
     p_oldTable = p_newTable;
     p_newTable = tempTable;
+}
+
+void ReferenceTables::updateTable(vector<ReferencePoint> &points)
+{
     p_newTable->reset(points);
 }
 

@@ -11,7 +11,6 @@ class KeyGen;
 class OnlineTuning;
 class ReferenceTables;
 class ST2BTree;
-class Config;
 
 class DynamicIndex :public SSingleton<DynamicIndex>,public Index
 {
@@ -21,12 +20,13 @@ public:
     OnlineTuning* p_onlineTuning;
     ReferenceTables* p_referenceTables;
     ST2BTree* p_st2btree;
-    Config* p_config;
 public:
     DynamicIndex();
     ~DynamicIndex();
     void init();
-    void tune();
+    void update(UpdateRequest *p_update);
+    void query(RangeQueryRequest *p_range);
+    void query(KNNQueryRequest *p_range);
 };
 
 }

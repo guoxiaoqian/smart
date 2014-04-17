@@ -33,7 +33,7 @@ class DelaunayTriangle
 {
 public:
     DelaunayTriangle();
-    void genTriangleNet(vector<Vertex>& vertexs);
+    static void genTriangleNet(vector<Vertex>& vertexs);
 };
 
 }

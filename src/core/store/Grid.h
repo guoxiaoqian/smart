@@ -16,6 +16,7 @@ public:
     vector<vector<Cell> > cells;
 public:
     Grid();
+    Grid(IDType _gridID, Rect &rect, float densty);
     Grid(IDType _gridID,Rect& rect,int row = 10,int col = 10);
     void init(IDType _gridID,Rect& rect,int row = 10,int col = 10);
     void resizeCell(int row,int col);

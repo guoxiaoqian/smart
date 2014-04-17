@@ -2,6 +2,7 @@
 
 namespace smart {
 
+int Cell::maxObjectNum = 256;
 
 Cell::Cell()
 {    

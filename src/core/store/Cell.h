@@ -7,9 +7,11 @@
 using namespace std;
 
 namespace smart{
+
 class Cell:public Rect
 {
 public:
+    static int maxObjectNum;
     IDType cellID;
     list<MoveObject> moveObjects;
 public:

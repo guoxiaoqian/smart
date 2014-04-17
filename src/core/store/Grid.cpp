@@ -1,18 +1,26 @@
 #include "Grid.h"
+#include <math.h>
 
 namespace smart {
 
 
 int Grid::maxCellNum = 1024;
 
-
 Grid::Grid()
 {
 }
 
-Grid::Grid(IDType _gridID, Rect &rect, int row, int col):Rect(rect)
+Grid::Grid(IDType _gridID, Rect &rect, float densty):Rect(rect),gridID(_gridID)
 {
-    gridID = _gridID;
+    //预设每个Cell对象数为256最合适
+    CoorType cellWidth = static_cast<CoorType>(sqrt(Cell::maxObjectNum/densty));
+    int col = getWidth() / cellWidth;
+    int row = getHeight() / cellWidth;
+    resizeCell(row,col);
+}
+
+Grid::Grid(IDType _gridID, Rect &rect, int row, int col):Rect(rect),gridID(_gridID)
+{
     resizeCell(row,col);
 }
 
@@ -36,8 +44,8 @@ void Grid::resizeCell(int row, int col)
     for(int i=0;i<rowNum;++i)
         cells.push_back(tmpCell);
 
-    int cellWidth = (maxX-minX)/colNum;
-    int cellHeight = (maxY - minY)/rowNum;
+    int cellWidth = getWidth()/colNum;
+    int cellHeight = getHeight()/rowNum;
     int tmpWidth = 0;
     int tmpHeight = 0;
     vector<vector<Cell> >::iterator it_row;

@@ -7,7 +7,12 @@ namespace smart {
 ReferencePoint::ReferencePoint()
 {
     referencePointID = -1;
+    densty = -1;
     p_grid = 0;
+}
+
+ReferencePoint::ReferencePoint(IDType id, Point &point):Point(point),referencePointID(id)
+{
 }
 
 void ReferencePoint::init(IDType id, Point &point)
@@ -39,7 +44,11 @@ bool ReferencePoint::initGrid()
     CoorType maxY = voronoiCell[vertexNum-1].coorY;
 
     Rect rect(minX,minY,maxX,maxY);
-    p_grid = new Grid(referencePointID,rect);
+    //由密度（每平方单位对象数）决定格网粒度
+    if(densty > 0)
+        p_grid = new Grid(referencePointID,rect,densty);
+    else
+        p_grid = new Grid(referencePointID,rect);
     return true;
 }
 

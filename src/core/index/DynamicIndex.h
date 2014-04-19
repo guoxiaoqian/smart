@@ -24,9 +24,9 @@ public:
     DynamicIndex();
     ~DynamicIndex();
     void init();
-    void update(UpdateRequest *p_update);
-    void query(RangeQueryRequest *p_range);
-    void query(KNNQueryRequest *p_range);
+    ReturnType update(UpdateRequest *p_update);
+    ReturnType query(RangeQueryRequest *p_range);
+    ReturnType query(KNNQueryRequest *p_range);
 };
 
 }

@@ -24,7 +24,14 @@ void Point::setPoint(CoorType _coorX, CoorType _coorY)
 CoorType Point::getDistance(Point &point)
 {
     return static_cast<CoorType>(sqrt((point.coorX - coorX)*(point.coorX - coorX) + \
-                (point.coorY - coorY)*(point.coorY - coorY)));
+                                      (point.coorY - coorY)*(point.coorY - coorY)));
+}
+
+Point &Point::operator +(Point &point)
+{
+    coorX+=point.coorX;
+    coorY+=point.coorY;
+    return *this;
 }
 
 }

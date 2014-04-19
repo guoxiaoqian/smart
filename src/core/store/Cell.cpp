@@ -2,8 +2,6 @@
 
 namespace smart {
 
-int Cell::maxObjectNum = 256;
-
 Cell::Cell()
 {    
 }
@@ -19,13 +17,4 @@ void Cell::init(IDType _cellID, Rect &rect)
     setRange(rect);
 }
 
-void Cell::insertMoveObject(MoveObject &object)
-{
-    moveObjects.push_back(object);
-}
-
-void Cell::deleteMoveObject(IDType objID)
-{
-    //TODO:
-}
 }

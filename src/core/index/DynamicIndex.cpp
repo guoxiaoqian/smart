@@ -1,5 +1,5 @@
 #include "DynamicIndex.h"
-#include "core/index/Histogram.h"
+#include "core/index/SpacePartition/Histogram.h"
 #include "core/index/KeyGen.h"
 #include "core/index/OnlineTuning.h"
 #include "core/index/SpacePartition/ReferenceTable.h"
@@ -35,15 +35,15 @@ void DynamicIndex::init()
     p_onlineTuning->init();
 }
 
-void DynamicIndex::update(UpdateRequest *p_update)
+ReturnType DynamicIndex::update(UpdateRequest *p_update)
 {
 }
 
-void DynamicIndex::query(RangeQueryRequest *p_range)
+ReturnType DynamicIndex::query(RangeQueryRequest *p_range)
 {
 }
 
-void DynamicIndex::query(KNNQueryRequest *p_range)
+ReturnType DynamicIndex::query(KNNQueryRequest *p_range)
 {
 }
 

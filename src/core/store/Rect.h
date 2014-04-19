@@ -20,6 +20,7 @@ public:
     bool cover(Point & point);
     CoorType getWidth(){return maxX - minX;}
     CoorType getHeight(){return maxY - minY;}
+    CoorType getArea(){return (maxX-minX)*(maxY-minY);}
 };
 
 class Square:public Rect

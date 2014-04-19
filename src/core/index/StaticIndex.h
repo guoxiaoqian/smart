@@ -11,6 +11,9 @@ class StaticIndex :public SSingleton<StaticIndex>,public Index
 public:
     StaticIndex();
     void init();
+    ReturnType update(UpdateRequest *p_update);
+    ReturnType query(RangeQueryRequest *p_range);
+    ReturnType query(KNNQueryRequest *p_range);
 };
 
 }

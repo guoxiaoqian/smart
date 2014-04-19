@@ -2,24 +2,19 @@
 #define CELL_H
 
 #include "core/store/Rect.h"
-#include "core/store/MoveObject.h"
-#include <list>
-using namespace std;
 
 namespace smart{
 
 class Cell:public Rect
 {
 public:
-    static int maxObjectNum;
     IDType cellID;
-    list<MoveObject> moveObjects;
 public:
     Cell();
     Cell(IDType _cellID,Rect& rect);
     void init(IDType _cellID,Rect& rect);
-    void insertMoveObject(MoveObject& object);
-    void deleteMoveObject(IDType objID);
+    IDType getID(){return cellID;}
+    virtual void clear(){}
 };
 }
 #endif // CELL_H

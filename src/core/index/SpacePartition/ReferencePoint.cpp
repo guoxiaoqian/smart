@@ -11,6 +11,11 @@ ReferencePoint::ReferencePoint()
     p_grid = 0;
 }
 
+ReferencePoint::~ReferencePoint()
+{
+    delete p_grid;
+}
+
 ReferencePoint::ReferencePoint(IDType id, Point &point):Point(point),referencePointID(id)
 {
 }
@@ -46,9 +51,16 @@ bool ReferencePoint::initGrid()
     Rect rect(minX,minY,maxX,maxY);
     //由密度（每平方单位对象数）决定格网粒度
     if(densty > 0)
-        p_grid = new Grid(referencePointID,rect,densty);
+    {
+        CoorType cellWidth = static_cast<CoorType>(sqrt(ObjectCell::maxObjectNum/densty));
+        int col = rect.getWidth() / cellWidth;
+        int row = rect.getHeight() / cellWidth;
+        p_grid = new Grid<ObjectCell>(referencePointID,rect,row,col);
+    }
     else
-        p_grid = new Grid(referencePointID,rect);
+    {
+        p_grid = new Grid<ObjectCell>(referencePointID,rect);
+    }
     return true;
 }
 

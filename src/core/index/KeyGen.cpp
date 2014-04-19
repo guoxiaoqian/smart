@@ -27,10 +27,10 @@ KeyType KeyGen::getKey(Point point, TimeType tup)
     else                                     //属于[(2i+1)T,(2i+2)T)
         timeKey = 1;
 
-    Grid* p_grid = p_table->getReferencePoint(point)->getGrid();
+    Grid<ObjectCell>* p_grid = p_table->getReferencePoint(point)->getGrid();
     spaceKey = p_grid->getSpaceKey(point);
 
-    return timeKey * (p_table->getReferencePointNum() * Grid::maxCellNum) + spaceKey;
+    return timeKey * (p_table->getReferencePointNum() * Grid<ObjectCell>::maxCellNum) + spaceKey;
 
 }
 

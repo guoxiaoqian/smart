@@ -32,11 +32,9 @@ SOURCES += main.cpp \
     core/thread/AssignThread.cpp \
     core/index/OnlineTuning.cpp \
     core/index/KeyGen.cpp \
-    core/index/Histogram.cpp \
     core/store/Rect.cpp \
     core/store/Point.cpp \
     core/store/MoveObject.cpp \
-    core/store/Grid.cpp \
     core/store/Cell.cpp \
     core/request/RequestSource.cpp \
     core/thread/HandleThread.cpp \
@@ -50,7 +48,11 @@ SOURCES += main.cpp \
     core/index/SpacePartition/VoronoiDiagram.cpp \
     core/index/SpacePartition/ReferenceTable.cpp \
     core/index/SpacePartition/ReferencePoint.cpp \
-    core/index/SpacePartition/DelaunayTriangle.cpp
+    core/index/SpacePartition/DelaunayTriangle.cpp \
+    core/index/SpacePartition/Histogram.cpp \
+    core/store/ObjectCell.cpp \
+    core/index/SpacePartition/HistoCell.cpp \
+    core/index/SpacePartition/DenstyRegion.cpp
 
 
 
@@ -85,7 +87,6 @@ HEADERS += \
     core/thread/AssignThread.h \
     core/index/OnlineTuning.h \
     core/index/KeyGen.h \
-    core/index/Histogram.h \
     core/store/Rect.h \
     core/store/Point.h \
     core/store/MoveObject.h \
@@ -106,7 +107,11 @@ HEADERS += \
     core/index/SpacePartition/VoronoiDiagram.h \
     core/index/SpacePartition/ReferenceTable.h \
     core/index/SpacePartition/ReferencePoint.h \
-    core/index/SpacePartition/DelaunayTriangle.h
+    core/index/SpacePartition/DelaunayTriangle.h \
+    core/index/SpacePartition/Histogram.h \
+    core/store/ObjectCell.h \
+    core/index/SpacePartition/HistoCell.h \
+    core/index/SpacePartition/DenstyRegion.h
 
 
 

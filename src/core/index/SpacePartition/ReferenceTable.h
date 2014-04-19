@@ -22,6 +22,7 @@ public:
     void reset(vector<ReferencePoint>& points);
     //求最近参考点
     ReferencePoint* getReferencePoint(Point &point);
+    vector<ReferencePoint>& getReferencePoints(){return referencePoints;}
     unsigned int getReferencePointNum(){return referencePoints.size();}
     bool isValid(){return valid;}
     void clear(){referencePoints.clear();}
@@ -36,7 +37,6 @@ public:
     ReferenceTables();
     ~ReferenceTables();
     void init();
-    void switchTable();
     void updateTable(vector<ReferencePoint> &points);
     ReferenceTable* getNewTable(){return p_newTable;}
     ReferenceTable* getOldTable(){return p_oldTable;}

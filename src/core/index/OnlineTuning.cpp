@@ -1,6 +1,6 @@
 #include "OnlineTuning.h"
 #include "core/center/Config.h"
-#include "core/index/Histogram.h"
+#include "core/index/SpacePartition/Histogram.h"
 #include "core/index/SpacePartition/ReferenceTable.h"
 #include "core/index/ST2BTree/ST2BTree.h"
 
@@ -26,15 +26,12 @@ void OnlineTuning::init()
 
 void OnlineTuning::tune()
 {
-    //TODO周期性调整
-
-    //切换新旧参考点表
-    p_referenceTables->switchTable();
     //根据统计获取新的参考点位置和密度
-    vector<ReferencePoint> points = p_histogram->getReferencePoints();
+    vector<ReferencePoint>& oldPoints = p_referenceTables->getNewTable()->getReferencePoints();
+    vector<ReferencePoint> newPoints = p_histogram->getReferencePoints(oldPoints);
 
     //更新参考点表和相应的Grid
-    p_referenceTables->updateTable(points);
+    p_referenceTables->updateTable(newPoints);
 
     //旋转ST2BTree
     p_st2btree->rotate();

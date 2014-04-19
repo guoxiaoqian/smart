@@ -13,15 +13,14 @@ RangeQueryThread::~RangeQueryThread()
 
 ReturnType RangeQueryThread::handleRequest(Request *p_request)
 {
-    //SDebug("range query");
     RangeQueryRequest* p_range = dynamic_cast<RangeQueryRequest*>(p_request);
     if(p_range)
     {
-        //TODO
         return RETURN_SUCCESS;
+        //return p_index->query(p_range);
     }
     else
-        return RETURN_FAIL;
+        return RETURN_BADPARAM;
 }
 
 }

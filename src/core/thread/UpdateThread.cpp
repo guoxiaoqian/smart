@@ -13,15 +13,14 @@ UpdateThread::~UpdateThread()
 
 ReturnType UpdateThread::handleRequest(Request *p_request)
 {
-    //SDebug("update");
     UpdateRequest* p_update = dynamic_cast<UpdateRequest*>(p_request);
     if(p_update)
     {
-        //TODO
         return RETURN_SUCCESS;
+        //return p_index->update(p_update);
     }
     else
-        return RETURN_FAIL;
+        return RETURN_BADPARAM;
 }
 
 }

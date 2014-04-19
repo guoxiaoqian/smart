@@ -87,15 +87,12 @@ void ReferenceTables::init()
     p_newTable->init();
 }
 
-void ReferenceTables::switchTable()
+void ReferenceTables::updateTable(vector<ReferencePoint> &points)
 {
+    //用points初始化新的Table
     ReferenceTable* tempTable = p_oldTable;
     p_oldTable = p_newTable;
     p_newTable = tempTable;
-}
-
-void ReferenceTables::updateTable(vector<ReferencePoint> &points)
-{
     p_newTable->reset(points);
 }
 

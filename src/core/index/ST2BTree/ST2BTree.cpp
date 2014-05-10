@@ -32,4 +32,8 @@ void ST2BTree::rotate()
 
 }
 
+ReturnType ST2BTree::update(KeyType key, UpdateRequest *p_update)
+{
+}
+
 }

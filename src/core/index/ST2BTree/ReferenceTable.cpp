@@ -1,6 +1,6 @@
 #include "ReferenceTable.h"
 #include "core/center/Config.h"
-#include "core/index/SpacePartition/VoronoiDiagram.h"
+#include "core/index/ST2BTree/VoronoiDiagram.h"
 #include <limits.h>
 
 namespace smart {

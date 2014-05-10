@@ -3,7 +3,7 @@
 
 //职责：存储并管理参考点集
 
-#include "core/index/SpacePartition/ReferencePoint.h"
+#include "core/index/ST2BTree/ReferencePoint.h"
 #include "base/kernel/singleton.hpp"
 #include <vector>
 using namespace std;

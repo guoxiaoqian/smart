@@ -2,31 +2,20 @@
 #define DYNAMICINDEX_H
 
 #include "core/index/Index.h"
-#include "base/kernel/singleton.hpp"
 
 namespace smart {
 
-class Histogram;
-class KeyGen;
-class OnlineTuning;
-class ReferenceTables;
-class ST2BTree;
 
-class DynamicIndex :public SSingleton<DynamicIndex>,public Index
+class DynamicIndex :public Index
 {
 public:
-    Histogram* p_histogram;
-    KeyGen* p_keyGen;
-    OnlineTuning* p_onlineTuning;
-    ReferenceTables* p_referenceTables;
-    ST2BTree* p_st2btree;
-public:
-    DynamicIndex();
-    ~DynamicIndex();
-    void init();
-    ReturnType update(UpdateRequest *p_update);
-    ReturnType query(RangeQueryRequest *p_range);
-    ReturnType query(KNNQueryRequest *p_range);
+    DynamicIndex(){}
+    virtual ~DynamicIndex(){}
+    virtual void init() = 0;
+    virtual ReturnType update(UpdateRequest *p_update) = 0;
+    virtual ReturnType rangeQuery(RangeQueryRequest *p_range,vector<MoveObject>& result) = 0;
+    virtual ReturnType knnQuery(KNNQueryRequest *p_knn,vector<MoveObject>& result) = 0;
+    virtual void tune() = 0;
 };
 
 }

@@ -39,7 +39,6 @@ vector<ReferencePoint> Histogram::getReferencePoints(vector<ReferencePoint> &old
 {
     vector<ReferencePoint> result;
 
-    //region growing
     vector<DenstyRegion> regions = getRegions(oldPoints);
 
     //计算每个region的中心和密度

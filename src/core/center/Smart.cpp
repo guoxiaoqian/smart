@@ -2,7 +2,7 @@
 #include "core/center/Config.h"
 #include "core/request/RequestSource.h"
 #include "core/thread/ThreadPool.h"
-#include "core/index/DynamicIndex.h"
+#include "core/index/ST2Grid/ST2GridIndex.h"
 
 namespace smart{
 
@@ -31,7 +31,7 @@ void Smart::init()
     p_requestSource = RequestSource::getObject();
     p_requestSource->init();
     //索引初始化
-    p_index = DynamicIndex::getObject();
+    p_index = ST2GridIndex::getObject();
     p_index->init();
     //线程初始化
     p_threadPool = ThreadPool::getObject();

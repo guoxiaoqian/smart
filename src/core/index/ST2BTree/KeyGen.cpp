@@ -17,16 +17,17 @@ void KeyGen::init()
     p_tables = ReferenceTables::getObject();
 }
 
-KeyType KeyGen::getKey(Point point, TimeType tup)
+KeyType KeyGen::getKey(UpdateRequest* p_update)
 {
     KeyType timeKey;
     KeyType spaceKey;
     ReferenceTable* p_table = p_tables->getNewTable();
-    if(tup%(2*periodLen) < periodLen)        //属于[(2i)T,(2i+1)T)
+    if(p_update->issueTime%(2*periodLen) < periodLen)        //属于[(2i)T,(2i+1)T)
         timeKey = 0;
     else                                     //属于[(2i+1)T,(2i+2)T)
         timeKey = 1;
 
+    Point point(p_update->posX,p_update->posY);
     Grid<ObjectCell>* p_grid = p_table->getReferencePoint(point)->getGrid();
     spaceKey = p_grid->getSpaceKey(point);
 

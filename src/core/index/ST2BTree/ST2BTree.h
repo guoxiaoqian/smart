@@ -3,6 +3,7 @@
 
 #include "core/index/ST2BTree/BPlus_tree.h"
 #include "base/kernel/singleton.hpp"
+#include "core/request/UpdateRequest.h"
 
 namespace smart{
 
@@ -65,6 +66,7 @@ public:
     void init();
     void rotate();
     bool isValid(){return valid;}
+    ReturnType update(KeyType key,UpdateRequest* p_update);
     //继承的B+树接口
 //  bool insert(KeyType key, const DataType& data);
 //	bool remove(KeyType key);

@@ -2,8 +2,9 @@
 #define KEYGEN_H
 
 #include "core/center/type.h"
-#include "core/index/SpacePartition/ReferenceTable.h"
+#include "core/index/ST2BTree/ReferenceTable.h"
 #include "base/kernel/singleton.hpp"
+#include "core/request/UpdateRequest.h"
 
 namespace smart{
 
@@ -15,7 +16,7 @@ private:
 public:
     KeyGen();
     void init();
-    KeyType getKey(Point point, TimeType tup);
+    KeyType getKey(UpdateRequest *p_update);
 };
 
 }

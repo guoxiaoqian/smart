@@ -2,7 +2,6 @@
 
 namespace smart {
 
-
 MoveObject::MoveObject()
 {
 }

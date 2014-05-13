@@ -34,4 +34,9 @@ Point &Point::operator +(Point &point)
     return *this;
 }
 
+bool Point::same(Point &point)
+{
+    return coorX == point.coorX && coorY == point.coorY;
+}
+
 }

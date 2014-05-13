@@ -8,8 +8,6 @@
 
 namespace smart{
 
-class ThreadPool;
-class Config;
 class Request;
 class UpdateRequest;
 class Index;
@@ -26,7 +24,6 @@ private:
     static SWaitCondation requestCome;
     static SMutex mutex3;
     static SWaitCondation periodCome;
-    static Config* p_config;
 
     static volatile int numOfComplete;
     static volatile int numOfWaitRequest;
@@ -36,9 +33,6 @@ private:
     RequestQueue<Request*>* p_requestQueue;
     static volatile bool isPeriodComing;
     static volatile bool isRequestOver;
-
-    //索引
-    static Index* p_index;
 
     void waitForAllComplete();
     void waitForRequestCome();
@@ -50,7 +44,7 @@ public:
     static void pauseForPeriodCome();
 public:
     HandleThread();
-    void init(int _thID, RequestQueue<Request*>* _p_requestQueue, Index *_p_index);
+    void init(int _thID, RequestQueue<Request*>* _p_requestQueue);
     void run();
     virtual ReturnType handleRequest(Request*) = 0;
 };

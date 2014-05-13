@@ -46,6 +46,8 @@ void Config::init(const char *fileName,SettingType type)
         setValue("thread","numOfQueryThreads","1");
         setValue("thread","numOfAssignThreads","1");
         setValue("thread","lenOfRequestBlock","100");
+
+        setValue("index","indexType","0");
     }
 
     minCoorX = atoi(getValue("data","minCoorX").c_str());
@@ -73,6 +75,7 @@ void Config::init(const char *fileName,SettingType type)
     numOfAssignThreads = atoi(getValue("thread","numOfAssignThreads").c_str());
     lenOfRequestBlock = atoi(getValue("thread","lenOfRequestBlock").c_str());
 
+    indexType = atoi(getValue("index","indexType").c_str());
 
     numOfUpdates = numOfObjects*numOfUpdateRound;
     numOfQueries = numOfUpdates/updateQueryRatio;

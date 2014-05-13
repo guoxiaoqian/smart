@@ -14,15 +14,21 @@ enum DistributionType
 enum QueryType
 {
     QUERY_RANGE = 0,
-    QUERY_KNN = 1
+    QUERY_KNN   = 1
 };
 
 enum CodeType
 {
-    CODE_ASCII = 0,
+    CODE_ASCII  = 0,
     CODE_BINARY = 1
 };
 
+enum IndexType
+{
+    INDEX_ST2BTREE = 0,
+    INDEX_ST2GRID  = 1,
+    INDEX_PGRID    = 2
+};
 
 class Config:public SSingleton<Config>,public SSetting
 {
@@ -53,6 +59,9 @@ public:
     int numOfQueryThreads;
     int numOfAssignThreads;
     int lenOfRequestBlock;
+
+    //index
+    int indexType;
 
     //more
     int numOfUpdates;

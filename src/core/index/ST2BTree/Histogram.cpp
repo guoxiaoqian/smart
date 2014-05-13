@@ -1,14 +1,14 @@
 #include "Histogram.h"
-#include "core/index/SpacePartition/HistoCell.h"
-#include "core/index/SpacePartition/ReferencePoint.h"
-#include "core/index/SpacePartition/DenstyRegion.h"
+#include "core/index/ST2BTree/HistoCell.h"
+#include "core/index/ST2BTree/ReferencePoint.h"
+#include "core/index/ST2BTree/DenstyRegion.h"
+#include "core/index/ST2BTree/ThreadRegion.h"
 #include "core/request/UpdateRequest.h"
 #include "core/center/Config.h"
+#include "base/logger/logger.h"
 
 namespace smart{
 
-int Histogram::colNum = 20;
-int Histogram::rowNum = 20;
 //用来判断cell与region是否密度相似
 int Histogram::similarParam = 0;
 //用来去噪
@@ -16,19 +16,18 @@ int Histogram::noiseParam = 0;
 
 Histogram::Histogram()
 {
-    p_gram = NULL;
 }
 
 Histogram::~Histogram()
 {
-    delete p_gram;
 }
 
 void Histogram::init()
 {
     Config* p_config = Config::getObject();
     Rect rect(p_config->minCoorX,p_config->minCoorY,p_config->maxCoorX,p_config->maxCoorY);
-    p_gram = new Grid<HistoCell>(0,rect,rowNum,colNum);
+    //p_gram = new Grid<HistoCell>(0,rect,rowNum,colNum);
+    Grid<HistoCell>::init(0,rect,20,20);
     //取平均每个CELL中对象数量的十分之一作为相似参数
     similarParam = (int)((float)p_config->numOfObjects/(rowNum*colNum)/10);
     //取CELL数的百分之一作为噪点参数
@@ -39,7 +38,7 @@ vector<ReferencePoint> Histogram::getReferencePoints(vector<ReferencePoint> &old
 {
     vector<ReferencePoint> result;
 
-    vector<DenstyRegion> regions = getRegions(oldPoints);
+    vector<DenstyRegion> regions = getDenstyRegions(oldPoints);
 
     //计算每个region的中心和密度
     //创建参考点并添加到结果集
@@ -56,24 +55,30 @@ vector<ReferencePoint> Histogram::getReferencePoints(vector<ReferencePoint> &old
     }
 
     //清理统计图表
-    p_gram->clear();
+    clear();
 
     return result;
 }
 
-vector<DenstyRegion> Histogram::getRegions(vector<ReferencePoint> &oldPoints)
+void Histogram::resetThreadRegion()
+{
+    //TODO 根据论文中算法并参考密度区域增长算法
+    //调用growThreadRegion()
+}
+
+vector<DenstyRegion> Histogram::getDenstyRegions(vector<ReferencePoint> &oldPoints)
 {
     vector<DenstyRegion> result;
     vector<ReferencePoint>::iterator it;
     int regionCount = 0;
     for(it= oldPoints.begin();it!=oldPoints.end();++it)
     {
-        HistoCell* p_cell = p_gram->getCell(*it);
-        if(!p_cell->isMarked())
+        HistoCell* p_cell = getCell(*it);
+        if(!p_cell->isMarkedRegion())
         {
             DenstyRegion region(regionCount);
             region.addCell(p_cell);
-            growRegion(p_cell,region);
+            growDenstyRegion(p_cell,region);
             ++regionCount;
             result.push_back(region);
         }
@@ -81,15 +86,15 @@ vector<DenstyRegion> Histogram::getRegions(vector<ReferencePoint> &oldPoints)
     //查找剩余未标记的Cell
     Grid<HistoCell>::RowIterator it_row;
     Grid<HistoCell>::ColIterator it_col;
-    for(it_row = p_gram->getRowBegin();it_row!=p_gram->getRowEnd();++it_row)
+    for(it_row = getRowBegin();it_row!= getRowEnd();++it_row)
     {
         for(it_col = it_row->begin();it_col!=it_row->end();++it_col)
         {
-            if(!it_col->isMarked())
+            if(!it_col->isMarkedRegion())
             {
                 DenstyRegion region(regionCount);
                 region.addCell(&(*it_col));
-                growRegion(&(*it_col),region);
+                growDenstyRegion(&(*it_col),region);
                 ++regionCount;
                 result.push_back(region);
             }
@@ -102,19 +107,24 @@ vector<DenstyRegion> Histogram::getRegions(vector<ReferencePoint> &oldPoints)
     return result;
 }
 
-void Histogram::growRegion(HistoCell *p_cell, DenstyRegion &region)
+void Histogram::growDenstyRegion(HistoCell *p_cell, DenstyRegion &region)
 {
-    vector<HistoCell*> cells = p_gram->getNeighborCells(p_cell->getID());
+    vector<HistoCell*> cells = getNeighborCells(p_cell->getID());
     HistoCell* p_tempCell;
     for(unsigned int i=0;i<cells.size();++i)
     {
         p_tempCell = cells.at(i);
-        if(!p_tempCell->isMarked() && (region.isEmpty() || region.isSimilar(p_tempCell)))
+        if(!p_tempCell->isMarkedRegion() && (region.isEmpty() || region.isSimilar(p_tempCell)))
         {
             region.addCell(p_tempCell);
-            growRegion(p_tempCell,region);
+            growDenstyRegion(p_tempCell,region);
         }
     }
+}
+
+void Histogram::growThreadRegion(HistoCell* p_cell, ThreadRegion& region)
+{
+    //TODO 线程映射区域的增长
 }
 
 void Histogram::discardNoises(vector<DenstyRegion> &regions)
@@ -130,8 +140,32 @@ void Histogram::discardNoises(vector<DenstyRegion> &regions)
 void Histogram::update(UpdateRequest *p_update)
 {
     Point point(p_update->posX,p_update->posY);
-    HistoCell* p_cell = p_gram->getCell(point);
+    HistoCell* p_cell = getCell(point);
     p_cell->AddObject(point);
+}
+
+IDType Histogram::getThreadID(Point &point)
+{
+    return getCell(point)->getThreadID();
+}
+
+
+Histogram &Histogram::operator+=(Histogram &gram)
+{
+    if(!same(gram))
+    {
+        SError("histogram is not same!");
+        return *this;
+    }
+    int i,j;
+    for(i=0;i<rowNum;++i)
+    {
+        for(j=0;j<colNum;++j)
+        {
+            cells[i][j] += *(gram.getCell(i,j));
+        }
+    }
+    return *this;
 }
 
 }

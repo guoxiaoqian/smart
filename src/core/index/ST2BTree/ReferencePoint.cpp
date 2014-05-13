@@ -13,7 +13,7 @@ ReferencePoint::ReferencePoint()
 
 ReferencePoint::~ReferencePoint()
 {
-    delete p_grid;
+    //delete p_grid;
 }
 
 ReferencePoint::ReferencePoint(IDType id, Point &point):Point(point),referencePointID(id)

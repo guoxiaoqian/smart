@@ -3,6 +3,7 @@
 
 #include "core/store/Point.h"
 namespace smart{
+
 class MoveObject : public Point
 {
 public:

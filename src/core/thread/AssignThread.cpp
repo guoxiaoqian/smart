@@ -1,5 +1,4 @@
 #include "AssignThread.h"
-#include "core/center/Config.h"
 #include "core/thread/ThreadPool.h"
 #include "core/request/RequestSource.h"
 #include "base/thread/waitcond.h"
@@ -10,7 +9,6 @@ SMutex AssignThread::mutex = SMutex();
 SWaitCondation AssignThread::allComplete = SWaitCondation();
 RequestSource* AssignThread::p_requestSource = NULL;
 ThreadPool* AssignThread::p_threadPool = NULL;
-Config* AssignThread::p_config = NULL;
 int AssignThread::numOfComplete = 0;
 SSignal<> AssignThread::requestReady = SSignal<>();
 SSignal<> AssignThread::requestOver = SSignal<>();
@@ -92,11 +90,11 @@ void AssignThread::waitForAllComplete()
 void AssignThread::init(int _thID)
 {
     thID = _thID;
-    if(p_requestSource == NULL || p_threadPool == NULL || p_config == NULL)
+    if(p_requestSource == NULL || p_threadPool == NULL)
     {
+        //静态变量初始化
         p_requestSource = RequestSource::getObject();
         p_threadPool = ThreadPool::getObject();
-        p_config = Config::getObject();
         numOfSynchTimes = p_config->numOfObjects/p_config->lenOfRequestBlock;
     }
     for(int i=0;i<p_config->numOfUpdateThreads;++i)
@@ -116,36 +114,57 @@ void AssignThread::run()
     int lenOfBlock = p_config->lenOfRequestBlock;
     int numOfUpdateThreads = p_config->numOfUpdateThreads;
     int numOfQueryThreads = p_config->numOfQueryThreads;
-    int i,j;
     while(isRunning())
     {
         //获取请求数据段
-        i=0,j=0;
         if(p_requestSource->getRequest(thID,lenOfBlock,begin,end) == RETURN_SUCCESS)
         {
             //如果数据已过期则直接丢弃
             if(curPeriod >= period)
             {
-                //分析并分发请求
+                //TODO 分发规则是根据线程映射区域分发
+                IDType threadID;
                 for(;begin<=end;++begin)
                 {
                     switch((*begin)->type)
                     {
                     case REQUEST_UPDATE:
-                        updateResults[i]->push_back(*begin);
-                        i=(i+1)%numOfUpdateThreads;
+                        threadID = p_index->getThreadID(dynamic_cast<UpdateRequest*>(*begin));
+                        updateResults[threadID]->push_back(*begin);
                         break;
                     case REQUEST_RANGE_QUERY:
-                        queryResults[j]->push_back(*begin);
-                        j=(j+1)%numOfQueryThreads;
+                        threadID = p_index->getThreadID(dynamic_cast<RangeQueryRequest*>(*begin));
+                        queryResults[threadID]->push_back(*begin);
                         break;
                     case REQUEST_KNN_QUERY:
-                        queryResults[j]->push_back(*begin);
-                        j=(j+1)%numOfQueryThreads;
+                        threadID = p_index->getThreadID(dynamic_cast<KNNQueryRequest*>(*begin));
+                        queryResults[threadID]->push_back(*begin);
                         break;
                     default:break;
                     }
                 }
+                //暂且使用轮询法
+//                int i=0;
+//                int j=0;
+//                for(;begin<=end;++begin)
+//                {
+//                    switch((*begin)->type)
+//                    {
+//                    case REQUEST_UPDATE:
+//                        updateResults[i]->push_back(*begin);
+//                        i=(i+1)%numOfUpdateThreads;
+//                        break;
+//                    case REQUEST_RANGE_QUERY:
+//                        queryResults[j]->push_back(*begin);
+//                        j=(j+1)%numOfQueryThreads;
+//                        break;
+//                    case REQUEST_KNN_QUERY:
+//                        queryResults[j]->push_back(*begin);
+//                        j=(j+1)%numOfQueryThreads;
+//                        break;
+//                    default:break;
+//                    }
+//                }
                 numOfSuccess += lenOfBlock;
             }
             else

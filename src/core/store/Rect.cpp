@@ -28,6 +28,11 @@ bool Rect::intersect(Rect &rect)
     return !(rect.minX < minX || rect.minY < minY || rect.maxX > maxX || rect.maxY > maxY);
 }
 
+bool Rect::same(Rect &rect)
+{
+    return minX == rect.minX && minY == rect.minY && maxX == rect.maxX && maxY == rect.maxY;
+}
+
 bool Rect::cover(Point &point)
 {
     return !(point.coorX < minX || point.coorY < minY || point.coorX > maxX || point.coorY > maxY);

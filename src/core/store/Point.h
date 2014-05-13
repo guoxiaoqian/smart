@@ -15,6 +15,7 @@ public:
     void setPoint(CoorType _coorX,CoorType _coorY);
     CoorType getDistance(Point& point);
     Point& operator+(Point& point);
+    bool same(Point& point);
 };
 }
 #endif // POINT_H

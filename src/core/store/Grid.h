@@ -21,6 +21,7 @@ public:
     vector<vector<CellType> > cells;
     typedef typename vector<vector<CellType> >::iterator RowIterator;
     typedef typename vector<CellType>::iterator ColIterator;
+    typedef vector<vector<CellType> >  CellSetType;
 public:
     Grid(){}
     Grid(IDType _gridID,Rect& rect,int row = 10,int col = 10);
@@ -34,6 +35,10 @@ public:
     KeyType getSpaceKey(Point &point);
     RowIterator getRowBegin(){return cells.begin();}
     RowIterator getRowEnd(){return cells.end();}
+    int getRowNum(){return rowNum;}
+    int getColNum(){return colNum;}
+    CellSetType& getAllCell(){return cells;}
+    bool same(Grid<CellType> &grid);
     void clear();
 };
 
@@ -98,7 +103,8 @@ CellType* Grid<CellType>::getCell(int row, int col)
 template<class CellType>
 CellType* Grid<CellType>::getCell(IDType cellID)
 {
-    //TODO:由希尔伯特编号得到Cell
+    //TODO:由希尔伯特编号得到Cell，暂时如下
+
     int row = cellID / colNum;
     int col = cellID % colNum;
     return getCell(row,col);
@@ -117,21 +123,35 @@ vector<CellType *> Grid<CellType>::getNeighborCells(IDType cellID)
     vector<CellType*> result;
     int row = cellID / colNum;
     int col = cellID % colNum;
+    CellType* p_cell = 0;
     if(col-1>0)
-        result.push_back(getCell(row,col-1));
+    {
+        p_cell = getCell(row,col-1);
+        result.push_back(p_cell);
+    }
     if(row-1>0)
-        result.push_back(getCell(row-1,col));
+    {
+        p_cell = getCell(row-1,col);
+        result.push_back(p_cell);
+    }
     if(col+1< colNum)
-        result.push_back(getCell(row,col+1));
+    {
+        p_cell = getCell(row,col+1);
+        result.push_back(p_cell);
+    }
     if(row+1< rowNum)
-        result.push_back(getCell(row+1,col));
+    {
+        p_cell = getCell(row+1,col);
+        result.push_back(p_cell);
+    }
     return result;
 }
 
 template<class CellType>
 IDType Grid<CellType>::getCellID(Point &point)
 {
-    //TODO:由位置得到希尔伯特编号
+    //TODO:由位置得到希尔伯特编号,暂时如下
+
     int row = (point.coorY - minY)/((maxY-minY)/rowNum);
     int col = (point.coorY - minX)/((maxX-minX)/colNum);
     return row*colNum+col;
@@ -141,6 +161,13 @@ template<class CellType>
 KeyType Grid<CellType>::getSpaceKey(Point& point)
 {
     return gridID * maxCellNum + getCellID(point);
+}
+
+template<class CellType>
+bool Grid<CellType>::same(Grid<CellType>& grid)
+{
+    return rowNum == grid.getRowNum() && colNum == grid.getColNum() &&\
+            Rect::same(grid);
 }
 
 template<class CellType>

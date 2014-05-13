@@ -4,8 +4,7 @@
 #include "core/thread/RangeQueryThread.h"
 #include "core/thread/AssignThread.h"
 #include "core/thread/UpdateThread.h"
-#include "core/index/DynamicIndex.h"
-
+#include "core/index/Index.h"
 
 namespace smart {
 
@@ -43,7 +42,9 @@ ThreadPool::~ThreadPool()
 
 void ThreadPool::init(Index* p_index)
 {
+    WorkThread::init(p_index);
     Config* p_config = Config::getObject();
+    //初始化分配线程
     AssignThread* p_assignThread = NULL;
     for(int i =0;i<p_config->numOfAssignThreads;++i)
     {
@@ -51,6 +52,7 @@ void ThreadPool::init(Index* p_index)
         p_assignThread->init(i);
         assignThreads.push_back(p_assignThread);
     }
+    //初始化更新线程
     RequestQueue<Request*> *p_queue = NULL;
     HandleThread* p_handleThread = NULL;
     for(int i=0;i<p_config->numOfUpdateThreads;++i)
@@ -58,9 +60,10 @@ void ThreadPool::init(Index* p_index)
         p_handleThread = new UpdateThread();
         p_queue = new RequestQueue<Request*>();
         updateQueues.push_back(p_queue);
-        p_handleThread->init(i,p_queue,p_index);
+        p_handleThread->init(i,p_queue);
         updateThreads.push_back(p_handleThread);
     }
+    //初始化查询线程
     if(p_config->queryType == QUERY_RANGE)
     {
         for(int i=0;i<p_config->numOfQueryThreads;++i)
@@ -68,7 +71,7 @@ void ThreadPool::init(Index* p_index)
             p_handleThread = new RangeQueryThread();
             p_queue = new RequestQueue<Request*>();
             queryQueues.push_back(p_queue);
-            p_handleThread->init(i,p_queue,p_index);
+            p_handleThread->init(i,p_queue);
             queryThreads.push_back(p_handleThread);
         }
     }
@@ -79,7 +82,7 @@ void ThreadPool::init(Index* p_index)
             p_handleThread = new KNNQueryThread();
             p_queue = new RequestQueue<Request*>();
             queryQueues.push_back(p_queue);
-            p_handleThread->init(i,p_queue,p_index);
+            p_handleThread->init(i,p_queue);
             queryThreads.push_back(p_handleThread);
         }
     }
@@ -91,11 +94,12 @@ void ThreadPool::init(Index* p_index)
     p_periodTimer->addListener(HandleThread::pauseForPeriodCome);
     p_periodTimer->addListener(this,&ThreadPool::printThreadStatus);
     //如果使用动态索引，需要调整索引
-    if(dynamic_cast<DynamicIndex*>(p_index))
-        p_periodTimer->addListener(dynamic_cast<DynamicIndex*>(p_index),&DynamicIndex::tune);
+    if(p_index->type == INDEX_DYNAMIC)
+        p_periodTimer->addListener(p_index,&Index::tune);
     p_periodTimer->addListener(WorkThread::increasePeriod);
     p_periodTimer->addListener(HandleThread::onPeriodCome);
 
+    //分配线程与处理线程的同步关系
     SConnectGG(AssignThread::requestReady,HandleThread::onRequestReady);
     SConnectGG(AssignThread::requestOver,HandleThread::onRequestOver);
 }

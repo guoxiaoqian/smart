@@ -52,7 +52,8 @@ SOURCES += main.cpp \
     core/index/ST2BTree/BPlus_tree.cpp \
     core/index/ST2BTree/BPlus_node.cpp \
     core/index/PGrid/PGridIndex.cpp \
-    core/index/ST2Grid/ST2GridIndex.cpp
+    core/index/ST2Grid/ST2GridIndex.cpp \
+    core/index/ST2BTree/ThreadRegion.cpp
 
 
 
@@ -97,9 +98,7 @@ HEADERS += \
     core/store/Grid.h \
     core/store/Cell.h \
     core/store/ObjectCell.h \
-    core/index/StaticIndex.h \
     core/index/Index.h \
-    core/index/DynamicIndex.h \
     core/index/ST2BTree/VoronoiDiagram.h \
     core/index/ST2BTree/ST2BTreeIndex.h \
     core/index/ST2BTree/ST2BTree.h \
@@ -114,7 +113,8 @@ HEADERS += \
     core/index/ST2BTree/BPlus_tree.h \
     core/index/ST2BTree/BPlus_node.h \
     core/index/PGrid/PGridIndex.h \
-    core/index/ST2Grid/ST2GridIndex.h
+    core/index/ST2Grid/ST2GridIndex.h \
+    core/index/ST2BTree/ThreadRegion.h
 
 
 

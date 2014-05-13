@@ -1,16 +1,10 @@
 #include "HandleThread.h"
 #include "core/request/RequestQueue.h"
 #include "core/request/UpdateRequest.h"
-#include "core/center/Config.h"
-#include "core/thread/ThreadPool.h"
 #include "base/thread/waitcond.h"
 #include "core/index/Index.h"
 
 namespace smart {
-
-
-Config* HandleThread::p_config = NULL;
-Index* HandleThread::p_index = NULL;
 
 volatile int HandleThread::numOfComplete = 0;
 volatile int HandleThread::numOfWaitRequest = 0;
@@ -32,17 +26,13 @@ HandleThread::HandleThread()
     p_requestQueue = NULL;
 }
 
-void HandleThread::init(int _thID, RequestQueue<Request *> *_p_requestQueue,Index* _p_index)
+void HandleThread::init(int _thID, RequestQueue<Request *> *_p_requestQueue)
 {
     thID = _thID;
     p_requestQueue = _p_requestQueue;
-    if(!p_index)
+    if(!p_config && numOfHandleThreads ==0)
     {
-        p_index = _p_index;
-    }
-    if(!p_config)
-    {
-        p_config = Config::getObject();
+        //静态变量初始化
         numOfHandleThreads = p_config->numOfUpdateThreads+p_config->numOfQueryThreads;
     }
 }

@@ -3,6 +3,9 @@
 #include "core/request/RequestSource.h"
 #include "core/thread/ThreadPool.h"
 #include "core/index/ST2Grid/ST2GridIndex.h"
+#include "core/index/ST2BTree/ST2BTreeIndex.h"
+#include "core/index/PGrid/PGridIndex.h"
+#include "base/logger/logger.h"
 
 namespace smart{
 
@@ -31,7 +34,21 @@ void Smart::init()
     p_requestSource = RequestSource::getObject();
     p_requestSource->init();
     //索引初始化
-    p_index = ST2GridIndex::getObject();
+    switch(p_config->indexType)
+    {
+    case INDEX_ST2BTREE:
+        p_index = ST2BTreeIndex::getObject();
+        break;
+    case INDEX_ST2GRID:
+        p_index = ST2GridIndex::getObject();
+        break;
+    case INDEX_PGRID:
+        p_index = PGridIndex::getObject();
+        break;
+    default:
+        SError("no correct index!");
+        p_index = ST2BTreeIndex::getObject();
+    }
     p_index->init();
     //线程初始化
     p_threadPool = ThreadPool::getObject();

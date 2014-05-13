@@ -1,7 +1,7 @@
 #ifndef DENSTYREGION_H
 #define DENSTYREGION_H
 
-#include "core/index/SpacePartition/HistoCell.h"
+#include "core/index/ST2BTree/HistoCell.h"
 #include <vector>
 using std::vector;
 

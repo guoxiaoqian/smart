@@ -1,5 +1,5 @@
 #include "DenstyRegion.h"
-#include "core/index/SpacePartition/Histogram.h"
+#include "core/index/ST2BTree/Histogram.h"
 #include <math.h>
 
 namespace smart {

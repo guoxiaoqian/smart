@@ -1,6 +1,5 @@
 #include "KeyGen.h"
 #include "core/center/Config.h"
-#include "core/index/DynamicIndex.h"
 
 namespace smart{
 
@@ -24,7 +23,7 @@ KeyType KeyGen::getKey(UpdateRequest* p_update)
     ReferenceTable* p_table = p_tables->getNewTable();
     if(p_update->issueTime%(2*periodLen) < periodLen)        //属于[(2i)T,(2i+1)T)
         timeKey = 0;
-    else                                     //属于[(2i+1)T,(2i+2)T)
+    else                                                     //属于[(2i+1)T,(2i+2)T)
         timeKey = 1;
 
     Point point(p_update->posX,p_update->posY);

@@ -9,6 +9,7 @@ namespace smart {
 
 ST2BTreeIndex::ST2BTreeIndex()
 {
+    type = INDEX_DYNAMIC;
     p_histogram = NULL;
     p_keyGen = NULL;
     p_onlineTuning = NULL;
@@ -42,14 +43,32 @@ ReturnType ST2BTreeIndex::update(UpdateRequest *p_update)
     return p_st2btree->update(key,p_update);
 }
 
-ReturnType ST2BTreeIndex::rangeQuery(RangeQueryRequest *p_range)
+ReturnType ST2BTreeIndex::query(RangeQueryRequest *p_range, vector<MoveObject> &result)
 {
     //TODO
 }
 
-ReturnType ST2BTreeIndex::knnQuery(KNNQueryRequest *p_knn)
+ReturnType ST2BTreeIndex::query(KNNQueryRequest *p_knn,vector<MoveObject>& result)
 {
     //TODO
+}
+
+IDType ST2BTreeIndex::getThreadID(UpdateRequest *p_update)
+{
+    Point point(p_update->posX,p_update->posY);
+    return p_histogram->getThreadID(point);
+}
+
+IDType ST2BTreeIndex::getThreadID(RangeQueryRequest *p_range)
+{
+    Point point((p_range->minX+p_range->maxX)/2,(p_range->minY+p_range->maxY)/2);
+    return p_histogram->getThreadID(point);
+}
+
+IDType ST2BTreeIndex::getThreadID(KNNQueryRequest *p_knn)
+{
+    Point point(p_knn->posX,p_knn->posY);
+    return p_histogram->getThreadID(point);
 }
 
 void ST2BTreeIndex::tune()

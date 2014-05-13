@@ -1,7 +1,7 @@
 #include "OnlineTuning.h"
 #include "core/center/Config.h"
-#include "core/index/SpacePartition/Histogram.h"
-#include "core/index/SpacePartition/ReferenceTable.h"
+#include "core/index/ST2BTree/Histogram.h"
+#include "core/index/ST2BTree/ReferenceTable.h"
 #include "core/index/ST2BTree/ST2BTree.h"
 
 namespace smart{
@@ -29,7 +29,8 @@ void OnlineTuning::tune()
     //根据统计获取新的参考点位置和密度
     vector<ReferencePoint>& oldPoints = p_referenceTables->getNewTable()->getReferencePoints();
     vector<ReferencePoint> newPoints = p_histogram->getReferencePoints(oldPoints);
-
+    //重新划分线程映射区域
+    p_histogram->resetThreadRegion();
     //更新参考点表和相应的Grid
     p_referenceTables->updateTable(newPoints);
 

@@ -17,6 +17,7 @@ public:
     Rect(CoorType _minX,CoorType _minY,CoorType _maxX,CoorType _maxY);
     void setRange(Rect& rect);
     bool intersect(Rect & rect);
+    bool same(Rect& rect);
     bool cover(Point & point);
     CoorType getWidth(){return maxX - minX;}
     CoorType getHeight(){return maxY - minY;}

@@ -7,7 +7,6 @@ namespace smart {
 
 void ReferenceTable::initGrids()
 {
-    //TODO:计算每个refpoint的泰森多边形外接矩形，并初始化其Grid
     VoronoiDiagram::genDiagram(referencePoints);
     for(vector<ReferencePoint>::iterator it = referencePoints.begin();it!= referencePoints.end();++it)
     {
@@ -31,13 +30,17 @@ void ReferenceTable::init()
     CoorType maxY = p_config->maxCoorY;
     //预设4个参考点，将整个空间四均分
     Point point(minX+(maxX-minX)/4,maxY-(maxY-minY)/4);
-    referencePoints.push_back(ReferencePoint(0,point));
+    ReferencePoint rp(0,point);
+    referencePoints.push_back(rp);
     point.setPoint(maxX-(maxX-minX)/4,maxY-(maxY-minY)/4);
-    referencePoints.push_back(ReferencePoint(1,point));
+    rp.init(1,point);
+    referencePoints.push_back(rp);
     point.setPoint(minX+(maxX-minX)/4,minY+(maxY-minY)/4);
-    referencePoints.push_back(ReferencePoint(2,point));
+    rp.init(2,point);
+    referencePoints.push_back(rp);
     point.setPoint(maxX-(maxX-minX)/4,minY+(maxY-minY)/4);
-    referencePoints.push_back(ReferencePoint(3,point));
+    rp.init(3,point);
+    referencePoints.push_back(rp);
 
     initGrids();
 }
